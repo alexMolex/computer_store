@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Container } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 import Header from '../../components/header/HeaderContainer'
 import CreateBrand from './modals/CreateBrand';
@@ -26,7 +27,8 @@ const AdminPanel = ({
 	isBrandLoading,
 	isTypeLoading,
 	isVideocardsLoading,
-	isProcessorsLoading
+	isProcessorsLoading,
+	role,
 }) => {
 
 	const [brandVisible, setBrandVisible] = useState(false)
@@ -41,6 +43,8 @@ const AdminPanel = ({
 		setDeviceProcessorData()
 		setDeviceVideocardData()
 	}, [setDeviceTypeData, setDeviceBrandData, setDeviceProcessorData, setDeviceVideocardData])
+
+	if (role !== "ADMIN") { return <Redirect to={'/'} /> }
 
 
 	return (

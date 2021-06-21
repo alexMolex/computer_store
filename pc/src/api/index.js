@@ -116,6 +116,9 @@ export const getDeviceData = {
 				return response.data
 			})
 	},
+	getOneDeviceForBasket(id) {
+		return instance.get('http://localhost:5000/api/device/' + id)
+	},
 	createDeviceApi(device) {
 		return instance.post('api/device', device)
 	},

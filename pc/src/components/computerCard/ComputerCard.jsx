@@ -21,7 +21,6 @@ const ComputerCard = ({
 	}
 
 
-
 	const renderDescription = (text, limit) => {
 		if (text.length <= limit) return text;
 		text = text.slice(0, limit);

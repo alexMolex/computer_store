@@ -18,6 +18,7 @@ import {
 const mapState = (state) => ({
 	brandState: state.deviceBrands.data,
 	typeState: state.deviceTypes.data,
+	role: state.checkAuthReducer.role,
 	processorState: state.deviceProcessor.data,
 	videocardState: state.deviceVideocard.data,
 	isTypeLoading: state.deviceTypes.isTypeLoading,

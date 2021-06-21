@@ -46,10 +46,11 @@ const Computers = ({ setOneDeviceData, isOneDeviceLoading, computer }) => {
 
 	const params = useParams()
 
-
 	useEffect(() => {
 		setOneDeviceData(params.id)
 	}, [setOneDeviceData, params.id])
+
+	console.log(computer);
 
 	return (
 		<div className="view-container ">
