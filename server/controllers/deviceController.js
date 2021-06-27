@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 const path = require('path')
-const { Device, DeviceInfo } = require('../models/models')
+const { Device, DeviceInfo, BasketDevice } = require('../models/models')
 const ApiError = require('../error/apiError')
 const { info } = require('console')
 
@@ -38,7 +38,10 @@ class DeviceCointroller {
 		let offset = page * limit - limit
 		let devices;
 		if (!brandId && !typeId && !processorId && !videocardId) {
-			devices = await Device.findAndCountAll({ limit, offset })
+			devices = await Device.findAndCountAll({
+				include: [{ model: DeviceInfo, as: 'info' }],
+				limit, offset
+			})
 		}
 		if (brandId && !typeId && !processorId && !videocardId) {
 			devices = await Device.findAndCountAll({ where: { brandId }, limit, offset })
@@ -92,6 +95,7 @@ class DeviceCointroller {
 				where: { id },
 				include: [{ model: DeviceInfo, as: 'info' }]
 			},
+			// https://stackoverflow.com/questions/47180773/how-to-do-group-concat-in-select-query-in-sequelize
 		)
 		return res.json(device)
 	}

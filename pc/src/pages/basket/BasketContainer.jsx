@@ -2,7 +2,7 @@
 import { connect } from "react-redux";
 
 import Basket from "./Basket";
-import { getBasketDevicesData, deleteBasketDevicesData, setDeviceData, getOneDeviceForBasket } from "../../redux/actions/actions";
+import { getBasketDevicesData, deleteBasketDevicesData, setDeviceData } from "../../redux/actions/actions";
 
 
 const mapState = state => ({
@@ -10,9 +10,9 @@ const mapState = state => ({
 	basketDevices: state.basketReducer.basketDevices,
 	basketReducerData: state.basketReducer.data,
 	isBasketLoading: state.basketReducer.isBasketDevicesLoading,
-	basketDevicesIds: state.basketReducer.basketDevicesIds,
 	device: state.deviceReducer.rows,
 	is200Code: state.deviceReducer.is200Code,
+	basketId: state.checkAuthReducer.id,
 })
 
 
@@ -21,7 +21,6 @@ const mapDispatch = {
 	getBasketDevicesData,
 	setDeviceData,
 
-	getOneDeviceForBasket
 }
 
 const BasketContainer = connect(mapState, mapDispatch)(Basket);

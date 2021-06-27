@@ -52,9 +52,7 @@ import {
 	DELETE_BASKET_DEVICES_START,
 	DELETE_BASKET_DEVICES_FAILER,
 	DELETE_BASKET_DEVICES_SUCCESS,
-	FETCH_ONE_DEVICE_FOR_BASKET_START,
-	FETCH_ONE_DEVICE_FOR_BASKET_FAILER,
-	FETCH_ONE_DEVICE_FOR_BASKET_SUCCESS,
+
 } from "./actionTypes"
 import {
 	getAuthUserData,
@@ -437,22 +435,3 @@ export const deleteBasketDevicesData = (id) => async dispatch => {
 
 
 
-
-export const getOneDeviceForBasket = (id) => async dispatch => {
-	dispatch({
-		type: FETCH_ONE_DEVICE_FOR_BASKET_START
-	});
-
-	try {
-		dispatch({
-			type: FETCH_ONE_DEVICE_FOR_BASKET_SUCCESS,
-			payload: await getDeviceData.getOneDeviceForBasket(id)
-		})
-	} catch (error) {
-		dispatch({
-			type: FETCH_ONE_DEVICE_FOR_BASKET_FAILER,
-			payload: error,
-			error: true
-		})
-	}
-}

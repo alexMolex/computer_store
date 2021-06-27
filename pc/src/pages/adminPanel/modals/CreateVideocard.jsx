@@ -27,8 +27,8 @@ const CreateVideocard = ({ show, onHide, setCreateDeviceVideocard, setDeviceVide
 		>
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
-					Добавить бренд
-        </Modal.Title>
+					Добавить Видеокарту
+				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Form>

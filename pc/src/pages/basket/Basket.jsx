@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/HeaderContainer';
 import { Image, Row } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-
+import './basket.css'
 
 const Basket = ({
 	basketReducerData,
@@ -13,23 +15,14 @@ const Basket = ({
 	getBasketDevicesData,
 	setDeviceData,
 	is200Code,
-
-	getOneDeviceForBasket
+	basketId
 }) => {
 
-
 	useEffect(() => {
+		getBasketDevicesData(basketId)
+	}, [getBasketDevicesData])
 
-		setDeviceData()
-		basketDevicesIds.map(a => {
-			return (
-				getOneDeviceForBasket(a)
-			)
-		});
-	}, [basketDevicesIds, setDeviceData])
-
-
-
+	const [counter, setCounter] = useState(1)
 
 	const isBasketEmpty = () => {
 		if (basketDevicesIds.length === 0) {
@@ -45,67 +38,80 @@ const Basket = ({
 				<div className="container">
 					<div className="row">
 						<div className="col-md-9">
-							{(!is200Code) || (!isBasketLoading) || isBasketEmpty() ?
-								<h2>Корзина пуста</h2> :
-								basketDevices.map((data) => {
-									return (
-										<div className="thumbnail mt-4"
-											key={data.name}
-										>
-											{basketReducerData.map(device => {
-												return (
-													<div
-														key={device.id}
-													>
-														{(device.deviceId === data.id) &&
-															<>
-																<div className="caption-full">
-																	<h4 className="float-right">
-																		Руб. {data.price}
-																	</h4>
-																	<div className="row">
-																		<div className="col-md-6">
-																			<Image
-																				width={300}
-																				height={300}
-																				src={process.env.REACT_APP_API_URL + data.img}
-																				alt={device.name}
-																				className="img-thumbnail"
-																			/>
-																		</div>
-																		<div className="col-md-6">
-																			<Row className="d-flex flex-column ">
-																				<h3>Характеристики</h3>
-																				{/* {"описание" && device.info.map((info, index) =>
-															<Row key={info.id} style={{ background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10 }}>
-																{info.title}: {info.description}
-															</Row>
-														)} */}
-																			</Row>
-																		</div>
-																	</div>
-																	<h4>{data.name}</h4>
-																	<button
-																		onClick={() =>
-																			deleteBasketDevicesData(device.id)
-																				.then(() =>
-																					getBasketDevicesData(device.basketId))
-																		}
-																		className="btn btn-info"
-																	>
-																		<h1> {device.name} удалить </h1>
-																	</button>
+							{(!isBasketLoading) ?
+								<Spinner animation="border" /> :
+								isBasketEmpty() ?
+									<h1>Корзина пуста</h1> :
+									basketReducerData.map((data) => {
+										return (
+											<div className="thumbnail mt-4 shadow p-1 mb-1 bg-white rounded"
+												key={data.device.id}
+											>
+												<div className="row">
+													<div className="col-md-6">
+														<Link to={`/computers/${data.device.id}`}>
+															<Image
+																width={300}
+																height={300}
+																src={process.env.REACT_APP_API_URL + data.device.img}
+																alt={data.device.name}
+																className="img-thumbnail"
+															/>
+														</Link>
 
-
-																</div>
-															</>
-														}
 													</div>
-												)
-											})}
-										</div>
-									)
-								})
+													<div className="col-md-6">
+														<Row className="d-flex flex-column m-3">
+															<h4>
+																<Link style={{ color: '#128496' }} to={`/computers/${data.device.id}`}>
+																	{data.device.name}
+																</Link></h4>
+															<p>Сборка займет 1-3 дня</p>
+															<button
+																className="btn btn-info"
+															>
+																<h2>Заказать</h2>
+															</button>
+															<div className="caption-full mt-5">
+																<h4 className="float-right">Руб. {data.device.price}</h4>
+
+																{/* <div className="Counter">
+																	<button className="Counter__button_minus"
+																		onClick={() => setCounter(counter - 1)}>
+																		-
+																	</button>
+																	<input
+																		value={counter}
+																		type="number"
+																		className="count-buttons__input"
+																		onChange={e => setCounter(+(e.target.value))}
+																	/>
+
+																	<button className="Counter__button_plus"
+																		onClick={() => setCounter(counter + 1)}>
+																		+
+																	</button>
+																</div> */}
+																<button
+																	onClick={() =>
+																		deleteBasketDevicesData(data.id)
+																			.then(() =>
+																				getBasketDevicesData(data.basketId))
+																	}
+																	style={{ color: '#128496' }}
+																	className="btn pt-0 pb-0 mr-2 float-right"
+																>
+																	<h4> удалить </h4>
+																</button>
+
+															</div>
+														</Row>
+													</div>
+												</div>
+
+											</div>
+										)
+									})
 
 							}
 						</div>

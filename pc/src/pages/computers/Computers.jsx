@@ -50,7 +50,6 @@ const Computers = ({ setOneDeviceData, isOneDeviceLoading, computer }) => {
 		setOneDeviceData(params.id)
 	}, [setOneDeviceData, params.id])
 
-	console.log(computer);
 
 	return (
 		<div className="view-container ">
