@@ -8,13 +8,10 @@ import './basket.css'
 
 const Basket = ({
 	basketReducerData,
-	basketDevices,
 	basketDevicesIds,
 	isBasketLoading,
 	deleteBasketDevicesData,
 	getBasketDevicesData,
-	setDeviceData,
-	is200Code,
 	basketId
 }) => {
 
@@ -22,7 +19,13 @@ const Basket = ({
 		getBasketDevicesData(basketId)
 	}, [getBasketDevicesData])
 
-	const [counter, setCounter] = useState(1)
+	// const [counter, setCounter] = useState(1)
+
+	const totalPrice = basketReducerData.reduce((total, price) => {
+		return Number(total) + price.device.price
+	}, [0])
+
+	console.log(totalPrice);
 
 	const isBasketEmpty = () => {
 		if (basketDevicesIds.length === 0) {
@@ -115,7 +118,7 @@ const Basket = ({
 
 							}
 						</div>
-						<div className="col-md-3"> Cайдбар </div>
+						<div className="col-md-3"> <h1>{totalPrice} Руб.</h1> </div>
 
 					</div>
 				</div>

@@ -36,11 +36,13 @@ const ComputerCard = ({
 					device.map(pc =>
 						<div className="col-sm-4 col-lg-4 col-md-4 book-list " key={pc.id}>
 							<div className="thumbnail ">
-								<img
-									src={process.env.REACT_APP_API_URL + pc.img}
-									alt="pc"
-									className="img-thumbnail pc-image"
-								/>
+								<Link to={`/computers/${pc.id}`}>
+									<img
+										src={process.env.REACT_APP_API_URL + pc.img}
+										alt="pc"
+										className="img-thumbnail pc-image"
+									/>
+								</ Link>
 								<div className="caption">
 									<h4 className="pull-right">Pуб. {pc.price}</h4>
 									<h4>

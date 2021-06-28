@@ -60,7 +60,19 @@ const Computers = ({ setOneDeviceData, isOneDeviceLoading, computer }) => {
 						{(!isOneDeviceLoading) ? <Spinner animation="border" /> : renderContent(computer)}
 					</div>
 					<div className="col-md-3">
-						{'сайдбар'}
+						<div className="caption-full">
+							<button
+								className="btn btn-info"
+							>
+								<h3>Похожие ПК</h3>
+							</button>
+							<button
+								className="btn btn-info mt-3"
+							>
+								<h3>в корзину</h3>
+							</button>
+						</div>
+
 					</div>
 				</div>
 			</div>

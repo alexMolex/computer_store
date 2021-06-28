@@ -55,6 +55,26 @@ const DeviceInfo = sequelize.define('device_info', {
 	description: { type: DataTypes.STRING, allowNull: false },
 })
 
+const OrderProcessing = sequelize.define('order_processing', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	userName: { type: DataTypes.STRING, allowNull: false },
+	adress: { type: DataTypes.STRING, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false }
+})
+
+const Contacts = sequelize.define('contacts', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	title: { type: DataTypes.STRING, allowNull: false },
+	description: { type: DataTypes.STRING, allowNull: false }
+})
+
+const Order = sequelize.define('order', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	processor: { type: DataTypes.STRING, allowNull: false },
+	videocard: { type: DataTypes.STRING, allowNull: false },
+	RAM: { type: DataTypes.INTEGER, allowNull: false },
+})
+
 
 const TypeBrand = sequelize.define('type_brand', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -83,6 +103,15 @@ Basket.belongsTo(User)
 
 User.hasMany(Rating)
 Rating.belongsTo(User)
+
+User.hasMany(OrderProcessing)
+OrderProcessing.belongsTo(User)
+
+OrderProcessing.hasMany(Contacts, { as: 'contscts' })
+Contacts.belongsTo(OrderProcessing)
+
+OrderProcessing.hasMany(Order, { as: 'order' })
+Order.belongsTo(OrderProcessing)
 
 Basket.hasMany(BasketDevice)
 BasketDevice.belongsTo(Basket)
@@ -136,6 +165,9 @@ module.exports = {
 	Videocard,
 	Rating,
 	DeviceInfo,
+	OrderProcessing,
+	Contacts,
+	Order,
 	TypeBrand,
 	BrandVideocard,
 	TypeVideocard,

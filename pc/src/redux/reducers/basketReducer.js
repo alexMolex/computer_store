@@ -1,6 +1,5 @@
 import {
 	FETCH_BASKET_DEVICES_SUCCESS,
-	FETCH_ONE_DEVICE_FOR_BASKET_SUCCESS
 } from "../actions/actionTypes/index"
 
 
