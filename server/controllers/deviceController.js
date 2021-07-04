@@ -40,6 +40,7 @@ class DeviceCointroller {
 		if (!brandId && !typeId && !processorId && !videocardId) {
 			devices = await Device.findAndCountAll({
 				include: [{ model: DeviceInfo, as: 'info' }],
+				distinct: true,
 				limit, offset
 			})
 		}

@@ -1,11 +1,11 @@
 const ApiError = require('../error/apiError')
-const { BasketDevice, Basket, Device } = require('../models/models')
+const { BasketDevice } = require('../models/models')
 
 class BasketDeviceController {
 
 	async create(req, res) {
 		const { basketId, deviceId } = req.body
-		const basketDeviceCandidate = await BasketDevice.findOne({ where: { deviceId } })
+		const basketDeviceCandidate = await BasketDevice.findOne({ where: { basketId, deviceId } })
 		if (basketDeviceCandidate) {
 			return next(ApiError.badRequest("Устройство уже добавлено"))
 		}
@@ -13,14 +13,13 @@ class BasketDeviceController {
 		return res.json(basket_device)
 	}
 
+
 	async get(req, res) {
 		const { basketId, deviceId } = req.query
 		let basket
 		if (basketId && !deviceId) {
 			basket = await BasketDevice.findAndCountAll({
-				include: {
-					all: true,
-				},
+				include: 'device',
 				where: { basketId }
 			})
 		}

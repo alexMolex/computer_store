@@ -1,44 +1,87 @@
 const uuid = require('uuid')
 const path = require('path')
 const ApiError = require('../error/apiError')
-const { OrderProcessing, Order, Contacts } = require('../models/models')
+const { OrderProcessing, Order, Contacts, Processor, Videocard } = require('../models/models')
+
 
 class OrderProcessingController {
 
-	async create(req, res) {
-		const { user_name, adress, price, user_id, contacts, order } = req.body
+	async create(req, res, next) {
+		try {
+			let { userName, adress, price, phoneNumber, userId, contacts, order } = req.body
 
-		const { img } = req.files
-		let fileName = uuid.v4() + ".jpg"
-		img.mv(path.resolve(__dirname, '..', 'static', fileName))
+			// const { img } = req.files
+			// let fileName = uuid.v4() + ".jpg"
+			// img.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-		const userOrder = await OrderProcessing.create({ user_name, adress, price, user_id, contacts, order, img: fileName })
+			const userOrder = await OrderProcessing.create({ userName, adress, price, phoneNumber, userId })
 
-		if (contacts) {
-			contacts = JSON.parse(contacts)
-			contacts.forEach(i =>
-				Contacts.create({
-					title: i.title,
-					description: i.description,
-					orderProcessingId: userOrder.id
-				})
-			)
+			if (contacts) {
+				contacts = JSON.parse(contacts)
+				contacts.forEach(i =>
+					Contacts.create({
+						title: i.title,
+						description: i.description,
+						orderProcessingId: userOrder.id
+					})
+				)
+			}
+
+
+			if (order) {
+				order = JSON.parse(order)
+				order.forEach(i =>
+					Order.create({
+						RAM: i.RAM,
+						SSD: i.SSD,
+						storageVolume: i.storageVolume,
+						overclocking: i.overclocking,
+						orderProcessingId: userOrder.id,
+						processorId: i.processorId,
+						videocardId: i.videocardId,
+					})
+				)
+			}
+
+			return res.json(userOrder)
+		} catch (error) {
+			next(ApiError.badRequest(error.message))
 		}
 
-		if (order) {
-			order = JSON.parse(order)
-			order.forEach(i =>
-				Order.create({
-					processor: i.processor,
-					videocard: i.videocard,
-					RAM: i.RAM,
-					orderProcessingId: userOrder.id
-				})
-			)
-		}
-
-		return res.json(userOrder)
 	}
+
+
+	async get(req, res) {
+		const orders = await OrderProcessing.findAll({
+			include: [
+				{ model: Contacts, as: 'contacts', required: true, },
+				{
+					model: Order, as: 'order', required: true,
+					include: [
+						{ model: Processor, as: 'processor' },
+						{ model: Videocard, as: 'videocard' }]
+				}
+			],
+		})
+		return res.json(orders)
+	}
+
+
+
+	async getUserOrders(req, res) {
+		const { userId } = req.params
+		const order = await OrderProcessing.findAll({
+			where: { userId },
+			include: [
+				{ model: Contacts, as: 'contacts' },
+				{ model: Order, as: 'order' }
+			]
+
+		})
+
+		return res.json(order)
+	}
+
 
 	async delete(req, res, next) {
 		try {

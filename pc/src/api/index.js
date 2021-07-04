@@ -116,14 +116,13 @@ export const getDeviceData = {
 				return response.data
 			})
 	},
-	getOneDeviceForBasket(id) {
-		return instance.get('http://localhost:5000/api/device/' + id)
 
-	},
 	createDeviceApi(device) {
 		return instance.post('api/device', device)
 	},
 }
+
+
 
 //  ======== Корзина
 
@@ -155,3 +154,29 @@ export const setBasketData = {
 			})
 	}
 }
+
+
+//  ========= обработка заказов
+
+export const setOrderProcessingData = {
+
+	createOrderApi(order) {
+		return instance.post('api/order', order)
+	},
+
+	getOrderApi() {
+		return instance.get('api/order')
+			.then(response => {
+				return response.data
+			})
+	},
+
+
+	getUserOrdersApi(basketId) {
+		return instance.get('api/order/' + basketId)
+			.then(response => {
+				return response.data
+			})
+	}
+}
+

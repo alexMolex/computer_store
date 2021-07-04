@@ -15,11 +15,6 @@ const deviceVideocards = (state = initialState, action) => {
 				data: [...action.payload],
 				isVideocardsLoading: true
 			}
-		// case CREATE_DEVICE_BRAND_SUCCESS:
-		// 	return {
-		// 		...state,
-		// 		...action.payload,
-		// 	}
 		default:
 			return state
 	}

@@ -59,20 +59,22 @@ const OrderProcessing = sequelize.define('order_processing', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	userName: { type: DataTypes.STRING, allowNull: false },
 	adress: { type: DataTypes.STRING, allowNull: false },
-	price: { type: DataTypes.INTEGER, allowNull: false }
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	phoneNumber: { type: DataTypes.STRING, allowNull: false },
 })
 
-const Contacts = sequelize.define('contacts', {
+const Contacts = sequelize.define('contacts_info', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	title: { type: DataTypes.STRING, allowNull: false },
 	description: { type: DataTypes.STRING, allowNull: false }
 })
 
-const Order = sequelize.define('order', {
+const Order = sequelize.define('order_info', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	processor: { type: DataTypes.STRING, allowNull: false },
-	videocard: { type: DataTypes.STRING, allowNull: false },
 	RAM: { type: DataTypes.INTEGER, allowNull: false },
+	SSD: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+	storageVolume: { type: DataTypes.INTEGER, allowNull: false },
+	overclocking: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
 })
 
 
@@ -80,21 +82,7 @@ const TypeBrand = sequelize.define('type_brand', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 })
 
-const TypeProcessor = sequelize.define('type_processor', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-})
 
-const TypeVideocard = sequelize.define('type_videocard', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-})
-
-const BrandProcessor = sequelize.define('brand_processor', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-})
-
-const BrandVideocard = sequelize.define('brand_videocard', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-})
 
 
 
@@ -107,14 +95,21 @@ Rating.belongsTo(User)
 User.hasMany(OrderProcessing)
 OrderProcessing.belongsTo(User)
 
-OrderProcessing.hasMany(Contacts, { as: 'contscts' })
+OrderProcessing.hasMany(Contacts, { as: 'contacts' })
 Contacts.belongsTo(OrderProcessing)
 
 OrderProcessing.hasMany(Order, { as: 'order' })
 Order.belongsTo(OrderProcessing)
 
+Processor.hasMany(Order, { as: 'processor' })
+Order.belongsTo(Processor)
+
+Videocard.hasMany(Order, { as: 'videocard' })
+Order.belongsTo(Videocard)
+
 Basket.hasMany(BasketDevice)
 BasketDevice.belongsTo(Basket)
+
 
 Type.hasMany(Device)
 Device.belongsTo(Type)
@@ -141,17 +136,6 @@ DeviceInfo.belongsTo(Device)
 Type.belongsToMany(Brand, { through: TypeBrand })
 Brand.belongsToMany(Type, { through: TypeBrand })
 
-Videocard.belongsToMany(Brand, { through: BrandVideocard })
-Brand.belongsToMany(Videocard, { through: BrandVideocard })
-
-Type.belongsToMany(Videocard, { through: TypeVideocard })
-Videocard.belongsToMany(Type, { through: TypeVideocard })
-
-Processor.belongsToMany(Brand, { through: BrandProcessor })
-Brand.belongsToMany(Processor, { through: BrandProcessor })
-
-Type.belongsToMany(Processor, { through: TypeProcessor })
-Processor.belongsToMany(Type, { through: TypeProcessor })
 
 
 module.exports = {
@@ -169,10 +153,6 @@ module.exports = {
 	Contacts,
 	Order,
 	TypeBrand,
-	BrandVideocard,
-	TypeVideocard,
-	BrandProcessor,
-	TypeProcessor,
 }
 
 

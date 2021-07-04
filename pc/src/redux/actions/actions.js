@@ -52,7 +52,15 @@ import {
 	DELETE_BASKET_DEVICES_START,
 	DELETE_BASKET_DEVICES_FAILER,
 	DELETE_BASKET_DEVICES_SUCCESS,
-
+	CREATE_ORDER_START,
+	CREATE_ORDER_FAILER,
+	CREATE_ORDER_SUCCESS,
+	FETCH_ORDER_START,
+	FETCH_ORDER_FAILER,
+	FETCH_ORDER_SUCCESS,
+	FETCH_USER_ORDERS_START,
+	FETCH_USER_ORDERS_FAILER,
+	FETCH_USER_ORDERS_SUCCESS,
 } from "./actionTypes"
 import {
 	getAuthUserData,
@@ -62,6 +70,7 @@ import {
 	getDeviceProcessorData,
 	getDeviceVideocardData,
 	setBasketData,
+	setOrderProcessingData,
 } from "../../api/index"
 
 
@@ -433,5 +442,70 @@ export const deleteBasketDevicesData = (id) => async dispatch => {
 }
 
 
+// ========== Обработка заказов
+
+
+
+export const createOrderProcessingData = (order) => async dispatch => {
+	dispatch({
+		type: CREATE_ORDER_START
+	});
+
+	try {
+		dispatch({
+			type: CREATE_ORDER_SUCCESS,
+			payload: await setOrderProcessingData.createOrderApi(order)
+		})
+	} catch (error) {
+		dispatch({
+			type: CREATE_ORDER_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+
+export const getOrderProcessingData = () => async dispatch => {
+	dispatch({
+		type: FETCH_ORDER_START
+	});
+
+	try {
+		dispatch({
+			type: FETCH_ORDER_SUCCESS,
+			payload: await setOrderProcessingData.getOrderApi()
+		})
+	} catch (error) {
+		dispatch({
+			type: FETCH_ORDER_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+
+
+
+
+export const getUserOrdersProcessingData = (basketId) => async dispatch => {
+	dispatch({
+		type: FETCH_USER_ORDERS_START
+	});
+
+	try {
+		dispatch({
+			type: FETCH_USER_ORDERS_SUCCESS,
+			payload: await setOrderProcessingData.getUserOrdersApi(basketId)
+		})
+	} catch (error) {
+		dispatch({
+			type: FETCH_USER_ORDERS_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
 
 

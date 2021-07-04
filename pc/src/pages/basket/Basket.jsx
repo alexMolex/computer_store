@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/HeaderContainer';
 import { Image, Row } from 'react-bootstrap';
 import { Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
+
+import OrderProcessing from "../orderProcessing/OrderProcessing";
 import './basket.css'
 
 const Basket = ({
@@ -12,12 +14,18 @@ const Basket = ({
 	isBasketLoading,
 	deleteBasketDevicesData,
 	getBasketDevicesData,
-	basketId
+	getOrderProcessingData,
+	getUserOrdersProcessingData,
+	createOrderProcessingData,
+	basketId,
+	isAuth
 }) => {
 
 	useEffect(() => {
 		getBasketDevicesData(basketId)
-	}, [getBasketDevicesData])
+		getUserOrdersProcessingData(basketId)
+		getOrderProcessingData()
+	}, [getBasketDevicesData, basketId])
 
 	// const [counter, setCounter] = useState(1)
 
@@ -25,7 +33,6 @@ const Basket = ({
 		return Number(total) + price.device.price
 	}, [0])
 
-	console.log(totalPrice);
 
 	const isBasketEmpty = () => {
 		if (basketDevicesIds.length === 0) {
@@ -33,6 +40,7 @@ const Basket = ({
 		}
 	}
 
+	if (!isAuth) return <Redirect to={'/login'} />
 
 	return (
 		<div >
@@ -70,16 +78,21 @@ const Basket = ({
 																	{data.device.name}
 																</Link></h4>
 															<p>Сборка займет 1-3 дня</p>
-															<button
-																className="btn btn-info"
-															>
-																<h2>Заказать</h2>
-															</button>
+
 															<div className="caption-full mt-5">
+																<OrderProcessing
+																	basketId={basketId}
+																	createOrderProcessingData={createOrderProcessingData}
+																	price={data.device.price}
+																	orderName={data.device.name}
+																	buttonName='сделать заказ'
+																	processorId={data.device.processorId}
+																	videocardId={data.device.videocardId}
+																/>
 																<h4 className="float-right">Руб. {data.device.price}</h4>
 
-																{/* <div className="Counter">
-																	<button className="Counter__button_minus"
+																{/* <div className="">
+																	<button className=""
 																		onClick={() => setCounter(counter - 1)}>
 																		-
 																	</button>
@@ -90,7 +103,7 @@ const Basket = ({
 																		onChange={e => setCounter(+(e.target.value))}
 																	/>
 
-																	<button className="Counter__button_plus"
+																	<button className=""
 																		onClick={() => setCounter(counter + 1)}>
 																		+
 																	</button>
@@ -121,6 +134,7 @@ const Basket = ({
 						<div className="col-md-3"> <h1>{totalPrice} Руб.</h1> </div>
 
 					</div>
+
 				</div>
 			</div>
 		</div>

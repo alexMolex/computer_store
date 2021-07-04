@@ -9,6 +9,7 @@ import deviceProcessor from "./deviceProcessor";
 import deviceVideocard from "./deviceVideocard";
 import checkAuthReducer from "./checkAuthReducer";
 import basketReducer from "./basketReducer";
+import orderProcessing from "./orderProcessingReducer";
 
 
 const createRootReducer = history => combineReducers({
@@ -20,6 +21,7 @@ const createRootReducer = history => combineReducers({
 	deviceReducer,
 	checkAuthReducer,
 	basketReducer,
+	orderProcessing,
 	router: connectRouter(history)
 });
 

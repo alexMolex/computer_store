@@ -7,6 +7,7 @@ const typeRouter = require('./typeRouter')
 const userRouter = require('./userRouter')
 const videocardRouter = require('./videocardRouter')
 const basketDeviceRouter = require('./basketDeviceRouter')
+const orderProcessingRouter = require('./orderProcessingRouter')
 
 router.use('/user', userRouter)
 router.use('/type', typeRouter)
@@ -15,5 +16,6 @@ router.use('/device', deviceRouter)
 router.use('/processor', processorRouter)
 router.use('/videocard', videocardRouter)
 router.use('/basket', basketDeviceRouter)
+router.use('/order', orderProcessingRouter)
 
 module.exports = router
