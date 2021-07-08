@@ -21,17 +21,24 @@ const Basket = ({
 	isAuth
 }) => {
 
+
+
 	useEffect(() => {
 		getBasketDevicesData(basketId)
 		getUserOrdersProcessingData(basketId)
 		getOrderProcessingData()
-	}, [getBasketDevicesData, basketId])
+	}, [
+		getBasketDevicesData,
+		basketId,
+		getUserOrdersProcessingData,
+		getOrderProcessingData
+	])
 
-	// const [counter, setCounter] = useState(1)
 
 	const totalPrice = basketReducerData.reduce((total, price) => {
 		return Number(total) + price.device.price
 	}, [0])
+
 
 
 	const isBasketEmpty = () => {
@@ -40,7 +47,8 @@ const Basket = ({
 		}
 	}
 
-	if (!isAuth) return <Redirect to={'/login'} />
+
+	// if (!isAuth) return <Redirect to={'/login'} />
 
 	return (
 		<div >
@@ -131,7 +139,14 @@ const Basket = ({
 
 							}
 						</div>
-						<div className="col-md-3"> <h1>{totalPrice} Руб.</h1> </div>
+						<div className="col-md-3">
+							<h1>{totalPrice} Руб.</h1>
+							<hr />
+							<OrderProcessing
+								buttonName='Заказать все'
+
+							/>
+						</div>
 
 					</div>
 

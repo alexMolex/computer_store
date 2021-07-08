@@ -24,6 +24,20 @@ const Device = sequelize.define('device', {
 	img: { type: DataTypes.STRING, allowNull: false },
 })
 
+const UserConfigDevice = sequelize.define('user_config_device', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	RAM: { type: DataTypes.INTEGER, allowNull: false },
+	SSD: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+	storageVolume: { type: DataTypes.INTEGER, allowNull: false },
+	overclocking: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+})
+
+
+const UserConfigBaskeDevice = sequelize.define('user_config_basket_device', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+})
+
 const Type = sequelize.define('type', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -89,6 +103,11 @@ const TypeBrand = sequelize.define('type_brand', {
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
+User.hasMany(UserConfigDevice)
+UserConfigDevice.belongsTo(User)
+
+
+
 User.hasMany(Rating)
 Rating.belongsTo(User)
 
@@ -107,9 +126,20 @@ Order.belongsTo(Processor)
 Videocard.hasMany(Order, { as: 'videocard' })
 Order.belongsTo(Videocard)
 
+Processor.hasMany(UserConfigDevice, { as: 'config_processor' })
+UserConfigDevice.belongsTo(Processor)
+
+Videocard.hasMany(UserConfigDevice, { as: 'config_videocard' })
+UserConfigDevice.belongsTo(Videocard)
+
+Basket.hasMany(UserConfigBaskeDevice)
+UserConfigBaskeDevice.belongsTo(Basket)
+
+UserConfigDevice.hasMany(UserConfigBaskeDevice)
+UserConfigBaskeDevice.belongsTo(UserConfigDevice)
+
 Basket.hasMany(BasketDevice)
 BasketDevice.belongsTo(Basket)
-
 
 Type.hasMany(Device)
 Device.belongsTo(Type)
@@ -128,6 +158,7 @@ Rating.belongsTo(Device)
 
 Device.hasMany(BasketDevice)
 BasketDevice.belongsTo(Device)
+
 
 
 Device.hasMany(DeviceInfo, { as: 'info' })
@@ -153,7 +184,10 @@ module.exports = {
 	Contacts,
 	Order,
 	TypeBrand,
+	UserConfigBaskeDevice,
+	UserConfigDevice,
 }
+
 
 
 

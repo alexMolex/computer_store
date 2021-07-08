@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router';
 
 import Layout from '../pages/layout/LayoutContainer';
-import About from '../pages/about/About.jsx';
+import Configurator from '../pages/configurator/ConfiguratorContainer';
 import ComputersContainer from '../pages/computers/ComputersContainer.jsx';
 import Header from '../components/header/HeaderContainer';
 const AdminPanelContainer = lazy(() => import('../pages/adminPanel/AdminPanelContainer.jsx'));
@@ -16,7 +16,7 @@ const Routes = () => {
 	return (
 		<Switch>
 			<Route path="/" component={Layout} exact />
-			<Route path="/konfigurator" component={About} />
+			<Route path="/konfigurator" component={Configurator} />
 			<Route path="/computers/:id" component={ComputersContainer} />
 			<Route path="/catigories/:id" component={Layout} />
 			<Suspense fallback={

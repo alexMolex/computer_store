@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form, Dropdown, Col, Row } from 'react-bootstrap';
 
 
-
-
 const Order = ({
 	createOrderProcessingData,
 	price,
@@ -14,7 +12,6 @@ const Order = ({
 	onHide,
 	basketId,
 }) => {
-
 
 
 	useEffect(() => {
@@ -56,7 +53,6 @@ const Order = ({
 		setOrders(orders.map(i => i.number === number ? { ...i, [key]: value } : i))
 	}
 
-	console.log(orders);
 
 	const messenger = [
 		{ id: 2, type: 'Telegram' },
@@ -158,12 +154,7 @@ const Order = ({
 						</Row>
 					)}
 					<hr />
-					<Button
-						variant={"outline-dark"}
-						onClick={addOrder}
-					>
-						Добавить детали заказа
-					</Button>
+					<h3>Детали заказа</h3>
 					{orders.map((i, { RAM }) =>
 						<Row className="mt-2 pt-2" key={i.number}>
 							<Col md={12} className="mt-2">

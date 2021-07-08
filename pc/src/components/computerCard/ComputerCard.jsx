@@ -30,7 +30,9 @@ const ComputerCard = ({
 	return (
 		<div>
 			<div className="books row mb-2 pt-4" >
-				{count === 0 && <h2>нет ничего</h2>}
+				{count === 0 &&
+					<h2>нет ничего <Link to="/konfigurator">cобрть свою конфигурацию</Link></h2>
+				}
 				{!is200Code ?
 					<Spinner animation="border" /> :
 					device.map(pc =>

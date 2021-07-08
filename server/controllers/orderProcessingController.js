@@ -83,20 +83,20 @@ class OrderProcessingController {
 	}
 
 
-	async delete(req, res, next) {
-		try {
-			const { id } = req.params
-			const deleted = await BasketDevice.findOne({ where: { id } })
-			if (!deleted) {
-				console.log("err");
-			}
-			deleted.destroy(id);
-			return res.json(deleted)
-		} catch (error) {
-			next(ApiError.badRequest(error.message))
-		}
+	// async delete(req, res, next) {
+	// 	try {
+	// 		const { id } = req.params
+	// 		const deleted = await BasketDevice.findOne({ where: { id } })
+	// 		if (!deleted) {
+	// 			console.log("err");
+	// 		}
+	// 		deleted.destroy(id);
+	// 		return res.json(deleted)
+	// 	} catch (error) {
+	// 		next(ApiError.badRequest(error.message))
+	// 	}
 
-	}
+	// }
 
 
 }

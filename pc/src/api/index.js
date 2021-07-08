@@ -123,6 +123,41 @@ export const getDeviceData = {
 }
 
 
+//  =========== Устройства из конфигуратора
+
+export const getUserConfigDeviceData = {
+
+	fetchDevicesApi(userId) {
+		return instance.get('api/config', {
+			params: {
+				userId
+			}
+		})
+			.then(response => {
+				return response.data
+			})
+	},
+
+	// createDeviceApi(configDevice) {
+	// 	return instance.post('api/config', configDevice)
+	// },
+}
+
+export const createDevice = (configDevice) => {
+	return instance.post('api/config', configDevice)
+}
+
+export const fetchDevices = (userId) => {
+	return instance.get('api/config', {
+		params: {
+			userId
+		}
+	})
+		.then(response => {
+			return response.data
+		})
+}
+
 
 //  ======== Корзина
 
