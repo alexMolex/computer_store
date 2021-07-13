@@ -53,6 +53,13 @@ const Videocard = sequelize.define('videocard', {
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
 })
 
+const ComputerCase = sequelize.define('computer_case', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	name: { type: DataTypes.STRING, unique: true, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	img: { type: DataTypes.STRING, allowNull: false },
+})
+
 const Brand = sequelize.define('brand', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -117,6 +124,7 @@ OrderProcessing.belongsTo(User)
 OrderProcessing.hasMany(Contacts, { as: 'contacts' })
 Contacts.belongsTo(OrderProcessing)
 
+
 OrderProcessing.hasMany(Order, { as: 'order' })
 Order.belongsTo(OrderProcessing)
 
@@ -125,6 +133,12 @@ Order.belongsTo(Processor)
 
 Videocard.hasMany(Order, { as: 'videocard' })
 Order.belongsTo(Videocard)
+
+ComputerCase.hasMany(Order, { as: 'order_computer_case' })
+Order.belongsTo(ComputerCase)
+
+ComputerCase.hasMany(UserConfigDevice, { as: 'config_computer_case' })
+UserConfigDevice.belongsTo(ComputerCase)
 
 Processor.hasMany(UserConfigDevice, { as: 'config_processor' })
 UserConfigDevice.belongsTo(Processor)
@@ -149,6 +163,9 @@ Device.belongsTo(Brand)
 
 Processor.hasMany(Device)
 Device.belongsTo(Processor)
+
+// ComputerCase.hasMany(Device)
+// Device.belongsTo(ComputerCase)
 
 Videocard.hasMany(Device)
 Device.belongsTo(Videocard)
@@ -186,6 +203,7 @@ module.exports = {
 	TypeBrand,
 	UserConfigBaskeDevice,
 	UserConfigDevice,
+	ComputerCase,
 }
 
 

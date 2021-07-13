@@ -8,6 +8,7 @@ import CreateVideocard from './modals/CreateVideocard';
 import CreateProcessor from './modals/CreateProcessor';
 import CreateDevice from './modals/CreateDevice';
 import CreateType from './modals/CreateType';
+import CreateCase from './modals/CreateCase';
 
 
 const AdminPanel = ({
@@ -15,6 +16,7 @@ const AdminPanel = ({
 	setCreateDeviceBrand,
 	setCreateDeviceProcessor,
 	setCreateDeviceVideocard,
+	setCreateComputerCase,
 	brandState,
 	typeState,
 	processorState,
@@ -23,6 +25,7 @@ const AdminPanel = ({
 	setDeviceBrandData,
 	setDeviceProcessorData,
 	setDeviceVideocardData,
+	setComputerCaseData,
 	setCreateDevice,
 	isBrandLoading,
 	isTypeLoading,
@@ -35,6 +38,7 @@ const AdminPanel = ({
 	const [typeVisible, setTypeVisible] = useState(false)
 	const [processorVisible, setProcessorVisible] = useState(false)
 	const [videocardVisible, setVideocardVisible] = useState(false)
+	const [caseVisible, setCaseVisible] = useState(false)
 	const [deviceVisible, setDeviceVisible] = useState(false)
 
 	useEffect(() => {
@@ -42,7 +46,14 @@ const AdminPanel = ({
 		setDeviceTypeData()
 		setDeviceProcessorData()
 		setDeviceVideocardData()
-	}, [setDeviceTypeData, setDeviceBrandData, setDeviceProcessorData, setDeviceVideocardData])
+		setComputerCaseData()
+	}, [
+		setDeviceTypeData,
+		setDeviceBrandData,
+		setDeviceProcessorData,
+		setDeviceVideocardData,
+		setComputerCaseData,
+	])
 
 	if (role !== "ADMIN") { return <Redirect to={'/'} /> }
 
@@ -82,6 +93,13 @@ const AdminPanel = ({
 				<Button
 					variant={'outline-dark'}
 					className="mt-2 pt-4"
+					onClick={() => setCaseVisible(true)}
+				>
+					Добавить корпус
+				</Button>
+				<Button
+					variant={'outline-dark'}
+					className="mt-2 pt-4"
 					onClick={() => setDeviceVisible(true)}
 				>
 					Добавить устройство
@@ -110,6 +128,12 @@ const AdminPanel = ({
 					setDeviceTypeData={setDeviceTypeData}
 					show={typeVisible}
 					onHide={() => setTypeVisible(false)}
+				/>
+				<CreateCase
+					setCreateComputerCase={setCreateComputerCase}
+					setComputerCaseData={setComputerCaseData}
+					show={caseVisible}
+					onHide={() => setCaseVisible(false)}
 				/>
 				<CreateVideocard
 					setCreateDeviceVideocard={setCreateDeviceVideocard}

@@ -34,12 +34,16 @@ import {
 	FETCH_PROCESSORS_START,
 	FETCH_PROCESSORS_FAILER,
 	FETCH_PROCESSORS_SUCCESS,
+	GET_GLOBAL_PROCESSOR,
+	REMOVE_GLOBAL_PROCESSOR,
+	REMOVE_GLOBAL_VIDEOCARD,
 	CREATE_DEVICE_PROCESSOR_START,
 	CREATE_DEVICE_PROCESSOR_FAILER,
 	CREATE_DEVICE_PROCESSOR_SUCCESS,
 	FETCH_VIDEOCARDS_START,
 	FETCH_VIDEOCARDS_FAILER,
 	FETCH_VIDEOCARDS_SUCCESS,
+	GET_GLOBAL_VIDEOCARD,
 	CREATE_DEVICE_VIDEOCARD_START,
 	CREATE_DEVICE_VIDEOCARD_FAILER,
 	CREATE_DEVICE_VIDEOCARD_SUCCESS,
@@ -61,6 +65,18 @@ import {
 	FETCH_USER_ORDERS_START,
 	FETCH_USER_ORDERS_FAILER,
 	FETCH_USER_ORDERS_SUCCESS,
+	CREATE_USER_CONFIG_DEVICE_START,
+	CREATE_USER_CONFIG_DEVICE_FAILER,
+	CREATE_USER_CONFIG_DEVICE_SUCCESS,
+	FETCH_USER_CONFIG_DEVICE_START,
+	FETCH_USER_CONFIG_DEVICE_FAILER,
+	FETCH_USER_CONFIG_DEVICE_SUCCESS,
+	CREATE_COMPUTER_CASE_START,
+	CREATE_COMPUTER_CASE_FAILER,
+	CREATE_COMPUTER_CASE_SUCCESS,
+	FETCH_COMPUTER_CASE_START,
+	FETCH_COMPUTER_CASE_FAILER,
+	FETCH_COMPUTER_CASE_SUCCESS,
 } from "./actionTypes"
 import {
 	getAuthUserData,
@@ -69,8 +85,10 @@ import {
 	getDeviceData,
 	getDeviceProcessorData,
 	getDeviceVideocardData,
+	getComputerCaseData,
 	setBasketData,
 	setOrderProcessingData,
+	getUserConfigDeviceData,
 } from "../../api/index"
 
 
@@ -253,7 +271,6 @@ export const setDeviceData = (brandId, typeId, processorId, videocardId, limit, 
 	}
 }
 
-
 export const setOneDeviceData = (id) => async dispatch => {
 	dispatch({
 		type: FETCH_ONE_DEVICE_START
@@ -272,8 +289,6 @@ export const setOneDeviceData = (id) => async dispatch => {
 		})
 	}
 }
-
-
 
 export const setCreateDevice = (device) => async dispatch => {
 	dispatch({
@@ -315,6 +330,19 @@ export const setDeviceProcessorData = () => async dispatch => {
 			error: true
 		})
 	}
+}
+
+export const setGlobalProcessor = processor => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_PROCESSOR,
+		payload: processor,
+	})
+}
+
+export const removeGlobalProcessor = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_PROCESSOR,
+	})
 }
 
 export const setCreateDeviceProcessor = (processor) => async dispatch => {
@@ -359,6 +387,18 @@ export const setDeviceVideocardData = () => async dispatch => {
 	}
 }
 
+export const setGlobalVideocard = videocard => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_VIDEOCARD,
+		payload: videocard,
+	})
+}
+
+export const removeGlobalVideocard = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_VIDEOCARD,
+	})
+}
 
 export const setCreateDeviceVideocard = (videocard) => async dispatch => {
 	dispatch({
@@ -378,6 +418,49 @@ export const setCreateDeviceVideocard = (videocard) => async dispatch => {
 		})
 	}
 }
+
+//  ============ Корпус
+
+
+export const setComputerCaseData = () => async dispatch => {
+	dispatch({
+		type: FETCH_COMPUTER_CASE_START
+	});
+
+	try {
+		dispatch({
+			type: FETCH_COMPUTER_CASE_SUCCESS,
+			payload: await getComputerCaseData.fetchCasesApi()
+		})
+	} catch (error) {
+		dispatch({
+			type: FETCH_COMPUTER_CASE_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+
+export const setCreateComputerCase = (computerCase) => async dispatch => {
+	dispatch({
+		type: CREATE_COMPUTER_CASE_START
+	});
+
+	try {
+		dispatch({
+			type: CREATE_COMPUTER_CASE_SUCCESS,
+			payload: await getComputerCaseData.createCaseApi(computerCase)
+		})
+	} catch (error) {
+		dispatch({
+			type: CREATE_COMPUTER_CASE_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
 
 // ============ корзина
 
@@ -487,8 +570,6 @@ export const getOrderProcessingData = () => async dispatch => {
 
 
 
-
-
 export const getUserOrdersProcessingData = (basketId) => async dispatch => {
 	dispatch({
 		type: FETCH_USER_ORDERS_START
@@ -509,3 +590,46 @@ export const getUserOrdersProcessingData = (basketId) => async dispatch => {
 }
 
 
+// ========= Сконфигурированные устройства
+
+
+
+
+export const createUserConfigDevice = (configDevice) => async dispatch => {
+	dispatch({
+		type: CREATE_USER_CONFIG_DEVICE_START
+	});
+
+	try {
+		dispatch({
+			type: CREATE_USER_CONFIG_DEVICE_SUCCESS,
+			payload: await getUserConfigDeviceData.createUserConfigDeviceApi(configDevice)
+		})
+	} catch (error) {
+		dispatch({
+			type: CREATE_USER_CONFIG_DEVICE_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+
+export const getUserConfigDevices = (userId) => async dispatch => {
+	dispatch({
+		type: FETCH_USER_CONFIG_DEVICE_START
+	});
+
+	try {
+		dispatch({
+			type: FETCH_USER_CONFIG_DEVICE_SUCCESS,
+			payload: await getUserConfigDeviceData.fetchUserConfigDevicesApi(userId)
+		})
+	} catch (error) {
+		dispatch({
+			type: FETCH_USER_CONFIG_DEVICE_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}

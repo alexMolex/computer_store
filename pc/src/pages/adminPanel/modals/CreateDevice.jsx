@@ -36,6 +36,7 @@ const CreateDevice = ({ show,
 		setInfo(info.filter(i => i.number !== number))
 	}
 
+
 	const selectFile = e => {
 		setFile(e.target.files[0]);
 	}

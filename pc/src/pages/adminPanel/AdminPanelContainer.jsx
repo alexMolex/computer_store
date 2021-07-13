@@ -7,11 +7,13 @@ import {
 	setCreateDeviceBrand,
 	setCreateDeviceProcessor,
 	setCreateDeviceVideocard,
+	setCreateComputerCase,
 	setCreateDevice,
 	setDeviceTypeData,
 	setDeviceBrandData,
 	setDeviceProcessorData,
 	setDeviceVideocardData,
+	setComputerCaseData,
 } from '../../redux/actions/actions';
 
 
@@ -32,11 +34,13 @@ const mapDispatch = {
 	setCreateDeviceBrand,
 	setCreateDeviceProcessor,
 	setCreateDeviceVideocard,
+	setCreateComputerCase,
 	setCreateDevice,
 	setDeviceTypeData,
 	setDeviceBrandData,
 	setDeviceProcessorData,
 	setDeviceVideocardData,
+	setComputerCaseData,
 }
 
 const AdminPanelContainer = connect(mapState, mapDispatch)(AdminPanel);

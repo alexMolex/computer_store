@@ -6,9 +6,9 @@ const ApiError = require('../error/apiError')
 class UserConfigDeviceController {
 	async create(req, res, next) {
 		try {
-			let { price, RAM, SSD, storageVolume, overclocking, userId, processorId, videocardId } = req.body
+			let { price, RAM, SSD, storageVolume, overclocking, userId, computerCaseId, processorId, videocardId } = req.body
 
-			const configDevice = await UserConfigDevice.create({ price, RAM, SSD, storageVolume, overclocking, userId, processorId, videocardId })
+			const configDevice = await UserConfigDevice.create({ price, RAM, SSD, storageVolume, overclocking, userId, computerCaseId, processorId, videocardId })
 
 			return res.json(configDevice)
 		} catch (error) {
@@ -23,6 +23,11 @@ class UserConfigDeviceController {
 		if (userId) {
 			configDevices = await UserConfigDevice.findAndCountAll({
 				where: { userId },
+				include: [
+					'processor',
+					'videocard',
+					'computer_case',
+				],
 				distinct: true,
 			})
 		}

@@ -45,6 +45,7 @@ const renderField = (computer) => {
 const Computers = ({ setOneDeviceData, isOneDeviceLoading, computer }) => {
 
 	const params = useParams()
+	console.log(params);
 
 	useEffect(() => {
 		setOneDeviceData(params.id)

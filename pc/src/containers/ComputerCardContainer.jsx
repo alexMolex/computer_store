@@ -1,4 +1,6 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom"
+import { compose } from "redux";
 
 
 import ComputerCard from "../components/computerCard/ComputerCard";
@@ -22,6 +24,9 @@ const mapDispatch = {
 	getBasketDevicesData
 }
 
-const ComputerCardContainer = connect(mapState, mapDispatch)(ComputerCard);
+const ComputerCardContainer = compose(
+	withRouter,
+	connect(mapState, mapDispatch)
+)(ComputerCard);
 
 export default ComputerCardContainer;

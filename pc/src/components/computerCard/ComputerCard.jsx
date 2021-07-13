@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
+
 
 
 
@@ -15,6 +17,8 @@ const ComputerCard = ({
 	isBasketDevicesLoading,
 	getBasketDevicesData
 }) => {
+
+
 
 	const isBasketDeviceIdSame = (pc) => {
 		return basketDevicesIds.some(id => id === pc)
@@ -31,7 +35,9 @@ const ComputerCard = ({
 		<div>
 			<div className="books row mb-2 pt-4" >
 				{count === 0 &&
-					<h2>нет ничего <Link to="/konfigurator">cобрть свою конфигурацию</Link></h2>
+					<h2>нет ничего
+						<Link to={"/konfigurator"}> cобрть свою конфигурацию</Link>
+					</h2>
 				}
 				{!is200Code ?
 					<Spinner animation="border" /> :

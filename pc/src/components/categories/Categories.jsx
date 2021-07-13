@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
+
+export const renderCategory = (category, localState, setLocalState) => {
+	return (
+		<Dropdown.Item
+			style={{ cursor: 'pointer' }}
+			active={category.id === localState.id}
+			onClick={() => setLocalState(category)}
+			key={category.id}
+		>
+			{category.name}
+		</Dropdown.Item>
+	)
+}
 
 const Categories = ({
 	brand,
@@ -12,18 +26,21 @@ const Categories = ({
 	videocard,
 	isProcessorsLoading,
 	isVideocardsLoading,
+	setGlobalProcessor,
+	setGlobalVideocard,
 }) => {
+
 
 	const [localType, setLocalType] = useState("");
 	const [localBrand, setLocalBrand] = useState("");
 	const [localProcessor, setLocalProcessor] = useState("");
 	const [localVideocard, setLocalVideocard] = useState("");
 
+
 	useEffect(() => {
+
 		setDeviceData(localBrand.id, localType.id, localProcessor.id, localVideocard.id)
 	}, [setDeviceData, localType.id, localBrand.id, localProcessor.id, localVideocard.id])
-
-
 
 	const handleDefault = () => {
 		setLocalBrand('')
@@ -32,19 +49,6 @@ const Categories = ({
 		setLocalVideocard('')
 	}
 
-
-	const renderCategory = (category, localState, setLocalState) => {
-		return (
-			<Dropdown.Item
-				style={{ cursor: 'pointer' }}
-				active={category.id === localState.id}
-				onClick={() => setLocalState(category)}
-				key={category.id}
-			>
-				{category.name}
-			</Dropdown.Item>
-		)
-	}
 
 
 	return (
@@ -62,7 +66,17 @@ const Categories = ({
 				<Dropdown.Toggle className="btn-info">{localProcessor.name || "Выберите процессор"}</Dropdown.Toggle>
 				<Dropdown.Menu>
 					{(isProcessorsLoading) && processor.map(category =>
-						renderCategory(category, localProcessor, setLocalProcessor)
+						<Dropdown.Item
+							style={{ cursor: 'pointer' }}
+							active={category.id === localProcessor.id}
+							onClick={() => {
+								setLocalProcessor(category);
+								setGlobalProcessor(category)
+							}}
+							key={category.id}
+						>
+							{category.name}
+						</Dropdown.Item>
 					)}
 				</Dropdown.Menu>
 			</Dropdown>}
@@ -70,7 +84,17 @@ const Categories = ({
 				<Dropdown.Toggle className="btn-info">{localVideocard.name || "Выберите видеокарту"}</Dropdown.Toggle>
 				<Dropdown.Menu>
 					{(isVideocardsLoading) && videocard.map(category =>
-						renderCategory(category, localVideocard, setLocalVideocard)
+						<Dropdown.Item
+							style={{ cursor: 'pointer' }}
+							active={category.id === localVideocard.id}
+							onClick={() => {
+								setLocalVideocard(category);
+								setGlobalVideocard(category)
+							}}
+							key={category.id}
+						>
+							{category.name}
+						</Dropdown.Item>
 					)}
 				</Dropdown.Menu>
 			</Dropdown>}

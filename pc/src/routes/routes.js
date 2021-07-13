@@ -18,7 +18,7 @@ const Routes = () => {
 			<Route path="/" component={Layout} exact />
 			<Route path="/konfigurator" component={Configurator} />
 			<Route path="/computers/:id" component={ComputersContainer} />
-			<Route path="/catigories/:id" component={Layout} />
+			{/* <Route path="/device" component={Layout} /> */}
 			<Suspense fallback={
 				<>
 					<Header />

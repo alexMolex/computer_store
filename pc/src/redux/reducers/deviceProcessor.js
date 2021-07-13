@@ -1,5 +1,7 @@
 import {
-	FETCH_PROCESSORS_SUCCESS
+	FETCH_PROCESSORS_SUCCESS,
+	GET_GLOBAL_PROCESSOR,
+	REMOVE_GLOBAL_PROCESSOR
 } from "../actions/actionTypes/index"
 
 
@@ -15,11 +17,16 @@ const deviceProcessors = (state = initialState, action) => {
 				data: [...action.payload],
 				isProcessorsLoading: true
 			}
-		// case CREATE_DEVICE_BRAND_SUCCESS:
-		// 	return {
-		// 		...state,
-		// 		...action.payload,
-		// 	}
+		case GET_GLOBAL_PROCESSOR:
+			return {
+				...state,
+				globalProcessor: action.payload,
+			}
+		case REMOVE_GLOBAL_PROCESSOR:
+			return {
+				...state,
+				globalProcessor: {}
+			}
 		default:
 			return state
 	}

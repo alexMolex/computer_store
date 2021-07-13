@@ -97,6 +97,23 @@ export const getDeviceVideocardData = {
 	},
 }
 
+//  ========= Корпус
+
+export const getComputerCaseData = {
+
+	fetchCasesApi() {
+		return instance.get('api/case')
+			.then(response => {
+				return response.data
+			})
+	},
+
+	createCaseApi(computerCase) {
+		return instance.post('api/case', computerCase)
+	},
+}
+
+
 // устройства
 export const getDeviceData = {
 
@@ -127,36 +144,20 @@ export const getDeviceData = {
 
 export const getUserConfigDeviceData = {
 
-	fetchDevicesApi(userId) {
-		return instance.get('api/config', {
-			params: {
-				userId
-			}
-		})
+	fetchUserConfigDevicesApi(userId) {
+		return instance.get('api/config', { params: { userId } })
 			.then(response => {
 				return response.data
 			})
 	},
 
-	// createDeviceApi(configDevice) {
-	// 	return instance.post('api/config', configDevice)
-	// },
+	createUserConfigDeviceApi(configDevice) {
+		return instance.post('api/config', configDevice)
+	}
 }
 
-export const createDevice = (configDevice) => {
-	return instance.post('api/config', configDevice)
-}
 
-export const fetchDevices = (userId) => {
-	return instance.get('api/config', {
-		params: {
-			userId
-		}
-	})
-		.then(response => {
-			return response.data
-		})
-}
+
 
 
 //  ======== Корзина

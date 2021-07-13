@@ -3,7 +3,13 @@ import { compose } from "redux";
 import { withRouter } from "react-router"
 
 import Categories from "./Categories";
-import { setDeviceData, setDeviceProcessorData, setDeviceVideocardData } from "../../redux/actions/actions";
+import {
+	setDeviceData,
+	setDeviceProcessorData,
+	setDeviceVideocardData,
+	setGlobalProcessor,
+	setGlobalVideocard
+} from "../../redux/actions/actions";
 
 
 const mapState = (state) => ({
@@ -21,7 +27,9 @@ const mapState = (state) => ({
 const mapDispatch = {
 	setDeviceData,
 	setDeviceProcessorData,
-	setDeviceVideocardData
+	setDeviceVideocardData,
+	setGlobalProcessor,
+	setGlobalVideocard
 }
 
 const CategoriesContainer = compose(

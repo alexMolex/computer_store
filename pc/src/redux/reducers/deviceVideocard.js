@@ -1,5 +1,7 @@
 import {
-	FETCH_VIDEOCARDS_SUCCESS
+	FETCH_VIDEOCARDS_SUCCESS,
+	GET_GLOBAL_VIDEOCARD,
+	REMOVE_GLOBAL_VIDEOCARD
 } from "../actions/actionTypes/index"
 
 
@@ -14,6 +16,16 @@ const deviceVideocards = (state = initialState, action) => {
 				...state,
 				data: [...action.payload],
 				isVideocardsLoading: true
+			}
+		case GET_GLOBAL_VIDEOCARD:
+			return {
+				...state,
+				globalVideocard: action.payload,
+			}
+		case REMOVE_GLOBAL_VIDEOCARD:
+			return {
+				...state,
+				globalVideocard: {}
 			}
 		default:
 			return state

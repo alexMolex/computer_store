@@ -39,6 +39,7 @@ class OrderProcessingController {
 						orderProcessingId: userOrder.id,
 						processorId: i.processorId,
 						videocardId: i.videocardId,
+						computerCaseId: i.computerCaseId
 					})
 				)
 			}

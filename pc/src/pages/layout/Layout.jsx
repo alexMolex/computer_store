@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLocation } from "react-router";
 
 
 // import Computers from '../computers/Computers.jsx';
@@ -12,6 +13,8 @@ const Layout = ({ setDeviceTypeData, setDeviceBrandData, setDeviceProcessorData,
 	setDeviceVideocardData }) => {
 
 	useEffect(() => {
+
+
 		setDeviceTypeData()
 		setDeviceBrandData()
 		setDeviceProcessorData()
@@ -22,7 +25,6 @@ const Layout = ({ setDeviceTypeData, setDeviceBrandData, setDeviceProcessorData,
 		setDeviceProcessorData,
 		setDeviceVideocardData
 	])
-
 
 
 

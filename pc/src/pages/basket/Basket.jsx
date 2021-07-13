@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/HeaderContainer';
-import { Image, Row } from 'react-bootstrap';
-import { Spinner } from 'react-bootstrap';
+import { Image, Row, Spinner } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 
 

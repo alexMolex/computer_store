@@ -12,6 +12,7 @@ class DeviceCointroller {
 			let fileName = uuid.v4() + ".jpg"
 			img.mv(path.resolve(__dirname, '..', 'static', fileName))
 
+			// добавить id корпуса а креэйт
 			const device = await Device.create({ name, price, brandId, typeId, processorId, videocardId, img: fileName })
 
 			if (info) {

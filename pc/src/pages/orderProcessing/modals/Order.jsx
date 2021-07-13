@@ -34,6 +34,8 @@ const Order = ({
 		setContacts(contacts.map(i => i.number === number ? { ...i, [key]: value } : i))
 	}
 
+
+
 	const addOrder = () => {
 		setOrders([...orders,
 		{
@@ -42,6 +44,7 @@ const Order = ({
 			overclocking,
 			processorId,
 			videocardId,
+			// computerCaseId,
 			RAM: 8,
 			number: Date.now()
 		}])
