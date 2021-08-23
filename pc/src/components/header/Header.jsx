@@ -1,9 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
+import ConfirmModal from "../modals/ConfirmationDialog";
 
-const Header = ({ isAuth, role, setAuthUserData, setLogoutUser, getBasketDevicesData, basketId }) => {
+
+const Header = ({
+	isAuth,
+	role,
+	setAuthUserData,
+	setLogoutUser,
+	getBasketDevicesData,
+	basketId,
+	basketReducerData,
+	count,
+
+}) => {
+
+	const [confirmVisible, setConfirmVisible] = useState(false);
 
 
 	useEffect(() => {
@@ -12,10 +26,16 @@ const Header = ({ isAuth, role, setAuthUserData, setLogoutUser, getBasketDevices
 	}, [setAuthUserData, basketId, getBasketDevicesData])
 
 
+
+	let basketDeviceCount = basketReducerData.length + count
+
+
 	return (
 		<div>
 			<Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
 				<Container>
+
+
 					<Navbar.Brand>
 
 						React site
@@ -25,20 +45,32 @@ const Header = ({ isAuth, role, setAuthUserData, setLogoutUser, getBasketDevices
 						<Nav className="nav ml-auto pt-1" >
 							<NavLink className="nav-link" to="/" exact>Главная</NavLink>
 							<NavLink className="nav-link" to="/konfigurator" >Конфигуратор</NavLink>
-							<NavLink className="nav-link" to="/contacts" >Контакты</NavLink>
+							<NavLink className="nav-link" to="/comparison" >Сравнение</NavLink>
 							<NavLink className="nav-link" to="/home-assembling" >Сборка на дом</NavLink>
 							{isAuth ?
-								<React.Fragment>
-									<NavLink className="nav-link" to="/basket" >Корзина</NavLink>
-
+								<>
+									<NavLink className="nav-link" to="/basket" >
+										Корзина
+										{(basketDeviceCount !== 0) && <span className="badge badge-secondary badge-pill ml-1">
+											{basketDeviceCount}
+										</span>}
+									</NavLink>
+									<ConfirmModal
+										show={confirmVisible}
+										setVisible={setConfirmVisible}
+										confirm={setLogoutUser}
+										headerText={"Вы действительно хотите выйти?"}
+										confirmText={"Разлогиниться"}
+										unConfirmText={"Отмена"}
+									/>
 									<Button
 										className="nav-link ml-2 pt-1 pb-1"
 										variant="outline-info"
-										onClick={() => setLogoutUser()}
+										onClick={() => setConfirmVisible(true)}
 									>
 										выйти
 									</Button>
-								</React.Fragment> :
+								</> :
 								<NavLink className="nav-link pt-0 pb-1" to="/login" ><Button variant="outline-info">Войти</Button></NavLink>
 							}
 							{

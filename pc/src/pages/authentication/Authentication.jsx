@@ -7,7 +7,15 @@ import * as yup from 'yup';
 import HeaderContainer from '../../components/header/HeaderContainer'
 
 
-const Authentication = ({ setLoginAuthUserData, setRegistrationAuthUserData, isAuth }) => {
+const Authentication = ({
+	setLoginAuthUserData,
+	setRegistrationAuthUserData,
+	isAuth,
+	isLoginErrorMessageReceived,
+	loginErrorMessage,
+	registrationErrorMessage,
+	isRegistrationErrorMessageReceived,
+}) => {
 	const location = useLocation();
 	const isLogin = location.pathname === "/login"
 
@@ -22,7 +30,7 @@ const Authentication = ({ setLoginAuthUserData, setRegistrationAuthUserData, isA
 		email: yup.string().email('Введите корректный e-mail').required('Обязательное поле'),
 		confirmEmail: yup.string().email('Введите корректный e-mail').oneOf([yup.ref('email')], 'e-mail не совпадает').required('Обязательное поле'),
 		password: yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
-		confirmPassword: yup.string().oneOf([yup.ref('password')], 'Пароли не совпадают')
+		confirmPassword: yup.string().oneOf([yup.ref('password')], 'Пароли не совпадают').required('Обязательное поле')
 	})
 
 
@@ -121,6 +129,11 @@ const Authentication = ({ setLoginAuthUserData, setRegistrationAuthUserData, isA
 													</fieldset>
 													{touched.confirmPassword && errors.confirmPassword && <p>{errors.confirmPassword}</p>}
 
+													{isRegistrationErrorMessageReceived &&
+														<div className="alert alert-danger" role="alert">
+															{registrationErrorMessage}
+														</div>
+													}
 													<button
 														className="btn btn-lg btn-primary float-right"
 														type='submit'
@@ -191,7 +204,11 @@ const Authentication = ({ setLoginAuthUserData, setRegistrationAuthUserData, isA
 													</fieldset>
 													{touched.password && errors.password && <p>{errors.password}</p>}
 
-
+													{isLoginErrorMessageReceived &&
+														<div className="alert alert-danger" role="alert">
+															{loginErrorMessage}
+														</div>
+													}
 													<button
 														className="btn btn-lg btn-primary float-right"
 														type='submit'

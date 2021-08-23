@@ -5,7 +5,8 @@ const userConfigDeviceController = require('../controllers/userConfigDeviceContr
 
 router.post('/', userConfigDeviceController.create)
 router.get('/', userConfigDeviceController.get)
-// router.get('/:id', userConfigDeviceController.getOne)
+router.delete('/:id', userConfigDeviceController.delete)
+router.get('/:id', userConfigDeviceController.getOne)
 
 
 module.exports = router

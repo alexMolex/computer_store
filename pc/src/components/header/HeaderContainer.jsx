@@ -11,6 +11,8 @@ const mapState = state => {
 		isAuth: state.checkAuthReducer.isAuth,
 		role: state.checkAuthReducer.role,
 		basketId: state.checkAuthReducer.id,
+		basketReducerData: state.basketReducer.data,
+		count: state.userConfigDevice.count,
 	}
 }
 

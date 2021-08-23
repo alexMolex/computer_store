@@ -3,10 +3,12 @@ import { Button, Modal, Form } from 'react-bootstrap';
 
 
 
-
-
-
-const CreateType = ({ show, onHide, setCreateDeviceType, setDeviceTypeData }) => {
+const CreateType = ({
+	show,
+	onHide,
+	setCreateDeviceType,
+	setDeviceTypeData
+}) => {
 
 	const [value, setValue] = useState('')
 
@@ -18,6 +20,7 @@ const CreateType = ({ show, onHide, setCreateDeviceType, setDeviceTypeData }) =>
 				setDeviceTypeData()
 				setValue('')
 				onHide()
+				alert("Тип добавлен")
 			})
 	}
 
@@ -31,7 +34,7 @@ const CreateType = ({ show, onHide, setCreateDeviceType, setDeviceTypeData }) =>
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
 					Добавить тип
-        </Modal.Title>
+				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Form>

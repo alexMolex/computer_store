@@ -1,5 +1,5 @@
 const ApiError = require('../error/apiError')
-const { BasketDevice } = require('../models/models')
+const { BasketDevice, Device, Processor, Videocard, ComputerCase } = require('../models/models')
 
 class BasketDeviceController {
 
@@ -14,12 +14,23 @@ class BasketDeviceController {
 	}
 
 
+
 	async get(req, res) {
 		const { basketId, deviceId } = req.query
 		let basket
 		if (basketId && !deviceId) {
 			basket = await BasketDevice.findAndCountAll({
-				include: 'device',
+				include: [
+					{
+						model: Device, as: 'device',
+						include: [
+							{ model: Processor, as: 'processor' },
+							{ model: Videocard, as: 'videocard' },
+							{ model: ComputerCase, as: 'computer_case' },
+						]
+					}
+				],
+				distinct: true,
 				where: { basketId }
 			})
 		}

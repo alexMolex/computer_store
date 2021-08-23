@@ -20,8 +20,12 @@ const Device = sequelize.define('device', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
 	price: { type: DataTypes.INTEGER, allowNull: false },
+	totalPrice: { type: DataTypes.INTEGER, allowNull: false },
 	rating: { type: DataTypes.INTEGER, defaultValue: 0 },
-	img: { type: DataTypes.STRING, allowNull: false },
+	RAM: { type: DataTypes.INTEGER, allowNull: false },
+	SSD: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+	storageVolume: { type: DataTypes.INTEGER, allowNull: false },
+	overclocking: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
 })
 
 const UserConfigDevice = sequelize.define('user_config_device', {
@@ -34,10 +38,6 @@ const UserConfigDevice = sequelize.define('user_config_device', {
 })
 
 
-const UserConfigBaskeDevice = sequelize.define('user_config_basket_device', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-})
-
 const Type = sequelize.define('type', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -46,17 +46,29 @@ const Type = sequelize.define('type', {
 const Processor = sequelize.define('processor', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	brand: { type: DataTypes.STRING, unique: true, allowNull: false },
 })
 
 const Videocard = sequelize.define('videocard', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	brand: { type: DataTypes.STRING, unique: true, allowNull: false },
+})
+
+const ComputerCase = sequelize.define('computer_case', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	name: { type: DataTypes.STRING, unique: true, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	img: { type: DataTypes.STRING, allowNull: false },
 })
 
 const Brand = sequelize.define('brand', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
 })
+
 
 const Rating = sequelize.define('rating', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -69,13 +81,17 @@ const DeviceInfo = sequelize.define('device_info', {
 	description: { type: DataTypes.STRING, allowNull: false },
 })
 
+
 const OrderProcessing = sequelize.define('order_processing', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	userName: { type: DataTypes.STRING, allowNull: false },
 	adress: { type: DataTypes.STRING, allowNull: false },
 	price: { type: DataTypes.INTEGER, allowNull: false },
 	phoneNumber: { type: DataTypes.STRING, allowNull: false },
+	remark: { type: DataTypes.STRING, allowNull: true },
+	status: { type: DataTypes.STRING, allowNull: false },
 })
+
 
 const Contacts = sequelize.define('contacts_info', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -99,14 +115,11 @@ const TypeBrand = sequelize.define('type_brand', {
 
 
 
-
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
 User.hasMany(UserConfigDevice)
 UserConfigDevice.belongsTo(User)
-
-
 
 User.hasMany(Rating)
 Rating.belongsTo(User)
@@ -126,17 +139,17 @@ Order.belongsTo(Processor)
 Videocard.hasMany(Order, { as: 'videocard' })
 Order.belongsTo(Videocard)
 
+ComputerCase.hasMany(Order, { as: 'order_computer_case' })
+Order.belongsTo(ComputerCase)
+
+ComputerCase.hasMany(UserConfigDevice, { as: 'config_computer_case' })
+UserConfigDevice.belongsTo(ComputerCase)
+
 Processor.hasMany(UserConfigDevice, { as: 'config_processor' })
 UserConfigDevice.belongsTo(Processor)
 
 Videocard.hasMany(UserConfigDevice, { as: 'config_videocard' })
 UserConfigDevice.belongsTo(Videocard)
-
-Basket.hasMany(UserConfigBaskeDevice)
-UserConfigBaskeDevice.belongsTo(Basket)
-
-UserConfigDevice.hasMany(UserConfigBaskeDevice)
-UserConfigBaskeDevice.belongsTo(UserConfigDevice)
 
 Basket.hasMany(BasketDevice)
 BasketDevice.belongsTo(Basket)
@@ -150,6 +163,9 @@ Device.belongsTo(Brand)
 Processor.hasMany(Device)
 Device.belongsTo(Processor)
 
+ComputerCase.hasMany(Device)
+Device.belongsTo(ComputerCase)
+
 Videocard.hasMany(Device)
 Device.belongsTo(Videocard)
 
@@ -158,8 +174,6 @@ Rating.belongsTo(Device)
 
 Device.hasMany(BasketDevice)
 BasketDevice.belongsTo(Device)
-
-
 
 Device.hasMany(DeviceInfo, { as: 'info' })
 DeviceInfo.belongsTo(Device)
@@ -184,8 +198,8 @@ module.exports = {
 	Contacts,
 	Order,
 	TypeBrand,
-	UserConfigBaskeDevice,
 	UserConfigDevice,
+	ComputerCase,
 }
 
 

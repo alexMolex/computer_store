@@ -32,7 +32,7 @@ class UserCointroller {
 		const { email, password } = req.body
 		const user = await User.findOne({ where: { email } })
 		if (!user) {
-			return next(ApiError.internal('Пользователь не найден'))
+			return next(ApiError.badRequest('Пользователь не найден'))
 		}
 		let comparePassword = bcrypt.compareSync(password, user.password)
 		if (!comparePassword) {

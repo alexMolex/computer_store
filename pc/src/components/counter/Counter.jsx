@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './counter.css'
 
 
-const Counter = () => {
-
-	const [counter, setCounter] = useState(1)
-
+const Counter = ({ counter, setCounter, step, min, max }) => {
 
 	return (
-		<div className="Counter">
-			<button className="Counter__button_minus"
-				onClick={() => setCounter(counter - 1)}>
+		<div className="counter">
+			<button className="counter-button-minus"
+				onClick={(event) => {
+					event.preventDefault();
+					(counter <= min) ? setCounter(min) :
+						setCounter(counter - step)
+				}}>
 				-
 			</button>
-			<input
-				value={counter}
-				type="number"
-				className="count-buttons__input"
-				onChange={e => setCounter(+(e.target.value))}
-			/>
-
-			<button className="Counter__button_plus"
-				onClick={() => setCounter(counter + 1)}>
+			<span className="counter__value">
+				{counter}
+			</span>
+			<button className="counter-button-plus"
+				onClick={(event) => {
+					event.preventDefault();
+					(counter > max - 1) ? setCounter(max) :
+						setCounter(counter + step)
+				}}>
 				+
 			</button>
-		</div>)
+		</div >)
 
 }
 

@@ -1,11 +1,14 @@
 const Router = require('express')
 const router = new Router()
 const OrderProcessingController = require('../controllers/orderProcessingController')
-const authMiddleware = require('../middleware/authMiddleware')
+const checkRole = require('../middleware/checkRoleMiddleware')
 
 router.post('/', OrderProcessingController.create)
-router.get('/', OrderProcessingController.get)
+router.get('/', checkRole('ADMIN'), OrderProcessingController.get)
+router.put('/', checkRole('ADMIN'), OrderProcessingController.update)
 router.get('/:userId', OrderProcessingController.getUserOrders)
+router.get('/one/:id', OrderProcessingController.getOne)
+
 
 
 module.exports = router

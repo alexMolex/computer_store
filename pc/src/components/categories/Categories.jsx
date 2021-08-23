@@ -1,6 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 
+
+export const renderCategory = (category, localState, setLocalState, setLocalPrice) => {
+	return (
+		<Dropdown.Item
+			style={{ cursor: 'pointer' }}
+			active={category.id === localState.id}
+			onClick={() => {
+				setLocalState(category);
+				(setLocalPrice) && setLocalPrice(category.price)
+			}}
+			key={category.id}
+		>
+			{`${category.name} ${(category.price) ? `/ ${category.price} Руб` : ""} `}
+		</Dropdown.Item>
+	)
+}
 
 const Categories = ({
 	brand,
@@ -12,76 +28,154 @@ const Categories = ({
 	videocard,
 	isProcessorsLoading,
 	isVideocardsLoading,
+	setGlobalProcessor,
+	setGlobalVideocard,
+	globalProcessor,
+	globalVideocard,
+	removeGlobalVideocard,
+	removeGlobalProcessor,
+	setGlobalType,
+	removeGlobalType,
+	setGlobalBrand,
+	removeGlobalBrand,
+	setGlobalSortingTypes,
+	removeGlobalSortingTypes,
+	setGlobalSortingTable,
+	removeGlobalSortingTable,
+	removeGlobalPagination,
+	globalSortingType,
+	globalSortingTable,
+	globalType,
+	globalBrand,
+
 }) => {
 
-	const [localType, setLocalType] = useState("");
-	const [localBrand, setLocalBrand] = useState("");
-	const [localProcessor, setLocalProcessor] = useState("");
-	const [localVideocard, setLocalVideocard] = useState("");
+
 
 	useEffect(() => {
-		setDeviceData(localBrand.id, localType.id, localProcessor.id, localVideocard.id)
-	}, [setDeviceData, localType.id, localBrand.id, localProcessor.id, localVideocard.id])
+
+		setDeviceData(
+			null,
+			null,
+			globalBrand.id,
+			globalType.id,
+			globalProcessor.id,
+			globalVideocard.id,
+			globalSortingType.keyword,
+			globalSortingTable.value
+		)
+	}, [
+		setDeviceData,
+		globalType.id,
+		globalBrand.id,
+		globalProcessor.id,
+		globalVideocard.id,
+		globalSortingType,
+		globalSortingTable
+	])
 
 
 
 	const handleDefault = () => {
-		setLocalBrand('')
-		setLocalType('')
-		setLocalProcessor('')
-		setLocalVideocard('')
+		removeGlobalVideocard()
+		removeGlobalProcessor()
+		removeGlobalType()
+		removeGlobalBrand()
+		removeGlobalSortingTypes()
+		removeGlobalSortingTable()
+		removeGlobalPagination()
 	}
 
 
-	const renderCategory = (category, localState, setLocalState) => {
-		return (
-			<Dropdown.Item
-				style={{ cursor: 'pointer' }}
-				active={category.id === localState.id}
-				onClick={() => setLocalState(category)}
-				key={category.id}
-			>
-				{category.name}
-			</Dropdown.Item>
-		)
-	}
+	const sortingTypeArray = [
+		{ type: "от меньшего к большему", keyword: "ASC" },
+		{ type: "от большего к меньшему", keyword: "DESC" },
+	]
+
+	const sortingTableArray = [
+		{ type: "по цене", value: "totalPrice" },
+		{ type: "по дате добавления", value: "createdAt" },
+		{ type: "по названию", value: "name" },
+	]
 
 
 	return (
 		<div>
 			<h4>Фильтр</h4>
-			{<Dropdown className="mt-3 mb-3">
-				<Dropdown.Toggle className="btn-info">{localType.name || "Выберите тип"}</Dropdown.Toggle>
+
+			{<Dropdown className="mb-2">
+				<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">{globalType.name || "Выберите тип"}</Dropdown.Toggle>
 				<Dropdown.Menu >
 					{(isTypeLoading) && type.map(category =>
-						renderCategory(category, localType, setLocalType)
+						renderCategory(category, globalType, setGlobalType, removeGlobalPagination)
 					)}
 				</Dropdown.Menu>
 			</Dropdown>}
-			{<Dropdown className="mt-3 mb-3">
-				<Dropdown.Toggle className="btn-info">{localProcessor.name || "Выберите процессор"}</Dropdown.Toggle>
+
+			{<Dropdown className="mb-2">
+				<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">{globalProcessor.name || "Выберите процессор"}</Dropdown.Toggle>
 				<Dropdown.Menu>
 					{(isProcessorsLoading) && processor.map(category =>
-						renderCategory(category, localProcessor, setLocalProcessor)
+						renderCategory(category, globalProcessor, setGlobalProcessor, removeGlobalPagination)
 					)}
 				</Dropdown.Menu>
 			</Dropdown>}
-			{<Dropdown className="mt-3 mb-3">
-				<Dropdown.Toggle className="btn-info">{localVideocard.name || "Выберите видеокарту"}</Dropdown.Toggle>
+
+			{<Dropdown className="mb-2">
+				<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">{globalVideocard.name || "Выберите видеокарту"}</Dropdown.Toggle>
 				<Dropdown.Menu>
 					{(isVideocardsLoading) && videocard.map(category =>
-						renderCategory(category, localVideocard, setLocalVideocard)
+						renderCategory(category, globalVideocard, setGlobalVideocard, removeGlobalPagination)
 					)}
 				</Dropdown.Menu>
+
 			</Dropdown>}
-			{<Dropdown className="mt-3 mb-3">
-				<Dropdown.Toggle className="btn-info">{localBrand.name || "Выберите бренд"}</Dropdown.Toggle>
+
+			{<Dropdown className="mb-2">
+				<Dropdown.Toggle style={{ "width": "100%" }} style={{ "width": "100%" }} className="btn-info">{globalBrand.name || "Выберите бренд"}</Dropdown.Toggle>
 				<Dropdown.Menu>
 					{(isBrandLoading) && brand.map(category =>
-						renderCategory(category, localBrand, setLocalBrand)
+						renderCategory(category, globalBrand, setGlobalBrand, removeGlobalPagination)
 					)}
 				</Dropdown.Menu>
 			</Dropdown>}
+
+
+			<h5>Сортировка</h5>
+			<Dropdown className="mt-3 mb-3">
+				<Dropdown.Toggle className="btn-info">{globalSortingTable.type || "Сортировка"}</Dropdown.Toggle>
+				<Dropdown.Menu>
+					{sortingTableArray.map(sortTable =>
+						<Dropdown.Item
+							style={{ cursor: 'pointer' }}
+							active={sortTable.value === globalSortingTable.value}
+							onClick={() => setGlobalSortingTable(sortTable)}
+							key={sortTable.value}
+						>
+							{sortTable.type}
+						</Dropdown.Item>
+					)}
+				</Dropdown.Menu>
+			</Dropdown>
+
+			<Dropdown className="mt-3 mb-3">
+				<Dropdown.Toggle className="btn-info">{globalSortingType.type || "Сортировка"}</Dropdown.Toggle>
+				<Dropdown.Menu>
+					{sortingTypeArray.map(sortType =>
+						<Dropdown.Item
+							style={{ cursor: 'pointer' }}
+							active={sortType.keyword === globalSortingType.keyword}
+							onClick={() => setGlobalSortingTypes(sortType)}
+							key={sortType.keyword}
+						>
+							{sortType.type}
+						</Dropdown.Item>
+					)}
+				</Dropdown.Menu>
+			</Dropdown>
+
+
+
 			<Button
 				className="mt-3"
 				variant={"outline-dark"}

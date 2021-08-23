@@ -10,7 +10,7 @@ class BrandCointroller {
 		const brand = await Brand.findAll()
 		return res.json(brand)
 	}
-
 }
+
 
 module.exports = new BrandCointroller()
