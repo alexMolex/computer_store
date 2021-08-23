@@ -64,6 +64,13 @@ const ComputerCase = sequelize.define('computer_case', {
 	img: { type: DataTypes.STRING, allowNull: false },
 })
 
+const ComputerCase = sequelize.define('computer_case', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	name: { type: DataTypes.STRING, unique: true, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	img: { type: DataTypes.STRING, allowNull: false },
+})
+
 const Brand = sequelize.define('brand', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -129,6 +136,7 @@ OrderProcessing.belongsTo(User)
 
 OrderProcessing.hasMany(Contacts, { as: 'contacts' })
 Contacts.belongsTo(OrderProcessing)
+
 
 OrderProcessing.hasMany(Order, { as: 'order' })
 Order.belongsTo(OrderProcessing)

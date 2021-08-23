@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import ExtendedDevicePrice from "../devicePrice/ExtendedDevicePrice";
 import OrderProcessing from "../../pages/orderProcessing/OrderProcessingContainer";
+
+
 
 const ComputerCard = ({
 	isAuth,

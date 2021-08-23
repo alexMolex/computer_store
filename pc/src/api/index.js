@@ -174,8 +174,8 @@ export const getDeviceData = {
 
 export const getUserConfigDeviceData = {
 
-	fetchUserConfigDevicesApi(userId, page) {
-		return instance.get('api/config', { params: { userId, page } })
+	fetchUserConfigDevicesApi(userId) {
+		return instance.get('api/config', { params: { userId } })
 			.then(response => {
 				return response.data
 			})

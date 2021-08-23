@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 
 export const renderCategory = (category, localState, setLocalState, setLocalPrice) => {
@@ -52,6 +53,7 @@ const Categories = ({
 
 
 
+
 	useEffect(() => {
 
 		setDeviceData(
@@ -73,8 +75,6 @@ const Categories = ({
 		globalSortingType,
 		globalSortingTable
 	])
-
-
 
 	const handleDefault = () => {
 		removeGlobalVideocard()

@@ -55,7 +55,6 @@ const Configurator = ({
 	const [storageVolume, setStorageVolume] = useState(256)
 	const [overclocking, setOverclocking] = useState(false)
 	const [ram, setRam] = useState(4)
-	const [alertSuccess, setAllertSuccess] = useState(false)
 	const [isSubmitting, setIsSubmitting] = useState(false)
 
 	const price = process.env.REACT_APP_BASE_PRICE
