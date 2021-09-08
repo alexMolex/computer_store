@@ -20,8 +20,12 @@ const Device = sequelize.define('device', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
 	price: { type: DataTypes.INTEGER, allowNull: false },
+	totalPrice: { type: DataTypes.INTEGER, allowNull: false },
 	rating: { type: DataTypes.INTEGER, defaultValue: 0 },
-	img: { type: DataTypes.STRING, allowNull: false },
+	RAM: { type: DataTypes.INTEGER, allowNull: false },
+	SSD: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+	storageVolume: { type: DataTypes.INTEGER, allowNull: false },
+	overclocking: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
 })
 
 const UserConfigDevice = sequelize.define('user_config_device', {
@@ -34,10 +38,6 @@ const UserConfigDevice = sequelize.define('user_config_device', {
 })
 
 
-const UserConfigBaskeDevice = sequelize.define('user_config_basket_device', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-})
-
 const Type = sequelize.define('type', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -46,18 +46,42 @@ const Type = sequelize.define('type', {
 const Processor = sequelize.define('processor', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	brand: { type: DataTypes.STRING, allowNull: false },
+	socket: { type: DataTypes.STRING, allowNull: false },
+	coresThreads: { type: DataTypes.STRING, allowNull: false },
+	technicalProcess: { type: DataTypes.STRING, allowNull: false },
+	frequency: { type: DataTypes.STRING, allowNull: false },
+	memoryType: { type: DataTypes.STRING, allowNull: false },
+	overclock: { type: DataTypes.BOOLEAN, allowNull: false },
+	tdp: { type: DataTypes.STRING, allowNull: false },
+	integratedVideoCard: { type: DataTypes.BOOLEAN, allowNull: false },
+	integratedVideoCardName: { type: DataTypes.STRING, allowNull: true },
+	peakConsumption: { type: DataTypes.INTEGER, allowNull: true },
 })
 
 const Videocard = sequelize.define('videocard', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
+	price: { type: DataTypes.INTEGER, allowNull: false },
+	brand: { type: DataTypes.STRING, allowNull: false },
+	memoryValue: { type: DataTypes.INTEGER, allowNull: false },
+	frequency: { type: DataTypes.STRING, allowNull: false },
+	memoryType: { type: DataTypes.STRING, allowNull: false },
+	memoryBus: { type: DataTypes.INTEGER, allowNull: false },
+	peakConsumption: { type: DataTypes.INTEGER, allowNull: true },
 })
+
 
 const ComputerCase = sequelize.define('computer_case', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
 	price: { type: DataTypes.INTEGER, allowNull: false },
 	img: { type: DataTypes.STRING, allowNull: false },
+	lengthHeightWidth: { type: DataTypes.STRING, allowNull: false },
+	caseMaterials: { type: DataTypes.STRING, allowNull: false },
+	USB: { type: DataTypes.STRING, allowNull: false },
+	RGB: { type: DataTypes.BOOLEAN, allowNull: false },
 })
 
 const Brand = sequelize.define('brand', {
@@ -82,7 +106,10 @@ const OrderProcessing = sequelize.define('order_processing', {
 	adress: { type: DataTypes.STRING, allowNull: false },
 	price: { type: DataTypes.INTEGER, allowNull: false },
 	phoneNumber: { type: DataTypes.STRING, allowNull: false },
+	remark: { type: DataTypes.STRING, allowNull: true },
+	status: { type: DataTypes.STRING, allowNull: false },
 })
+
 
 const Contacts = sequelize.define('contacts_info', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -106,14 +133,11 @@ const TypeBrand = sequelize.define('type_brand', {
 
 
 
-
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
 User.hasMany(UserConfigDevice)
 UserConfigDevice.belongsTo(User)
-
-
 
 User.hasMany(Rating)
 Rating.belongsTo(User)
@@ -146,12 +170,6 @@ UserConfigDevice.belongsTo(Processor)
 Videocard.hasMany(UserConfigDevice, { as: 'config_videocard' })
 UserConfigDevice.belongsTo(Videocard)
 
-Basket.hasMany(UserConfigBaskeDevice)
-UserConfigBaskeDevice.belongsTo(Basket)
-
-UserConfigDevice.hasMany(UserConfigBaskeDevice)
-UserConfigBaskeDevice.belongsTo(UserConfigDevice)
-
 Basket.hasMany(BasketDevice)
 BasketDevice.belongsTo(Basket)
 
@@ -164,8 +182,8 @@ Device.belongsTo(Brand)
 Processor.hasMany(Device)
 Device.belongsTo(Processor)
 
-// ComputerCase.hasMany(Device)
-// Device.belongsTo(ComputerCase)
+ComputerCase.hasMany(Device)
+Device.belongsTo(ComputerCase)
 
 Videocard.hasMany(Device)
 Device.belongsTo(Videocard)
@@ -175,8 +193,6 @@ Rating.belongsTo(Device)
 
 Device.hasMany(BasketDevice)
 BasketDevice.belongsTo(Device)
-
-
 
 Device.hasMany(DeviceInfo, { as: 'info' })
 DeviceInfo.belongsTo(Device)
@@ -201,7 +217,6 @@ module.exports = {
 	Contacts,
 	Order,
 	TypeBrand,
-	UserConfigBaskeDevice,
 	UserConfigDevice,
 	ComputerCase,
 }

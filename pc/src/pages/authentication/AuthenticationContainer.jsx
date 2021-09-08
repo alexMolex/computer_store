@@ -7,7 +7,11 @@ import { setLoginAuthUserData, setRegistrationAuthUserData } from '../../redux/a
 
 const mapState = state => {
 	return {
-		isAuth: state.checkAuthReducer.isAuth
+		isAuth: state.checkAuthReducer.isAuth,
+		loginErrorMessage: state.checkAuthReducer.loginErrorMessage,
+		isLoginErrorMessageReceived: state.checkAuthReducer.isLoginErrorMessageReceived,
+		registrationErrorMessage: state.checkAuthReducer.registrationErrorMessage,
+		isRegistrationErrorMessageReceived: state.checkAuthReducer.isRegistrationErrorMessageReceived,
 	}
 }
 

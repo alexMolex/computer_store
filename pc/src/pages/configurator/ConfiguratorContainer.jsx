@@ -8,7 +8,10 @@ import {
 	removeGlobalVideocard,
 	removeGlobalProcessor,
 	getUserConfigDevices,
-	createUserConfigDevice
+	createUserConfigDevice,
+	createOrderProcessingData,
+	deleteUserConfigDevice,
+	removeIsOneUserConfigLoading,
 } from "../../redux/actions/actions";
 
 
@@ -24,8 +27,12 @@ const mapState = state => ({
 	globalVideocard: state.deviceVideocard.globalVideocard,
 	isUserConfigDeviceLoading: state.userConfigDevice.isUserConfigDeviceLoading,
 	userConfigDevices: state.userConfigDevice.userConfigDevices,
+	isCreatingConfigDeviceFailer: state.userConfigDevice.isCreatingConfigDeviceFailer,
+	creatingConfigDeviceAlert: state.userConfigDevice.creatingConfigDeviceAlert,
 	computerCase: state.computerCase.data,
-	isComputerCasesLoading: state.computerCase.isComputerCasesLoading
+	isComputerCasesLoading: state.computerCase.isComputerCasesLoading,
+	count: state.computerCase.count,
+	configCount: state.userConfigDevice.count,
 })
 
 
@@ -36,7 +43,10 @@ const mapDispatch = {
 	removeGlobalVideocard,
 	removeGlobalProcessor,
 	getUserConfigDevices,
-	createUserConfigDevice
+	createUserConfigDevice,
+	createOrderProcessingData,
+	deleteUserConfigDevice,
+	removeIsOneUserConfigLoading
 }
 
 const ConfiguratorContainer = connect(mapState, mapDispatch)(Configurator);

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 
 
-import Order from './modals/Order';
-
+import Order from '../../components/modals/Order';
 
 
 const OrderProcessing = ({
@@ -14,19 +13,36 @@ const OrderProcessing = ({
 	buttonName,
 	processorId,
 	videocardId,
+	computerCaseId,
+	RAM,
+	overclocking,
+	storageVolume,
+	ssd,
+	computerCase,
+	videocard,
+	processor,
+	userContactData,
+
 }) => {
 
 	const [orderVisible, setOrderVisible] = useState(false)
+
+
 
 	return (
 		<div >
 			<Container className="d-flex flex-column" >
 				<Button
-					variant={'outline-dark'}
-					className="mt-2 pt-2"
+
+					className="mt-1 mb-2 btn btn-success"
 					onClick={() => setOrderVisible(true)}
 				>
-					{buttonName}
+					{
+						buttonName.length > 20 ?
+							<h6>{buttonName}</h6> :
+							<h5>{buttonName}</h5>
+					}
+
 				</Button>
 
 				<Order
@@ -37,7 +53,17 @@ const OrderProcessing = ({
 					processorId={processorId}
 					videocardId={videocardId}
 					show={orderVisible}
+					computerCaseId={computerCaseId}
 					onHide={() => setOrderVisible(false)}
+					RAM={RAM}
+					orderOverclocking={overclocking}
+					orderStorageVolume={storageVolume}
+					orderSsd={ssd}
+					computerCase={computerCase || 0}
+					videocard={videocard || 0}
+					processor={processor || 0}
+					userContactData={userContactData || ""}
+
 				/>
 
 			</Container>

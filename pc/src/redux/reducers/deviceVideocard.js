@@ -6,7 +6,8 @@ import {
 
 
 const initialState = {
-	isVideocardsLoading: false
+	isVideocardsLoading: false,
+	globalVideocard: { price: 0 }
 }
 
 const deviceVideocards = (state = initialState, action) => {
@@ -25,7 +26,7 @@ const deviceVideocards = (state = initialState, action) => {
 		case REMOVE_GLOBAL_VIDEOCARD:
 			return {
 				...state,
-				globalVideocard: {}
+				globalVideocard: { price: 0 }
 			}
 		default:
 			return state

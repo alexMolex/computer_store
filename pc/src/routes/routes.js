@@ -7,6 +7,9 @@ import ComputersContainer from '../pages/computers/ComputersContainer.jsx';
 import Header from '../components/header/HeaderContainer';
 const AdminPanelContainer = lazy(() => import('../pages/adminPanel/AdminPanelContainer.jsx'));
 const Contacts = lazy(() => import('../pages/contacts/Contacts.jsx'));
+const OneOrder = lazy(() => import('../pages/oneOrderPage/OneOrderPageContainer'));
+const OneConfigDevice = lazy(() => import('../pages/oneUserConfigDevice/OneUserConfigDeviceContainer'));
+const Comparison = lazy(() => import('../pages/comparison/ComprasionContainer'));
 const Basket = lazy(() => import('../pages/basket/BasketContainer.jsx'));
 const AuthenticationContainer = lazy(() => import('../pages/authentication/AuthenticationContainer.jsx'));
 
@@ -22,15 +25,18 @@ const Routes = () => {
 			<Suspense fallback={
 				<>
 					<Header />
-					<div className="container">Загрузка...</div>
+					<div className="container"><h1 className="d-flex justify-content-center">Загрузка...</h1> </div>
 				</>
 			}>
-				<Route path="/contacts" component={Contacts} />
+				<Route path="/comparison" component={Comparison} />
 				<Route path="/basket" component={Basket} />
 				<Route path="/home-assembling" component={Contacts} />
 				<Route path="/adminPanel" component={AdminPanelContainer} />
 				<Route path="/login" component={AuthenticationContainer} />
 				<Route path="/register" component={AuthenticationContainer} />
+				<Route path="/oneOrder/:id" component={OneOrder} />
+				<Route path="/oneConfig/:id" component={OneConfigDevice} />
+
 			</Suspense>
 
 		</Switch>

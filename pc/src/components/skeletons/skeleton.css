@@ -1,0 +1,78 @@
+.card{
+	min-width: 250px;
+	margin: 5px;
+	padding: 5px;
+	width: 30%;
+	height: 470px;
+	border-radius: 10px;
+	border: 1px solid #d9d9d9;
+
+	opacity:0; 
+	animation: show 2s 1; 
+	animation-fill-mode: forwards; 
+}
+
+.img{
+	height: 230px;
+	width: 100%;
+	border-radius: 8px;
+	background: #d9d9d9;
+	animation: shimmer 1s linear infinite alternate;
+}
+
+.details span{
+	display: block;
+	background: #d9d9d9;
+	animation: shimmer 1s linear infinite alternate;
+
+}
+.details .price{
+	margin-top: 10px;
+	width: 130px;
+	height: 33px;
+	border-radius: 8px;
+	background: #d9d9d9;
+}
+.details .name{
+	margin-top: 10px;
+	width: 150px;
+	height: 33px;
+	border-radius: 8px;
+	background: #d9d9d9;
+}
+.details .text{
+	margin-top: 8px;
+	height: 16px;
+	border-radius: 4px;
+	background: #d9d9d9;
+}
+.card .btns{
+	display: flex;
+}
+.card .btns .btn{
+	margin: 14px 4px 4px 0px;
+	height: 40px;
+	width: 100%;
+	background: #d9d9d9;
+	border-radius: 25px;
+	animation: shimmer 1s linear infinite alternate;
+}
+
+
+@keyframes shimmer{
+	0%{
+		background-color: rgba(34, 34, 34, 0.15) ;
+	}
+	100%{
+		background-color: rgba(0,0,0,0.25);
+	}
+}
+
+@keyframes show{
+	0%{
+		opacity:0 ;
+	}
+	100%{
+		opacity:1;
+	}
+}

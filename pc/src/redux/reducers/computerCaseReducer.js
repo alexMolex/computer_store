@@ -12,8 +12,9 @@ const computerCase = (state = initialState, action) => {
 		case FETCH_COMPUTER_CASE_SUCCESS:
 			return {
 				...state,
-				data: [...action.payload],
+				data: [...action.payload.rows],
 				isComputerCasesLoading: true,
+				count: action.payload.count
 			}
 		default:
 			return state

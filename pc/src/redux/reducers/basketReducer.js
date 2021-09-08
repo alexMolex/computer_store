@@ -1,5 +1,6 @@
 import {
 	FETCH_BASKET_DEVICES_SUCCESS,
+	SET_GLOBAL_BASKET_TOGGLE,
 } from "../actions/actionTypes/index"
 
 
@@ -7,6 +8,7 @@ const initialState = {
 	isBasketDevicesLoading: false,
 	data: [],
 	basketDevicesIds: [],
+	configVisible: false,
 }
 
 const basketDevices = (state = initialState, action) => {
@@ -20,6 +22,12 @@ const basketDevices = (state = initialState, action) => {
 				)],
 				isBasketDevicesLoading: true
 			}
+		case SET_GLOBAL_BASKET_TOGGLE:
+			return {
+				...state,
+				configVisible: action.payload,
+			}
+
 		default:
 			return state
 	}

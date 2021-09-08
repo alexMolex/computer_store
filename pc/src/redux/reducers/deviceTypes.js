@@ -1,11 +1,13 @@
 import {
 	FETCH_TYPES_SUCCESS,
-	// CREATE_DEVICE_TYPE_SUCCESS
+	GET_GLOBAL_TYPES,
+	REMOVE_GLOBAL_TYPES,
 } from "../actions/actionTypes/index"
 
 
 const initialState = {
-	isTypeLoading: false
+	isTypeLoading: false,
+	globalType: {}
 }
 
 const deviceTypes = (state = initialState, action) => {
@@ -16,12 +18,16 @@ const deviceTypes = (state = initialState, action) => {
 				data: [...action.payload],
 				isTypeLoading: true
 			}
-		// case CREATE_DEVICE_TYPE_SUCCESS:
-		// 	return {
-		// 		...state,
-		// 		data: [...action.payload.data],
-		// 		isTypeLoading: true
-		// 	}
+		case GET_GLOBAL_TYPES:
+			return {
+				...state,
+				globalType: action.payload,
+			}
+		case REMOVE_GLOBAL_TYPES:
+			return {
+				...state,
+				globalType: {}
+			}
 		default:
 			return state
 	}

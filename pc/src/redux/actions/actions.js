@@ -1,5 +1,4 @@
 import {
-	SEARCH_COMPUTER,
 	SET_USER_DATA,
 	SET_USER_FAILER,
 	SET_USER_SUCCESS,
@@ -19,6 +18,7 @@ import {
 	FETCH_DEVICE_START,
 	FETCH_DEVICE_FAILER,
 	FETCH_DEVICE_SUCCESS,
+	REMOVE_DEVICE_IS_LOADING,
 	FETCH_ONE_DEVICE_START,
 	FETCH_ONE_DEVICE_FAILER,
 	FETCH_ONE_DEVICE_SUCCESS,
@@ -31,6 +31,9 @@ import {
 	CREATE_DEVICE_START,
 	CREATE_DEVICE_FAILER,
 	CREATE_DEVICE_SUCCESS,
+	UPDATE_DEVICE_PRICE_START,
+	UPDATE_DEVICE_PRICE_FAILER,
+	UPDATE_DEVICE_PRICE_SUCCESS,
 	FETCH_PROCESSORS_START,
 	FETCH_PROCESSORS_FAILER,
 	FETCH_PROCESSORS_SUCCESS,
@@ -56,12 +59,19 @@ import {
 	DELETE_BASKET_DEVICES_START,
 	DELETE_BASKET_DEVICES_FAILER,
 	DELETE_BASKET_DEVICES_SUCCESS,
+	SET_GLOBAL_BASKET_TOGGLE,
 	CREATE_ORDER_START,
 	CREATE_ORDER_FAILER,
 	CREATE_ORDER_SUCCESS,
+	UPDATE_ORDER_STATUS_START,
+	UPDATE_ORDER_STATUS_FAILER,
+	UPDATE_ORDER_STATUS_SUCCESS,
 	FETCH_ORDER_START,
 	FETCH_ORDER_FAILER,
 	FETCH_ORDER_SUCCESS,
+	FETCH_ONE_ORDER_START,
+	FETCH_ONE_ORDER_FAILER,
+	FETCH_ONE_ORDER_SUCCESS,
 	FETCH_USER_ORDERS_START,
 	FETCH_USER_ORDERS_FAILER,
 	FETCH_USER_ORDERS_SUCCESS,
@@ -71,12 +81,42 @@ import {
 	FETCH_USER_CONFIG_DEVICE_START,
 	FETCH_USER_CONFIG_DEVICE_FAILER,
 	FETCH_USER_CONFIG_DEVICE_SUCCESS,
+	FETCH_ONE_USER_CONFIG_DEVICE_START,
+	FETCH_ONE_USER_CONFIG_DEVICE_FAILER,
+	FETCH_ONE_USER_CONFIG_DEVICE_SUCCESS,
+	REMOVE_IS_ONE_USER_CONFIG_LOADING,
+	DELETE_USER_CONFIG_DEVICE_START,
+	DELETE_USER_CONFIG_DEVICE_FAILER,
+	DELETE_USER_CONFIG_DEVICE_SUCCESS,
 	CREATE_COMPUTER_CASE_START,
 	CREATE_COMPUTER_CASE_FAILER,
 	CREATE_COMPUTER_CASE_SUCCESS,
 	FETCH_COMPUTER_CASE_START,
 	FETCH_COMPUTER_CASE_FAILER,
 	FETCH_COMPUTER_CASE_SUCCESS,
+	UPDATE_PROCESSOR_PRICE_START,
+	UPDATE_PROCESSOR_PRICE_FAILER,
+	UPDATE_PROCESSOR_PRICE_SUCCESS,
+	UPDATE_COMPUTER_CASE_PRICE_START,
+	UPDATE_COMPUTER_CASE_PRICE_FAILER,
+	UPDATE_COMPUTER_CASE_PRICE_SUCCESS,
+	UPDATE_VIDEOCARD_PRICE_START,
+	UPDATE_VIDEOCARD_PRICE_FAILER,
+	UPDATE_VIDEOCARD_PRICE_SUCCESS,
+	GET_GLOBAL_TYPES,
+	REMOVE_GLOBAL_TYPES,
+	GET_GLOBAL_SORTING_TYPES,
+	REMOVE_GLOBAL_SORTING_TYPES,
+	GET_GLOBAL_SORTING_TABLE,
+	REMOVE_GLOBAL_SORTING_TABLE,
+	GET_GLOBAL_PAGINATION,
+	REMOVE_GLOBAL_PAGINATION,
+	GET_GLOBAL_BRAND,
+	REMOVE_GLOBAL_BRAND,
+	ADD_DEVICE_TO_COMPARE_TURN,
+	REMOVE_DEVICE_FROM_COMPARE_TURN,
+	SET_COMPARE_DEVICE_INDEX1,
+	SET_COMPARE_DEVICE_INDEX2,
 } from "./actionTypes"
 import {
 	getAuthUserData,
@@ -87,21 +127,14 @@ import {
 	getDeviceVideocardData,
 	getComputerCaseData,
 	setBasketData,
+
 	setOrderProcessingData,
 	getUserConfigDeviceData,
 } from "../../api/index"
 
 
 
-export const serchComputers = text => dispatch => {
-	dispatch({
-		type: SEARCH_COMPUTER,
-		payload: text
-	})
-
-}
-
-// Авторизация
+// ========================== Авторизация
 
 export const setAuthUserData = () => async dispatch => {
 	dispatch({
@@ -127,16 +160,18 @@ export const setLoginAuthUserData = (email, password) => async dispatch => {
 		type: SET_USER_LOGIN_START
 	});
 
+
 	try {
+		let response = await getAuthUserData.loginApi(email, password);
 		dispatch({
 			type: SET_USER_LOGIN_SUCCESS,
-			payload: await getAuthUserData.loginApi(email, password)
+			payload: response,
 		})
 	} catch (error) {
 		dispatch({
 			type: SET_USER_LOGIN_FAILER,
 			payload: error,
-			error: true
+
 		})
 	}
 }
@@ -169,7 +204,7 @@ export const setRegistrationAuthUserData = (email, password) => async dispatch =
 }
 
 
-// Типы
+// ==================== Типы
 
 export const setDeviceTypeData = () => async dispatch => {
 	dispatch({
@@ -209,7 +244,21 @@ export const setCreateDeviceType = (type) => async dispatch => {
 	}
 }
 
-// Бренды
+
+export const setGlobalType = type => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_TYPES,
+		payload: type,
+	})
+}
+
+export const removeGlobalType = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_TYPES,
+	})
+}
+
+// ================== Бренды
 
 export const setDeviceBrandData = () => async dispatch => {
 	dispatch({
@@ -250,9 +299,68 @@ export const setCreateDeviceBrand = (brand) => async dispatch => {
 }
 
 
-// Устройства
+export const setGlobalBrand = brand => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_BRAND,
+		payload: brand,
+	})
+}
 
-export const setDeviceData = (brandId, typeId, processorId, videocardId, limit, page) => async dispatch => {
+export const removeGlobalBrand = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_BRAND,
+	})
+}
+
+
+// ================= сортировка
+
+
+
+export const setGlobalSortingTypes = sortingType => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_SORTING_TYPES,
+		payload: sortingType,
+	})
+}
+
+export const removeGlobalSortingTypes = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_SORTING_TYPES,
+	})
+}
+
+
+export const setGlobalSortingTable = sortingTable => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_SORTING_TABLE,
+		payload: sortingTable,
+	})
+}
+
+export const removeGlobalSortingTable = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_SORTING_TABLE,
+	})
+}
+
+
+export const setGlobalPagination = page => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_PAGINATION,
+		payload: page,
+	})
+}
+
+export const removeGlobalPagination = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_PAGINATION,
+	})
+}
+
+// ================ Устройства
+
+export const setDeviceData = (limit, page, brandId, typeId, processorId, videocardId, sortingType, sortingTable) => async dispatch => {
 	dispatch({
 		type: FETCH_DEVICE_START
 	});
@@ -260,15 +368,20 @@ export const setDeviceData = (brandId, typeId, processorId, videocardId, limit, 
 	try {
 		dispatch({
 			type: FETCH_DEVICE_SUCCESS,
-			payload: await getDeviceData.fetchDevicesApi(brandId, typeId, processorId, videocardId, limit, page)
+			payload: await getDeviceData.fetchDevicesApi(limit, page, brandId, typeId, processorId, videocardId, sortingType, sortingTable)
 		})
 	} catch (error) {
 		dispatch({
 			type: FETCH_DEVICE_FAILER,
 			payload: error,
-			error: true
 		})
 	}
+}
+
+export const removeDeviceIsLoading = () => dispatch => {
+	dispatch({
+		type: REMOVE_DEVICE_IS_LOADING,
+	})
 }
 
 export const setOneDeviceData = (id) => async dispatch => {
@@ -285,7 +398,6 @@ export const setOneDeviceData = (id) => async dispatch => {
 		dispatch({
 			type: FETCH_ONE_DEVICE_FAILER,
 			payload: error,
-			error: true
 		})
 	}
 }
@@ -298,19 +410,42 @@ export const setCreateDevice = (device) => async dispatch => {
 	try {
 		dispatch({
 			type: CREATE_DEVICE_SUCCESS,
-			payload: await getDeviceData.createDeviceApi(device)
+			payload: await getDeviceData.createDeviceApi(device),
+			alert: true,
 		})
 	} catch (error) {
 		dispatch({
 			type: CREATE_DEVICE_FAILER,
+			payload: true,
+		})
+		setTimeout(() => {
+			dispatch({
+				type: CREATE_DEVICE_FAILER,
+				payload: false,
+			})
+		}, 3000)
+	}
+}
+
+export const setUpdateDevicePrice = (deviceId, updatePrice) => async dispatch => {
+	dispatch({
+		type: UPDATE_DEVICE_PRICE_START
+	});
+
+	try {
+		dispatch({
+			type: UPDATE_DEVICE_PRICE_SUCCESS,
+			payload: await getDeviceData.updateDevicePriceApi(deviceId, updatePrice)
+		})
+	} catch (error) {
+		dispatch({
+			type: UPDATE_DEVICE_PRICE_FAILER,
 			payload: error,
-			error: true
 		})
 	}
 }
 
-
-// Процессоры
+// ================= Процессоры
 
 
 export const setDeviceProcessorData = () => async dispatch => {
@@ -326,6 +461,26 @@ export const setDeviceProcessorData = () => async dispatch => {
 	} catch (error) {
 		dispatch({
 			type: FETCH_PROCESSORS_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+
+export const setUpdateProcessorPriceData = (processorId, updatePrice) => async dispatch => {
+	dispatch({
+		type: UPDATE_PROCESSOR_PRICE_START
+	});
+
+	try {
+		dispatch({
+			type: UPDATE_PROCESSOR_PRICE_SUCCESS,
+			payload: await getDeviceProcessorData.updateProcessorPriceApi(processorId, updatePrice)
+		})
+	} catch (error) {
+		dispatch({
+			type: UPDATE_PROCESSOR_PRICE_FAILER,
 			payload: error,
 			error: true
 		})
@@ -366,7 +521,7 @@ export const setCreateDeviceProcessor = (processor) => async dispatch => {
 
 
 
-// Видеокарты
+//======================= Видеокарты
 
 export const setDeviceVideocardData = () => async dispatch => {
 	dispatch({
@@ -381,6 +536,25 @@ export const setDeviceVideocardData = () => async dispatch => {
 	} catch (error) {
 		dispatch({
 			type: FETCH_VIDEOCARDS_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+export const setUpdateVideocardPriceData = (videocardId, updatePrice) => async dispatch => {
+	dispatch({
+		type: UPDATE_VIDEOCARD_PRICE_START
+	});
+
+	try {
+		dispatch({
+			type: UPDATE_VIDEOCARD_PRICE_SUCCESS,
+			payload: await getDeviceVideocardData.updateVideocardPriceApi(videocardId, updatePrice)
+		})
+	} catch (error) {
+		dispatch({
+			type: UPDATE_VIDEOCARD_PRICE_FAILER,
 			payload: error,
 			error: true
 		})
@@ -419,10 +593,11 @@ export const setCreateDeviceVideocard = (videocard) => async dispatch => {
 	}
 }
 
+
+
 //  ============ Корпус
 
-
-export const setComputerCaseData = () => async dispatch => {
+export const setComputerCaseData = (page) => async dispatch => {
 	dispatch({
 		type: FETCH_COMPUTER_CASE_START
 	});
@@ -430,7 +605,7 @@ export const setComputerCaseData = () => async dispatch => {
 	try {
 		dispatch({
 			type: FETCH_COMPUTER_CASE_SUCCESS,
-			payload: await getComputerCaseData.fetchCasesApi()
+			payload: await getComputerCaseData.fetchCasesApi(page)
 		})
 	} catch (error) {
 		dispatch({
@@ -441,6 +616,25 @@ export const setComputerCaseData = () => async dispatch => {
 	}
 }
 
+
+export const setUpdateComputerCasePriceData = (computerCaseId, updatePrice) => async dispatch => {
+	dispatch({
+		type: UPDATE_COMPUTER_CASE_PRICE_START
+	});
+
+	try {
+		dispatch({
+			type: UPDATE_COMPUTER_CASE_PRICE_SUCCESS,
+			payload: await getComputerCaseData.updateComputerCasePriceApi(computerCaseId, updatePrice)
+		})
+	} catch (error) {
+		dispatch({
+			type: UPDATE_COMPUTER_CASE_PRICE_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
 
 export const setCreateComputerCase = (computerCase) => async dispatch => {
 	dispatch({
@@ -462,9 +656,8 @@ export const setCreateComputerCase = (computerCase) => async dispatch => {
 }
 
 
+
 // ============ корзина
-
-
 
 export const getBasketDevicesData = (basketId, deviceId) => async dispatch => {
 	dispatch({
@@ -483,6 +676,13 @@ export const getBasketDevicesData = (basketId, deviceId) => async dispatch => {
 			error: true
 		})
 	}
+}
+
+export const setBasketConfigDeviceToggle = (boolean) => dispatch => {
+	dispatch({
+		type: SET_GLOBAL_BASKET_TOGGLE,
+		payload: boolean,
+	})
 }
 
 export const createBasketDevicesData = (basketId, deviceId) => async dispatch => {
@@ -504,7 +704,6 @@ export const createBasketDevicesData = (basketId, deviceId) => async dispatch =>
 	}
 }
 
-
 export const deleteBasketDevicesData = (id) => async dispatch => {
 	dispatch({
 		type: DELETE_BASKET_DEVICES_START
@@ -525,8 +724,8 @@ export const deleteBasketDevicesData = (id) => async dispatch => {
 }
 
 
-// ========== Обработка заказов
 
+// ========== Обработка заказов
 
 
 export const createOrderProcessingData = (order) => async dispatch => {
@@ -542,14 +741,59 @@ export const createOrderProcessingData = (order) => async dispatch => {
 	} catch (error) {
 		dispatch({
 			type: CREATE_ORDER_FAILER,
+			payload: true,
+			error: true
+		})
+		setTimeout(() => {
+			dispatch({
+				type: CREATE_ORDER_FAILER,
+				payload: false,
+				error: false
+			})
+		}, 3000)
+	}
+}
+
+
+export const getOneOrderProcessingData = (id) => async dispatch => {
+	dispatch({
+		type: FETCH_ONE_ORDER_START
+	});
+
+	try {
+		dispatch({
+			type: FETCH_ONE_ORDER_SUCCESS,
+			payload: await setOrderProcessingData.fetchOneOrderApi(id)
+		})
+	} catch (error) {
+		dispatch({
+			type: FETCH_ONE_ORDER_FAILER,
+			payload: error,
+		})
+	}
+}
+
+
+export const updateOrderStatusData = (orderId, updateStatus) => async dispatch => {
+	dispatch({
+		type: UPDATE_ORDER_STATUS_START
+	});
+
+	try {
+		dispatch({
+			type: UPDATE_ORDER_STATUS_SUCCESS,
+			payload: await setOrderProcessingData.updateOrderStatusApi(orderId, updateStatus)
+		})
+	} catch (error) {
+		dispatch({
+			type: UPDATE_ORDER_STATUS_FAILER,
 			payload: error,
 			error: true
 		})
 	}
 }
 
-
-export const getOrderProcessingData = () => async dispatch => {
+export const getOrderProcessingData = (page) => async dispatch => {
 	dispatch({
 		type: FETCH_ORDER_START
 	});
@@ -557,7 +801,7 @@ export const getOrderProcessingData = () => async dispatch => {
 	try {
 		dispatch({
 			type: FETCH_ORDER_SUCCESS,
-			payload: await setOrderProcessingData.getOrderApi()
+			payload: await setOrderProcessingData.getOrderApi(page)
 		})
 	} catch (error) {
 		dispatch({
@@ -590,9 +834,9 @@ export const getUserOrdersProcessingData = (basketId) => async dispatch => {
 }
 
 
+
+
 // ========= Сконфигурированные устройства
-
-
 
 
 export const createUserConfigDevice = (configDevice) => async dispatch => {
@@ -603,19 +847,33 @@ export const createUserConfigDevice = (configDevice) => async dispatch => {
 	try {
 		dispatch({
 			type: CREATE_USER_CONFIG_DEVICE_SUCCESS,
-			payload: await getUserConfigDeviceData.createUserConfigDeviceApi(configDevice)
+			payload: await getUserConfigDeviceData.createUserConfigDeviceApi(configDevice),
+			alert: true,
 		})
+		setTimeout(() => {
+			dispatch({
+				type: CREATE_USER_CONFIG_DEVICE_SUCCESS,
+				alert: false,
+			})
+		}, 3000)
 	} catch (error) {
 		dispatch({
 			type: CREATE_USER_CONFIG_DEVICE_FAILER,
-			payload: error,
+			payload: true,
 			error: true
 		})
+		setTimeout(() => {
+			dispatch({
+				type: CREATE_USER_CONFIG_DEVICE_FAILER,
+				payload: false,
+				error: false
+			})
+		}, 3000)
 	}
 }
 
 
-export const getUserConfigDevices = (userId) => async dispatch => {
+export const getUserConfigDevices = (userId, page) => async dispatch => {
 	dispatch({
 		type: FETCH_USER_CONFIG_DEVICE_START
 	});
@@ -623,7 +881,7 @@ export const getUserConfigDevices = (userId) => async dispatch => {
 	try {
 		dispatch({
 			type: FETCH_USER_CONFIG_DEVICE_SUCCESS,
-			payload: await getUserConfigDeviceData.fetchUserConfigDevicesApi(userId)
+			payload: await getUserConfigDeviceData.fetchUserConfigDevicesApi(userId, page)
 		})
 	} catch (error) {
 		dispatch({
@@ -632,4 +890,82 @@ export const getUserConfigDevices = (userId) => async dispatch => {
 			error: true
 		})
 	}
+}
+
+
+export const getOneUserConfigDevice = (userId, id) => async dispatch => {
+	dispatch({
+		type: FETCH_ONE_USER_CONFIG_DEVICE_START
+	});
+
+	try {
+		dispatch({
+			type: FETCH_ONE_USER_CONFIG_DEVICE_SUCCESS,
+			payload: await getUserConfigDeviceData.fetchOneConfigDeviceApi(userId, id)
+		})
+	} catch (error) {
+		dispatch({
+			type: FETCH_ONE_USER_CONFIG_DEVICE_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+export const removeIsOneUserConfigLoading = () => dispatch => {
+	dispatch({
+		type: REMOVE_IS_ONE_USER_CONFIG_LOADING,
+	})
+}
+
+
+export const deleteUserConfigDevice = (id) => async dispatch => {
+	dispatch({
+		type: DELETE_USER_CONFIG_DEVICE_START
+	});
+
+	try {
+		dispatch({
+			type: DELETE_USER_CONFIG_DEVICE_SUCCESS,
+			payload: await getUserConfigDeviceData.deleteUserConfigDeviceApi(id)
+		})
+	} catch (error) {
+		dispatch({
+			type: DELETE_USER_CONFIG_DEVICE_FAILER,
+			payload: error,
+			error: true
+		})
+	}
+}
+
+
+
+// ============= cравнение 
+
+export const setCompareDeviceIndext1 = (index) => dispatch => {
+	dispatch({
+		type: SET_COMPARE_DEVICE_INDEX1,
+		payload: index
+	})
+}
+
+export const setCompareDeviceIndext2 = (index) => dispatch => {
+	dispatch({
+		type: SET_COMPARE_DEVICE_INDEX2,
+		payload: index
+	})
+}
+
+export const addDeviceToCompareTurn = (device) => dispatch => {
+	dispatch({
+		type: ADD_DEVICE_TO_COMPARE_TURN,
+		payload: device
+	})
+}
+
+export const removeDeviceFromCompareTurn = (device) => dispatch => {
+	dispatch({
+		type: REMOVE_DEVICE_FROM_COMPARE_TURN,
+		payload: device
+	})
 }

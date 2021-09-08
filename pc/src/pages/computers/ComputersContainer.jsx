@@ -6,7 +6,7 @@ import { setOneDeviceData } from "../../redux/actions/actions";
 
 
 const mapState = state => ({
-	computer: state.deviceReducer,
+	computer: state.deviceReducer.oneDeviceData,
 	isOneDeviceLoading: state.deviceReducer.isOneDeviceLoading,
 })
 

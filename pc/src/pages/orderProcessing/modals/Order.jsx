@@ -204,14 +204,6 @@ const Order = ({
 										}}
 								/>
 							</Col>
-							{/* <Col md={4}>
-								<Button
-									variant={"outline-danger"}
-									onClick={() => removeOrder(i.number)}
-								>
-									Удалить
-								</Button>
-							</Col> */}
 						</Row>
 
 					)}

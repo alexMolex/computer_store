@@ -6,7 +6,8 @@ import {
 
 
 const initialState = {
-	isProcessorsLoading: false
+	isProcessorsLoading: false,
+	globalProcessor: { price: 0 }
 }
 
 const deviceProcessors = (state = initialState, action) => {
@@ -25,7 +26,7 @@ const deviceProcessors = (state = initialState, action) => {
 		case REMOVE_GLOBAL_PROCESSOR:
 			return {
 				...state,
-				globalProcessor: {}
+				globalProcessor: { price: 0 }
 			}
 		default:
 			return state

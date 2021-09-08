@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/HeaderContainer';
-import { Button, Dropdown, Image, Row, Spinner, Modal } from 'react-bootstrap';
+import { Button, Dropdown, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { renderCategory } from "../../components/categories/Categories";
 import Counter from "../../components/counter/Counter";
 
+import SelectCaseModal from "../../components/modals/SelectCaseModal";
+import ConfigDeviceCard from "../../components/configDeviceCard/ConfigDeviceCard";
+import useTotalDevicePrice from "../../hooks/useTotalDevicePrice";
+import Pages from "../../components/pagination/OtherPagination";
+import IsCreateOrderFailer from "../../components/isCreateFailer/IsCreateOrderFailerContainer";
+
+import "./configurator.css";
+
 const Configurator = ({
 	globalProcessor,
 	globalVideocard,
+	createOrderProcessingData,
 	userId,
 	isAuth,
 	isProcessorsLoading,
@@ -25,29 +34,69 @@ const Configurator = ({
 	isUserConfigDeviceLoading,
 	isComputerCasesLoading,
 	userConfigDevices,
-	createUserConfigDevice
+	createUserConfigDevice,
+	deleteUserConfigDevice,
+	isCreatingConfigDeviceFailer,
+	creatingConfigDeviceAlert,
+	removeIsOneUserConfigLoading,
+	count,
+	configCount,
 }) => {
 
+
 	const [localProcessor, setLocalProcessor] = useState(globalProcessor || '')
+	const [localProcessorPrice, setLocalProcessorPrice] = useState(globalProcessor.price || 0)
 	const [localVideocard, setlocalVideocard] = useState(globalVideocard || '')
+	const [localVideocardPrice, setlocalVideocardPrice] = useState(globalVideocard.price || 0)
 	const [localComputerCase, setLocalComputerCase] = useState('')
+	const [localComputerCasePrice, setLocalComputerCasePrice] = useState(0)
 	const [caseVisible, setCaseVisible] = useState(false)
 	const [ssd, setSsd] = useState(false)
-	const [storageVolume, setStorageVolume] = useState(128)
+	const [storageVolume, setStorageVolume] = useState(256)
 	const [overclocking, setOverclocking] = useState(false)
 	const [ram, setRam] = useState(4)
+	const [isSubmitting, setIsSubmitting] = useState(false)
+
+	const price = process.env.REACT_APP_BASE_PRICE
+
+	const { totaHookPrice } = useTotalDevicePrice(
+		{
+			localProcessorPrice,
+			localVideocardPrice,
+			localComputerCasePrice,
+			ssd,
+			storageVolume,
+			ram,
+			overclocking,
+			price
+		}
+	)
 
 	useEffect(() => {
 		getUserConfigDevices(userId)
+		removeIsOneUserConfigLoading()
 		setComputerCaseData()
 		setDeviceProcessorData()
 		setDeviceVideocardData()
-	}, [setDeviceProcessorData, setDeviceVideocardData, userId, setComputerCaseData, getUserConfigDevices])
+	}, [
+		setDeviceProcessorData,
+		setDeviceVideocardData,
+		userId,
+		removeIsOneUserConfigLoading,
+		setComputerCaseData,
+		getUserConfigDevices,
+	])
+
+	useEffect(() => {
+		localProcessor.integratedVideoCard && videocard.find(video => (
+			(video.name === localProcessor.integratedVideoCardName) && setlocalVideocard(video)
+		))
+	}, [localProcessor, videocard])
 
 
 	const addDevice = () => {
 		const formData = new FormData()
-		formData.append('price', 18600)
+		formData.append('price', price)
 		formData.append('RAM', ram)
 		formData.append('SSD', ssd)
 		formData.append('storageVolume', storageVolume)
@@ -57,9 +106,11 @@ const Configurator = ({
 		formData.append('processorId', localProcessor.id)
 		formData.append('videocardId', localVideocard.id)
 
+		setIsSubmitting(true)
 		createUserConfigDevice(formData).then(() => {
 			getUserConfigDevices(userId);
-			handleDefault()
+			handleDefault();
+			setIsSubmitting(false)
 		})
 	}
 
@@ -68,41 +119,64 @@ const Configurator = ({
 		setlocalVideocard('')
 		setLocalComputerCase('')
 		setRam(4)
-		setStorageVolume(128)
+		setStorageVolume(256)
 		setSsd(false)
 		setOverclocking(false)
 		removeGlobalVideocard()
 		removeGlobalProcessor()
+		setLocalProcessorPrice(0)
+		setlocalVideocardPrice(0)
+		setLocalComputerCasePrice(0)
 	}
 
 
 	return (
 		<>
 			<Header />
-			<div className="container">
+			<div className="container animation">
+				<div className="container-sm alert-z position-absolute p-0 mt-3">
+					{(creatingConfigDeviceAlert && !isCreatingConfigDeviceFailer) &&
+						<div className="alert alert-success text-center alert-z" role="alert">
+							Устройство добавлено
+						</div>
+					}
+					{isCreatingConfigDeviceFailer &&
+						<div className="alert alert-danger text-center alert-z" role="alert">
+							Такая Конфигурация уже создана
+						</div>}
+				</div>
+				<IsCreateOrderFailer />
+
 				<div className="row">
 					<div className="col-md-3">
-						<h4>Конфигурация</h4>
+
+						<h3>Конфигурация</h3>
+
 						{<Dropdown className="mt-3 mb-3">
-							<Dropdown.Toggle className="btn-info">
+							<h5>Процессор:</h5>
+							<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">
 								{localProcessor.name || "Выберите процессор"}
 							</Dropdown.Toggle>
 							<Dropdown.Menu>
 								{(isProcessorsLoading) && processor.map(category =>
-									renderCategory(category, localProcessor, setLocalProcessor)
+									renderCategory(category, localProcessor, setLocalProcessor, setLocalProcessorPrice)
 								)}
 							</Dropdown.Menu>
 						</Dropdown>}
+
 						{<Dropdown className="mt-3 mb-3">
-							<Dropdown.Toggle className="btn-info">
+							<h5>Видеокарта {(localVideocard.memoryValue === 0) && "(встройка)"}:</h5>
+							<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">
 								{localVideocard.name || "Выберите видеокарту"}
 							</Dropdown.Toggle>
 							<Dropdown.Menu>
 								{(isVideocardsLoading) && videocard.map(category =>
-									renderCategory(category, localVideocard, setlocalVideocard)
+									(category.price !== 0 || category.name === localProcessor.integratedVideoCardName) &&
+									renderCategory(category, localVideocard, setlocalVideocard, setlocalVideocardPrice)
 								)}
 							</Dropdown.Menu>
 						</Dropdown>}
+
 						<div className="custom-control custom-switch mb-2">
 							<input
 								type="checkbox"
@@ -111,7 +185,12 @@ const Configurator = ({
 								checked={ssd}
 								onChange={(e) => setSsd(!ssd)}
 							/>
-							<label className="custom-control-label" htmlFor="customSwitch1">Добавить SSD</label>
+							<label
+								className="custom-control-label"
+								htmlFor="customSwitch1"
+							>
+								использовать SSD
+							</label>
 						</div>
 						<Counter
 							counter={ram}
@@ -125,8 +204,8 @@ const Configurator = ({
 						<Counter
 							counter={storageVolume}
 							setCounter={setStorageVolume}
-							step={128}
-							min={128}
+							step={256}
+							min={256}
 							max={8192}
 						/>
 						<span className='ml-2'> Объем накопителя </span>
@@ -142,9 +221,10 @@ const Configurator = ({
 								Добавить возможность разгона
 							</label>
 						</div>
+						<h5>Корпус:</h5>
 						<Button
-							className="mt-3"
-							className="btn-info"
+							style={{ "width": "100%" }}
+							className="mt-1 btn-info"
 							onClick={() => setCaseVisible(true)}
 						>
 							{localComputerCase.name || "Выбрать корпус"}
@@ -152,58 +232,35 @@ const Configurator = ({
 						</Button>
 						<p></p>
 						<Button
+							style={{ "width": "100%" }}
 							className="mt-1"
 							variant={"outline-dark"}
 							onClick={handleDefault}
 						>
 							Сбросить конфигурацию
 						</Button>
-						<Modal
+
+						<SelectCaseModal
 							show={caseVisible}
-							onHide={() => setCaseVisible(false)}
-							size="lg"
-							centered
-						>
-							<Modal.Header closeButton>
-								<Modal.Title>
-									Выбрать корпус
-								</Modal.Title>
-							</Modal.Header>
-							<Modal.Body>
-								{(isComputerCasesLoading) && computerCase.map((Case) => (
-									<div key={Case.id}>
-										<Image
-											width={300}
-											height={300}
-											src={process.env.REACT_APP_API_URL + Case.img}
-											alt={Case.name}
-											className="img-thumbnail"
-										/>
-										<div>
-											<h1>{Case.name}</h1>
-											<Button
-												variant={"outline-dark"}
-												onClick={() => {
-													setLocalComputerCase(Case);
-													setCaseVisible(false)
-												}}
-											>
-												Выбрать
-											</Button>
-										</div>
-
-									</div>
-								))}
-							</Modal.Body>
-
-						</Modal>
+							setVisible={setCaseVisible}
+							setLocalComputerCase={setLocalComputerCase}
+							isComputerCasesLoading={isComputerCasesLoading}
+							computerCase={computerCase}
+							setComputerCasePrice={setLocalComputerCasePrice}
+							count={count}
+							setComputerCaseData={setComputerCaseData}
+						/>
 						<hr />
+						<h2>{totaHookPrice} Руб.</h2>
 						<Button
+							style={{ "width": "100%" }}
 							className="btn-info"
 							onClick={addDevice}
+							disabled={isSubmitting}
 						>
 							добавить устройство
 						</Button>
+
 					</div>
 					<div className="col-md-9" >
 						<h3 className="justify-content-md-center">Мои утройства</h3>
@@ -212,57 +269,22 @@ const Configurator = ({
 								<Spinner animation="border" /> :
 								(userConfigDevices.length === 0) ?
 									<h2>Конфигуратор пуст</h2> :
-									userConfigDevices.map((data) => {
-										return (
-											<div className="thumbnail mt-2 shadow p-1 mb-1 bg-white rounded"
-												key={data.id}
-											>
-												<div className="row">
-													<div className="col-md-6">
-														<Image
-															width={300}
-															height={300}
-															src={process.env.REACT_APP_API_URL + data.computer_case.img}
-															alt={data.computer_case.name}
-															className="img-thumbnail"
-														/>
-													</div>
-													<div className="col-md-6">
-														<Row className="d-flex flex-column m-2">
-															<h5>{data.processor.name}</h5>
-															<h5>{data.videocard.name}</h5>
-															<h5>{data.computer_case.name}</h5>
-															<h5>{data.RAM} ГБ OЗУ</h5>
-															{(data.SSD) ? <h5>с SSD</h5> : <h5>без SSD</h5>}
-															{(data.overclocking) ? <h5>с разгоном</h5> : <h5>без разгона</h5>}
-															<div className="caption-full mt-2">
-																{/* <OrderProcessing
-																basketId={basketId}
-																createOrderProcessingData={createOrderProcessingData}
-																price={data.device.price}
-																orderName={data.device.name}
-																buttonName='сделать заказ'
-																processorId={data.device.processorId}
-																videocardId={data.device.videocardId}
-															/> */}
-																<h4 className="float-right">Руб. {data.price}</h4>
-
-																<button
-
-																	style={{ color: '#128496' }}
-																	className="btn pt-0 pb-0 mr-2 float-right"
-																>
-																	<h4> удалить </h4>
-																</button>
-
-															</div>
-														</Row>
-													</div>
-												</div>
-
-											</div>
-										)
-									})
+									<>
+										<ConfigDeviceCard
+											userId={userId}
+											getUserConfigDevices={getUserConfigDevices}
+											deleteUserConfigDeviceApi={deleteUserConfigDevice}
+											userConfigDevices={userConfigDevices}
+											createOrderProcessingData={createOrderProcessingData}
+											page="konfigurator"
+										/>
+										<Pages
+											isRequestDataLoading={isUserConfigDeviceLoading}
+											count={configCount}
+											setRequestData={getUserConfigDevices}
+											userId={userId}
+										/>
+									</>
 						}
 					</div>
 				</div>

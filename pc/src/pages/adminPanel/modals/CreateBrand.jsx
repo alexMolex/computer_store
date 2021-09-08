@@ -15,6 +15,7 @@ const CreateBrand = ({ show, onHide, setCreateDeviceBrand, setDeviceBrandData })
 				setDeviceBrandData()
 				setValue('')
 				onHide()
+				alert("Бренд добавлен")
 			})
 	}
 
@@ -28,7 +29,7 @@ const CreateBrand = ({ show, onHide, setCreateDeviceBrand, setDeviceBrandData })
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
 					Добавить бренд
-        </Modal.Title>
+				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Form>

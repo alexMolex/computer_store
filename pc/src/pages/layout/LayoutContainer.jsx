@@ -6,11 +6,13 @@ import {
 	setDeviceBrandData,
 	setOneDeviceData,
 	setDeviceProcessorData,
-	setDeviceVideocardData
+	setDeviceVideocardData,
+	getUserOrdersProcessingData
 } from '../../redux/actions/actions';
 
 
 const mapState = (state) => ({
+	basketId: state.checkAuthReducer.id,
 
 })
 
@@ -19,7 +21,8 @@ const mapDispatch = {
 	setDeviceBrandData,
 	setOneDeviceData,
 	setDeviceProcessorData,
-	setDeviceVideocardData
+	setDeviceVideocardData,
+	getUserOrdersProcessingData
 }
 
 const LayoutContainer = connect(mapState, mapDispatch)(Layout);

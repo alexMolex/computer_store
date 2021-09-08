@@ -3,8 +3,10 @@ import jwt_decode from "jwt-decode";
 
 const instance = axios.create({
 	baseURL: process.env.REACT_APP_API_URL,
+
 	// withCredentials: true,
 })
+
 
 const authInterceptor = config => {
 	config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
@@ -78,6 +80,14 @@ export const getDeviceProcessorData = {
 				return response.data
 			})
 	},
+
+	updateProcessorPriceApi(processorId, updatePrice) {
+		return instance.put('api/processor', { processorId, updatePrice })
+			.then(response => {
+				return response.data
+			})
+	},
+
 	createProcessorApi(processor) {
 		return instance.post('api/processor', processor)
 	},
@@ -92,6 +102,14 @@ export const getDeviceVideocardData = {
 				return response.data
 			})
 	},
+
+	updateVideocardPriceApi(videocardId, updatePrice) {
+		return instance.put('api/videocard', { videocardId, updatePrice })
+			.then(response => {
+				return response.data
+			})
+	},
+
 	createVideocardApi(videocard) {
 		return instance.post('api/videocard', videocard)
 	},
@@ -101,11 +119,16 @@ export const getDeviceVideocardData = {
 
 export const getComputerCaseData = {
 
-	fetchCasesApi() {
-		return instance.get('api/case')
-			.then(response => {
-				return response.data
-			})
+	fetchCasesApi(page) {
+		return instance.get('api/case', {
+			params: { page }
+		})
+			.then(response => response.data)
+	},
+
+	updateComputerCasePriceApi(computerCaseId, updatePrice) {
+		return instance.put('api/case', { computerCaseId, updatePrice })
+			.then(response => response.data)
 	},
 
 	createCaseApi(computerCase) {
@@ -117,10 +140,10 @@ export const getComputerCaseData = {
 // устройства
 export const getDeviceData = {
 
-	fetchDevicesApi(brandId, typeId, processorId, videocardId, limit, page) {
+	fetchDevicesApi(limit, page, brandId, typeId, processorId, videocardId, sortingType, sortingTable) {
 		return instance.get('api/device', {
 			params: {
-				brandId, typeId, processorId, videocardId, limit, page
+				limit, page, brandId, typeId, processorId, videocardId, sortingType, sortingTable
 			}
 		})
 			.then(response => {
@@ -136,6 +159,13 @@ export const getDeviceData = {
 
 	createDeviceApi(device) {
 		return instance.post('api/device', device)
+	},
+
+	updateDevicePriceApi(deviceId, updatePrice) {
+		return instance.put('api/device', { deviceId, updatePrice })
+			.then(response => {
+				return response.data
+			})
 	},
 }
 
@@ -153,10 +183,24 @@ export const getUserConfigDeviceData = {
 
 	createUserConfigDeviceApi(configDevice) {
 		return instance.post('api/config', configDevice)
+			.then(response => {
+				return response.data
+			})
+	},
+
+	fetchOneConfigDeviceApi(userId, id) {
+		return instance.get(`api/config/${userId}/${id}`)
+			.then(response => {
+				return response.data
+			})
+	},
+	deleteUserConfigDeviceApi(id) {
+		return instance.delete('api/config/' + id)
+			.then(response => {
+				return response.data
+			})
 	}
 }
-
-
 
 
 
@@ -181,15 +225,14 @@ export const setBasketData = {
 	},
 	deleteBasketDeviceApi(id, basketId, deviceId) {
 		return instance.delete('api/basket/' + id, {
-			params: {
-				basketId, deviceId
-			}
+			params: { basketId, deviceId }
 		})
 			.then(response => {
 				return response.data
 			})
 	}
 }
+
 
 
 //  ========= обработка заказов
@@ -200,13 +243,26 @@ export const setOrderProcessingData = {
 		return instance.post('api/order', order)
 	},
 
-	getOrderApi() {
-		return instance.get('api/order')
+	getOrderApi(page) {
+		return instance.get('api/order', { params: { page } })
 			.then(response => {
 				return response.data
 			})
 	},
 
+	updateOrderStatusApi(orderId, updateStatus) {
+		return instance.put('api/order', { orderId, updateStatus })
+			.then(response => {
+				return response.data
+			})
+	},
+
+	fetchOneOrderApi(id) {
+		return instance.get('api/order/one/' + id)
+			.then(response => {
+				return response.data
+			})
+	},
 
 	getUserOrdersApi(basketId) {
 		return instance.get('api/order/' + basketId)
@@ -214,5 +270,6 @@ export const setOrderProcessingData = {
 				return response.data
 			})
 	}
-}
+};
+
 

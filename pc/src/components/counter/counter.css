@@ -30,16 +30,15 @@
 	font-size: 22px;
 }
 .counter-button-plus {
-		border-radius: 0 8px 8px 0;
-		border-left: none;
-
+	border-radius: 0 8px 8px 0;
+	border-left: none;
 }
 
 .counter {
 	margin-top: 4px;
-		position: relative;
-		display: inline-flex;
-		vertical-align: middle;
+	position: relative;
+	display: inline-flex;
+	vertical-align: middle;
 }
 
 input::-webkit-outer-spin-button,

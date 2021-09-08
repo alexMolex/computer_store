@@ -14,6 +14,10 @@ import {
 	setDeviceProcessorData,
 	setDeviceVideocardData,
 	setComputerCaseData,
+	updateOrderStatusData,
+	setUpdateProcessorPriceData,
+	setUpdateVideocardPriceData,
+	setUpdateComputerCasePriceData,
 } from '../../redux/actions/actions';
 
 
@@ -22,11 +26,18 @@ const mapState = (state) => ({
 	typeState: state.deviceTypes.data,
 	role: state.checkAuthReducer.role,
 	processorState: state.deviceProcessor.data,
+	isCreateDeviceFaler: state.deviceReducer.isCreateDeviceFaler,
 	videocardState: state.deviceVideocard.data,
 	isTypeLoading: state.deviceTypes.isTypeLoading,
 	isBrandLoading: state.deviceBrands.isBrandLoading,
 	isVideocardsLoading: state.deviceVideocard.isVideocardsLoading,
 	isProcessorsLoading: state.deviceProcessor.isProcessorsLoading,
+	isComputerCasesLoading: state.computerCase.isComputerCasesLoading,
+	computerCaseData: state.computerCase.data,
+	isOrdersListLoading: state.orderProcessing.isOrdersListLoading,
+	allOrdersData: state.orderProcessing.data,
+	orderCount: state.orderProcessing.count,
+	count: state.computerCase.count,
 })
 
 const mapDispatch = {
@@ -41,6 +52,10 @@ const mapDispatch = {
 	setDeviceProcessorData,
 	setDeviceVideocardData,
 	setComputerCaseData,
+	updateOrderStatusData,
+	setUpdateProcessorPriceData,
+	setUpdateVideocardPriceData,
+	setUpdateComputerCasePriceData,
 }
 
 const AdminPanelContainer = connect(mapState, mapDispatch)(AdminPanel);
