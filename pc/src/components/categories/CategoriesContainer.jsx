@@ -20,7 +20,11 @@ import {
 	removeGlobalPagination,
 	setGlobalSortingTable,
 	removeGlobalSortingTable,
+<<<<<<< HEAD
 	removeDeviceIsLoading,
+=======
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 } from "../../redux/actions/actions";
 
 
@@ -33,8 +37,11 @@ const mapState = (state) => ({
 	globalVideocard: state.deviceVideocard.globalVideocard,
 	globalSortingType: state.sortingReducer.sortingType,
 	globalSortingTable: state.sortingReducer.sortingTable,
+<<<<<<< HEAD
 	globalPageNumber: state.sortingReducer.page,
 
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	globalType: state.deviceTypes.globalType,
 	globalBrand: state.deviceBrands.globalBrand,
 	isBrandLoading: state.deviceBrands.isBrandLoading,
@@ -60,7 +67,11 @@ const mapDispatch = {
 	setGlobalSortingTable,
 	removeGlobalSortingTable,
 	removeGlobalPagination,
+<<<<<<< HEAD
 	removeDeviceIsLoading,
+=======
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 }
 
 const CategoriesContainer = connect(mapState, mapDispatch)(Categories);

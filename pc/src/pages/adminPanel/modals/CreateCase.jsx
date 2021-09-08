@@ -20,12 +20,15 @@ const CreateCase = ({
 	const [file, setFile] = useState(null);
 	const [selectedComputerCase, setSelectedComputerCase] = useState("")
 	const [newComputerCasePrice, setNewComputerCasePrice] = useState(0)
+<<<<<<< HEAD
 	const [length, setLength] = useState("")
 	const [heighth, setHeighth] = useState("")
 	const [width, setWidth] = useState("")
 	const [caseMaterials, setCaseMaterials] = useState("")
 	const [usb, setUsb] = useState("")
 	const [rgb, setRgb] = useState(false)
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 
 	const addCase = () => {
@@ -48,6 +51,19 @@ const CreateCase = ({
 		})
 	}
 
+	const updateComputerCasePrice = () => {
+		setUpdateComputerCasePriceData(selectedComputerCase.id, +(newComputerCasePrice));
+		setComputerCaseData()
+		alert(`Цена ${selectedComputerCase.name} изменена с ${selectedComputerCase.price} до ${newComputerCasePrice} руб.`)
+		setSelectedComputerCase("")
+		setNewComputerCasePrice("")
+	}
+
+	const onHideDefault = () => {
+		onHide();
+		setSelectedComputerCase("")
+		setNewComputerCasePrice("")
+	}
 
 	const updateComputerCasePrice = () => {
 		setUpdateComputerCasePriceData(selectedComputerCase.id, +(newComputerCasePrice));
@@ -93,6 +109,7 @@ const CreateCase = ({
 						value={price}
 						onChange={e => setPrice(Number(e.target.value))}
 					/>
+<<<<<<< HEAD
 					<h4>Длина, см</h4>
 					<Form.Control
 						className="mt-2"
@@ -146,6 +163,8 @@ const CreateCase = ({
 							RGB
 						</label>
 					</div>
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					<h2>Выберите изображение корпуса</h2>
 					<Form.Control
 						className="mt-2"

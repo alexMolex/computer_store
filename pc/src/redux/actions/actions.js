@@ -84,7 +84,10 @@ import {
 	FETCH_ONE_USER_CONFIG_DEVICE_START,
 	FETCH_ONE_USER_CONFIG_DEVICE_FAILER,
 	FETCH_ONE_USER_CONFIG_DEVICE_SUCCESS,
+<<<<<<< HEAD
 	REMOVE_IS_ONE_USER_CONFIG_LOADING,
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	DELETE_USER_CONFIG_DEVICE_START,
 	DELETE_USER_CONFIG_DEVICE_FAILER,
 	DELETE_USER_CONFIG_DEVICE_SUCCESS,
@@ -113,10 +116,13 @@ import {
 	REMOVE_GLOBAL_PAGINATION,
 	GET_GLOBAL_BRAND,
 	REMOVE_GLOBAL_BRAND,
+<<<<<<< HEAD
 	ADD_DEVICE_TO_COMPARE_TURN,
 	REMOVE_DEVICE_FROM_COMPARE_TURN,
 	SET_COMPARE_DEVICE_INDEX1,
 	SET_COMPARE_DEVICE_INDEX2,
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 } from "./actionTypes"
 import {
 	getAuthUserData,
@@ -344,6 +350,7 @@ export const removeGlobalSortingTable = () => dispatch => {
 	})
 }
 
+<<<<<<< HEAD
 
 export const setGlobalPagination = page => dispatch => {
 	dispatch({
@@ -360,6 +367,24 @@ export const removeGlobalPagination = () => dispatch => {
 
 // ================ Устройства
 
+=======
+
+export const setGlobalPagination = page => dispatch => {
+	dispatch({
+		type: GET_GLOBAL_PAGINATION,
+		payload: page,
+	})
+}
+
+export const removeGlobalPagination = () => dispatch => {
+	dispatch({
+		type: REMOVE_GLOBAL_PAGINATION,
+	})
+}
+
+// ================ Устройства
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 export const setDeviceData = (limit, page, brandId, typeId, processorId, videocardId, sortingType, sortingTable) => async dispatch => {
 	dispatch({
 		type: FETCH_DEVICE_START
@@ -751,6 +776,7 @@ export const createOrderProcessingData = (order) => async dispatch => {
 				error: false
 			})
 		}, 3000)
+<<<<<<< HEAD
 	}
 }
 
@@ -770,10 +796,34 @@ export const getOneOrderProcessingData = (id) => async dispatch => {
 			type: FETCH_ONE_ORDER_FAILER,
 			payload: error,
 		})
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	}
 }
 
 
+<<<<<<< HEAD
+=======
+export const getOneOrderProcessingData = (id) => async dispatch => {
+	dispatch({
+		type: FETCH_ONE_ORDER_START
+	});
+
+	try {
+		dispatch({
+			type: FETCH_ONE_ORDER_SUCCESS,
+			payload: await setOrderProcessingData.fetchOneOrderApi(id)
+		})
+	} catch (error) {
+		dispatch({
+			type: FETCH_ONE_ORDER_FAILER,
+			payload: error,
+		})
+	}
+}
+
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 export const updateOrderStatusData = (orderId, updateStatus) => async dispatch => {
 	dispatch({
 		type: UPDATE_ORDER_STATUS_START
@@ -893,7 +943,11 @@ export const getUserConfigDevices = (userId, page) => async dispatch => {
 }
 
 
+<<<<<<< HEAD
 export const getOneUserConfigDevice = (userId, id) => async dispatch => {
+=======
+export const getOneUserConfigDevice = (id) => async dispatch => {
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	dispatch({
 		type: FETCH_ONE_USER_CONFIG_DEVICE_START
 	});
@@ -901,7 +955,11 @@ export const getOneUserConfigDevice = (userId, id) => async dispatch => {
 	try {
 		dispatch({
 			type: FETCH_ONE_USER_CONFIG_DEVICE_SUCCESS,
+<<<<<<< HEAD
 			payload: await getUserConfigDeviceData.fetchOneConfigDeviceApi(userId, id)
+=======
+			payload: await getUserConfigDeviceData.fetchOneConfigDeviceApi(id)
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 		})
 	} catch (error) {
 		dispatch({
@@ -912,12 +970,15 @@ export const getOneUserConfigDevice = (userId, id) => async dispatch => {
 	}
 }
 
+<<<<<<< HEAD
 export const removeIsOneUserConfigLoading = () => dispatch => {
 	dispatch({
 		type: REMOVE_IS_ONE_USER_CONFIG_LOADING,
 	})
 }
 
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 export const deleteUserConfigDevice = (id) => async dispatch => {
 	dispatch({
@@ -937,6 +998,7 @@ export const deleteUserConfigDevice = (id) => async dispatch => {
 		})
 	}
 }
+<<<<<<< HEAD
 
 
 
@@ -969,3 +1031,5 @@ export const removeDeviceFromCompareTurn = (device) => dispatch => {
 		payload: device
 	})
 }
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510

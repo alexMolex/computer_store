@@ -3,6 +3,7 @@ const ApiError = require('../error/apiError')
 
 class ProcessorCointroller {
 	async create(req, res) {
+<<<<<<< HEAD
 		const {
 			name,
 			price,
@@ -33,6 +34,10 @@ class ProcessorCointroller {
 			integratedVideoCardName,
 			peakConsumption
 		})
+=======
+		const { name, price, brand } = req.body
+		const processor = await Processor.create({ name, price, brand })
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 		return res.json(processor)
 	}
 

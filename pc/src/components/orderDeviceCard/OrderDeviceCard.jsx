@@ -13,7 +13,10 @@ const OrderDeviceCard = ({
 	getUserOrdersProcessingData,
 	getOrderProcessingData,
 	count,
+<<<<<<< HEAD
 	statusList,
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 }) => {
 
 	const [updateStatus, setUpdateStatus] = useState('')
@@ -21,10 +24,21 @@ const OrderDeviceCard = ({
 	useEffect(() => {
 		getUserOrdersProcessingData(userId)
 		getOrderProcessingData()
+<<<<<<< HEAD
 
 	}, [userId])
 
 
+=======
+	}, [userId])
+
+	const statusList = [
+		"Идет подбор комплектующих",
+		"Заказ в процессе сборки",
+		"Заказ готов",
+		"Отказ от сборки"
+	]
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 	return (
 		<>
@@ -34,10 +48,17 @@ const OrderDeviceCard = ({
 				>
 					<div className="row">
 						<div className="col-md-6">
+<<<<<<< HEAD
 							{isAdminPage ? <Link style={{ color: '#128496' }} to={`/oneOrder/${i.id}`}>
 								<h5 className="mt-2">Заказ №{i.id} от {new Date(i.createdAt).toLocaleString()}</h5>
 							</Link> : <h5 className="mt-2">Заказ №{i.id} от {new Date(i.createdAt).toLocaleString()}</h5>}
 							{isAdminPage ? <Link to={`/oneOrder/${i.id}`}>
+=======
+							<Link style={{ color: '#128496' }} to={`/oneOrder/${i.id}`}>
+								<h5 className="mt-2">Заказ №{i.id} от {new Date(i.createdAt).toLocaleString()}</h5>
+							</Link>
+							<Link style={{ color: '#128496' }} to={`/oneOrder/${i.id}`}>
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 								<Image
 									width={300}
 									height={300}
@@ -45,6 +66,7 @@ const OrderDeviceCard = ({
 									alt={i.order[0].computer_case.name}
 									className="img-thumbnail"
 								/>
+<<<<<<< HEAD
 							</Link> :
 								<Image
 									width={300}
@@ -53,6 +75,9 @@ const OrderDeviceCard = ({
 									alt={i.order[0].computer_case.name}
 									className="img-thumbnail"
 								/>}
+=======
+							</Link>
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 						</div>
 						<div className="col-md-6">
 							<Row className="d-flex flex-column mb-2 mr-2 ml-2 mt-0">

@@ -38,7 +38,11 @@ const Configurator = ({
 	deleteUserConfigDevice,
 	isCreatingConfigDeviceFailer,
 	creatingConfigDeviceAlert,
+<<<<<<< HEAD
 	removeIsOneUserConfigLoading,
+=======
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	count,
 	configCount,
 }) => {
@@ -71,6 +75,11 @@ const Configurator = ({
 			price
 		}
 	)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 	useEffect(() => {
 		getUserConfigDevices(userId)
@@ -82,16 +91,23 @@ const Configurator = ({
 		setDeviceProcessorData,
 		setDeviceVideocardData,
 		userId,
+<<<<<<< HEAD
 		removeIsOneUserConfigLoading,
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 		setComputerCaseData,
 		getUserConfigDevices,
 	])
 
+<<<<<<< HEAD
 	useEffect(() => {
 		localProcessor.integratedVideoCard && videocard.find(video => (
 			(video.name === localProcessor.integratedVideoCardName) && setlocalVideocard(video)
 		))
 	}, [localProcessor, videocard])
+=======
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 
 	const addDevice = () => {
@@ -114,6 +130,7 @@ const Configurator = ({
 		})
 	}
 
+
 	const handleDefault = () => {
 		setLocalProcessor('')
 		setlocalVideocard('')
@@ -130,10 +147,16 @@ const Configurator = ({
 	}
 
 
+
+
 	return (
 		<>
 			<Header />
+<<<<<<< HEAD
 			<div className="container animation">
+=======
+			<div className="container">
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 				<div className="container-sm alert-z position-absolute p-0 mt-3">
 					{(creatingConfigDeviceAlert && !isCreatingConfigDeviceFailer) &&
 						<div className="alert alert-success text-center alert-z" role="alert">
@@ -149,9 +172,13 @@ const Configurator = ({
 
 				<div className="row">
 					<div className="col-md-3">
+<<<<<<< HEAD
 
 						<h3>Конфигурация</h3>
 
+=======
+						<h3>Конфигурация</h3>
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 						{<Dropdown className="mt-3 mb-3">
 							<h5>Процессор:</h5>
 							<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">
@@ -165,13 +192,20 @@ const Configurator = ({
 						</Dropdown>}
 
 						{<Dropdown className="mt-3 mb-3">
+<<<<<<< HEAD
 							<h5>Видеокарта {(localVideocard.memoryValue === 0) && "(встройка)"}:</h5>
+=======
+							<h5>Видеокарта:</h5>
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 							<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">
 								{localVideocard.name || "Выберите видеокарту"}
 							</Dropdown.Toggle>
 							<Dropdown.Menu>
 								{(isVideocardsLoading) && videocard.map(category =>
+<<<<<<< HEAD
 									(category.price !== 0 || category.name === localProcessor.integratedVideoCardName) &&
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 									renderCategory(category, localVideocard, setlocalVideocard, setlocalVideocardPrice)
 								)}
 							</Dropdown.Menu>
@@ -249,6 +283,10 @@ const Configurator = ({
 							setComputerCasePrice={setLocalComputerCasePrice}
 							count={count}
 							setComputerCaseData={setComputerCaseData}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 						/>
 						<hr />
 						<h2>{totaHookPrice} Руб.</h2>
@@ -276,7 +314,10 @@ const Configurator = ({
 											deleteUserConfigDeviceApi={deleteUserConfigDevice}
 											userConfigDevices={userConfigDevices}
 											createOrderProcessingData={createOrderProcessingData}
+<<<<<<< HEAD
 											page="konfigurator"
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 										/>
 										<Pages
 											isRequestDataLoading={isUserConfigDeviceLoading}

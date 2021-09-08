@@ -11,7 +11,10 @@ import {
 	createUserConfigDevice,
 	createOrderProcessingData,
 	deleteUserConfigDevice,
+<<<<<<< HEAD
 	removeIsOneUserConfigLoading,
+=======
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 } from "../../redux/actions/actions";
 
 
@@ -33,6 +36,10 @@ const mapState = state => ({
 	isComputerCasesLoading: state.computerCase.isComputerCasesLoading,
 	count: state.computerCase.count,
 	configCount: state.userConfigDevice.count,
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 })
 
 
@@ -45,8 +52,12 @@ const mapDispatch = {
 	getUserConfigDevices,
 	createUserConfigDevice,
 	createOrderProcessingData,
+<<<<<<< HEAD
 	deleteUserConfigDevice,
 	removeIsOneUserConfigLoading
+=======
+	deleteUserConfigDevice
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 }
 
 const ConfiguratorContainer = connect(mapState, mapDispatch)(Configurator);

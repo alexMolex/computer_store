@@ -11,6 +11,11 @@ const path = require('path')
 const PORT = process.env.PORT || 6000
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 const app = express()
 app.use(cors({
 	// origin: 'http://localhost:3000',
