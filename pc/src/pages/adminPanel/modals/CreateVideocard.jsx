@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, Dropdown } from 'react-bootstrap';
-<<<<<<< HEAD
 import Counter from "../../../components/counter/Counter";
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 
 
@@ -22,28 +19,22 @@ const CreateVideocard = ({
 	const [brand, setBrand] = useState("");
 	const [selectedVideocard, setSelectedVideocard] = useState("")
 	const [newVideocardPrice, setNewVideocardPrice] = useState(0)
-<<<<<<< HEAD
 	const [memoryValue, setMemoryValue] = useState(0)
 	const [frequency, setFrequency] = useState("")
 	const [memoryType, setMemoryType] = useState("")
 	const [memoryBus, setMemoryBus] = useState(64)
 	const [peakConsumption, setPeakConsumption] = useState(50)
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 	const addVideocard = () => {
 		const formData = new FormData()
 		formData.append('name', name)
 		formData.append('price', price)
 		formData.append('brand', brand)
-<<<<<<< HEAD
 		formData.append('memoryValue', memoryValue)
 		formData.append('frequency', frequency)
 		formData.append('memoryType', memoryType)
 		formData.append('memoryBus', memoryBus)
 		formData.append('peakConsumption', peakConsumption)
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 		setCreateDeviceVideocard(formData).then(() => {
 			setDeviceVideocardData()
@@ -53,23 +44,6 @@ const CreateVideocard = ({
 			setBrand("")
 			alert('Видеокарта добавлена')
 		})
-<<<<<<< HEAD
-=======
-	}
-
-	const updateVideocardPrice = () => {
-		setUpdateVideocardPriceData(selectedVideocard.id, +(newVideocardPrice));
-		setDeviceVideocardData()
-		alert(`Цена ${selectedVideocard.name} изменена с ${selectedVideocard.price} до ${newVideocardPrice} руб.`)
-		setSelectedVideocard("")
-		setNewVideocardPrice("")
-	}
-
-	const onHideDefault = () => {
-		onHide();
-		setSelectedVideocard("")
-		setNewVideocardPrice("")
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	}
 	console.log(memoryValue, typeof (memoryValue), typeof (peakConsumption));
 	const updateVideocardPrice = () => {
@@ -124,7 +98,6 @@ const CreateVideocard = ({
 						value={price}
 						onChange={e => setPrice(Number(e.target.value))}
 					/>
-<<<<<<< HEAD
 					<h5>Частота GPU, Ghz</h5>
 					<Form.Control
 						className="mt-2"
@@ -170,8 +143,6 @@ const CreateVideocard = ({
 						max={500}
 
 					/>
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					<Form.Control
 						className="mt-2"
 						placeholder="Введите бренд видеокарты"
@@ -179,10 +150,7 @@ const CreateVideocard = ({
 						onChange={e => setBrand(e.target.value)}
 					/>
 				</Form>
-<<<<<<< HEAD
 				<hr />
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 				<h4>Изменить цену видеокарты</h4>
 				{isVideocardsLoading &&
 					<>

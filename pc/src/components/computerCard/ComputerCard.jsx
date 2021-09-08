@@ -4,12 +4,7 @@ import { Link } from 'react-router-dom';
 
 import ExtendedDevicePrice from "../devicePrice/ExtendedDevicePrice";
 import OrderProcessing from "../../pages/orderProcessing/OrderProcessingContainer";
-<<<<<<< HEAD
 import ComputerCardSkeleton from "../skeletons/ComputerCardSkeleton";
-=======
-
-
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 const ComputerCard = ({
 	isAuth,
@@ -25,18 +20,12 @@ const ComputerCard = ({
 	createOrderProcessingData,
 	setUpdateDevicePrice,
 	setDeviceData,
-<<<<<<< HEAD
 	addDeviceToCompareTurn,
 	removeDeviceFromCompareTurn,
 	compareDevicesQueue,
 
 }) => {
 
-=======
-}) => {
-
-
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	const isBasketDeviceIdSame = (pc) => {
 		return basketDevicesIds.some(id => id === pc)
 	}
@@ -63,11 +52,7 @@ const ComputerCard = ({
 				{!is200Code ?
 					<ComputerCardSkeleton /> :
 					device.map(pc =>
-<<<<<<< HEAD
 						<div className="col-sm-4 col-lg-4 col-md-4 book-list border m-0 p-1 bg-white animation" key={pc.id}>
-=======
-						<div className="col-sm-4 col-lg-4 col-md-4 book-list border m-0 p-1 bg-white" key={pc.id}>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 							<div className="thumbnail">
 								<Link to={`/computers/${pc.id}`}>
 									<img

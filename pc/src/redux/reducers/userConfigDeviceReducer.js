@@ -2,12 +2,8 @@ import {
 	FETCH_USER_CONFIG_DEVICE_SUCCESS,
 	CREATE_USER_CONFIG_DEVICE_SUCCESS,
 	CREATE_USER_CONFIG_DEVICE_FAILER,
-<<<<<<< HEAD
 	FETCH_ONE_USER_CONFIG_DEVICE_SUCCESS,
 	REMOVE_IS_ONE_USER_CONFIG_LOADING
-=======
-	FETCH_ONE_USER_CONFIG_DEVICE_SUCCESS
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 } from "../actions/actionTypes/index"
 
 
@@ -17,12 +13,8 @@ const initialState = {
 	isCreatingConfigDeviceFailer: false,
 	creatingConfigDeviceAlert: false,
 	count: 0,
-<<<<<<< HEAD
 	isOneUserConfigDeviceLoading: false,
 	oneUserConfigDeviceDafa: null
-=======
-	isOneUserConfigDeviceLoading: false
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 }
 
 const userConfigDevice = (state = initialState, action) => {
@@ -47,7 +39,6 @@ const userConfigDevice = (state = initialState, action) => {
 		case FETCH_ONE_USER_CONFIG_DEVICE_SUCCESS:
 			return {
 				...state,
-<<<<<<< HEAD
 				oneUserConfigDeviceDafa: action.payload,
 				isOneUserConfigDeviceLoading: true
 			}
@@ -55,10 +46,6 @@ const userConfigDevice = (state = initialState, action) => {
 			return {
 				...state,
 				isOneUserConfigDeviceLoading: false
-=======
-				...action.payload,
-				isOneUserConfigDeviceLoading: true
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 			}
 		default:
 			return state

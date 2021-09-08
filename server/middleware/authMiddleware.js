@@ -5,11 +5,7 @@ module.exports = function (req, res, next) {
 		next()
 	}
 	try {
-<<<<<<< HEAD
 		const token = req.headers.authorization.split(' ')[1]
-=======
-		const token = req.headers.authorization.split(' ')[1] // Bearer 
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 		if (!token) {
 			return res.status(401).json({ message: "Не авторизован" })
 		}

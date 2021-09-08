@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/HeaderContainer'
 
@@ -23,18 +22,10 @@ const Comparison = ({
 	}
 
 
-=======
-import React from 'react';
-import Header from '../../components/header/HeaderContainer'
-
-
-const Comparison = () => {
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	return (
 		<div >
 			<Header />
 			<div className="container">
-<<<<<<< HEAD
 
 				<h3>Сравнение</h3>
 				<div className="compare-device__block shadow">
@@ -222,11 +213,6 @@ const Comparison = () => {
 					</tbody>
 				</table>}
 			</div>
-=======
-				Сравнение
-			</div>
-
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 		</div>
 	);
 };

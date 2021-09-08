@@ -10,10 +10,7 @@ import {
 	createOrderProcessingData,
 	getUserConfigDevices,
 	deleteUserConfigDevice,
-<<<<<<< HEAD
 	setBasketConfigDeviceToggle,
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 } from "../../redux/actions/actions";
 
 
@@ -41,10 +38,7 @@ const mapDispatch = {
 	getUserOrdersProcessingData,
 	createOrderProcessingData,
 	deleteUserConfigDevice,
-<<<<<<< HEAD
 	setBasketConfigDeviceToggle,
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 }
 
 const BasketContainer = connect(mapState, mapDispatch)(Basket);

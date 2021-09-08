@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Spinner, Image, Dropdown } from 'react-bootstrap';
-=======
-import React, { useEffect } from 'react';
-import { Spinner, Image } from 'react-bootstrap';
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +8,6 @@ import Header from '../../components/header/HeaderContainer';
 
 
 
-<<<<<<< HEAD
 const OneOrderPage = ({ getOneOrderProcessingData, updateOrderStatusData, isOneOrderDeviceLoading, order, statusList }) => {
 
 	const params = useParams()
@@ -26,22 +20,10 @@ const OneOrderPage = ({ getOneOrderProcessingData, updateOrderStatusData, isOneO
 
 
 
-=======
-const OneOrderPage = ({ getOneOrderProcessingData, isOneOrderDeviceLoading, order }) => {
-
-	const params = useParams()
-
-	useEffect(() => {
-		getOneOrderProcessingData(params.id)
-	}, [getOneOrderProcessingData, params.id])
-
-
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	return (
 		<div className="view-container ">
 			<Header />
 			<div className="container mt-3">
-<<<<<<< HEAD
 				{!order ? <h1>Такого заказа нет</h1> :
 					<div className="row">
 						<div className="col-md-12">
@@ -150,42 +132,6 @@ const OneOrderPage = ({ getOneOrderProcessingData, isOneOrderDeviceLoading, orde
 							}
 						</div>
 					</div>}
-=======
-				<div className="row">
-					<div className="col-md-9">
-						{(!isOneOrderDeviceLoading) ? <Spinner animation="border" /> :
-							<div className="thumbnail">
-								<div className="row">
-									<div className="col-md-6">
-										<Link to="/adminPanel">
-											<button
-												className="btn btn-info mt-2 mb-2"
-											>
-												<h4>Вернуться назад</h4>
-											</button>
-										</Link>
-
-										<Image
-											width={300}
-											height={300}
-											src={process.env.REACT_APP_API_URL + order.order[0].computer_case.img}
-											alt={order.name}
-											className="img-thumbnail"
-										/>
-									</div>
-									<div className="col-md-6">
-										gffgfgdf
-									</div>
-								</div>
-								<div className="caption-full">
-
-
-								</div>
-							</div>
-						}
-					</div>
-				</div>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 			</div>
 		</div>
 	);

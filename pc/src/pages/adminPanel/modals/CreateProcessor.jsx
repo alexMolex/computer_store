@@ -15,7 +15,6 @@ const CreateProcessor = ({
 	videocardState
 }) => {
 
-<<<<<<< HEAD
 
 	const [name, setName] = useState("");
 	const [price, setPrice] = useState("");
@@ -33,31 +32,11 @@ const CreateProcessor = ({
 	const [integratedVideoCardName, setIntegratedVideoCardName] = useState("")
 	const [peakConsumption, setPeakConsumption] = useState(65)
 
-=======
-const CreateProcessor = ({
-	show,
-	onHide,
-	setCreateDeviceProcessor,
-	setDeviceProcessorData,
-	setUpdateProcessorPriceData,
-	processorState,
-	isProcessorsLoading
-}) => {
-
-
-	const [name, setName] = useState("");
-	const [price, setPrice] = useState("");
-	const [brand, setBrand] = useState("");
-	const [selectedProcessor, setSelectedProcessor] = useState("")
-	const [newProcessorPrice, setNewProcessorPrice] = useState(0)
-
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	const addProcessor = () => {
 		const formData = new FormData()
 		formData.append('name', name)
 		formData.append('price', price)
 		formData.append('brand', brand)
-<<<<<<< HEAD
 		formData.append('socket', socket)
 		formData.append('coresThreads', coresThreads)
 		formData.append('technicalProcess', technicalProcess)
@@ -69,8 +48,6 @@ const CreateProcessor = ({
 		formData.append('integratedVideoCardName', integratedVideoCardName)
 		formData.append('peakConsumption', peakConsumption)
 
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 		setCreateDeviceProcessor(formData).then(() => {
 			setDeviceProcessorData()
@@ -82,10 +59,7 @@ const CreateProcessor = ({
 		})
 	}
 
-<<<<<<< HEAD
 	console.log(integratedVideoCardName);
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	const updateProcessorPrice = () => {
 		setUpdateProcessorPriceData(selectedProcessor.id, +(newProcessorPrice));
 		setDeviceProcessorData()
@@ -98,7 +72,6 @@ const CreateProcessor = ({
 		onHide();
 		setSelectedProcessor("")
 		setNewProcessorPrice("")
-<<<<<<< HEAD
 	}
 
 	const lists = {
@@ -145,8 +118,6 @@ const CreateProcessor = ({
 			"DDR3L",
 			"DDR5",
 		]
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	}
 
 
@@ -181,7 +152,6 @@ const CreateProcessor = ({
 						placeholder="Введите бренд процессора"
 						value={brand}
 						onChange={e => setBrand(e.target.value)}
-<<<<<<< HEAD
 					/>
 					<h5>Сокет</h5>
 					<Dropdown className="mt-2 mb-2">
@@ -303,10 +273,6 @@ const CreateProcessor = ({
 					/>
 				</Form>
 				<hr />
-=======
-					/>
-				</Form>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 				<h4>Изменить цену провессора</h4>
 				{isProcessorsLoading &&
 					<>

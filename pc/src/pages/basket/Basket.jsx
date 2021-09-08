@@ -25,11 +25,8 @@ const Basket = ({
 	getUserOrdersProcessingData,
 	createOrderProcessingData,
 	basketId,
-<<<<<<< HEAD
 	configVisible,
 	setBasketConfigDeviceToggle,
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	isAuth,
 	isUserOrdersListLoading,
 	userOrderData,
@@ -37,10 +34,6 @@ const Basket = ({
 }) => {
 
 	const [userOrdersPopupVisible, setUserOrdersPopupVisible] = useState(false)
-<<<<<<< HEAD
-=======
-	const [configVisible, setConigVisible] = useState(false)
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 
 	useEffect(() => {
 		getUserConfigDevices(basketId)
@@ -84,7 +77,6 @@ const Basket = ({
 					<div className="row">
 						<div className="col-md-9">
 							<ul className="list-group list-group-horizontal mt-2 pb-0">
-<<<<<<< HEAD
 								<li
 									className={`list-group-item ${activeBascet}`}
 									type="button"
@@ -100,13 +92,6 @@ const Basket = ({
 									type="button"
 									onClick={() => setBasketConfigDeviceToggle(true)}
 								>
-=======
-								<li className={`list-group-item ${activeBascet}`} type="button" onClick={() => setConigVisible(false)}>
-									Корзина устройств
-									<span className="badge badge-secondary badge-pill ml-2">{basketReducerData.length}</span>
-								</li>
-								<li className={`list-group-item ${activeConfig}`} type="button" onClick={() => setConigVisible(true)}>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 									Корзина конфигов
 									<span className="badge badge-secondary badge-pill ml-2">{count}</span>
 								</li>
@@ -132,10 +117,7 @@ const Basket = ({
 												deleteUserConfigDeviceApi={deleteUserConfigDevice}
 												userConfigDevices={userConfigDeviceData}
 												createOrderProcessingData={createOrderProcessingData}
-<<<<<<< HEAD
 												page="basket"
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 											/>
 											<Pages
 												isRequestDataLoading={isUserConfigDeviceLoading}

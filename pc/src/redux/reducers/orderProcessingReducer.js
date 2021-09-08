@@ -11,7 +11,6 @@ const initialState = {
 	isUserOrdersListLoading: false,
 	userOrderData: [],
 	data: [],
-<<<<<<< HEAD
 	orderStatusList: [
 		"Идет подбор комплектующих",
 		"Заказ в процессе сборки",
@@ -21,10 +20,6 @@ const initialState = {
 	isCreateOrderFailer: false,
 	isOneOrderDeviceLoading: false,
 	oneOrder: null
-=======
-	isCreateOrderFailer: false,
-	isOneOrderDeviceLoading: false,
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 }
 
 const orderProcessing = (state = initialState, action) => {
@@ -51,11 +46,7 @@ const orderProcessing = (state = initialState, action) => {
 		case FETCH_ONE_ORDER_SUCCESS:
 			return {
 				...state,
-<<<<<<< HEAD
 				oneOrder: action.payload,
-=======
-				...action.payload,
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 				isOneOrderDeviceLoading: true
 			}
 		default:

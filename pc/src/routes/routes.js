@@ -9,11 +9,7 @@ const AdminPanelContainer = lazy(() => import('../pages/adminPanel/AdminPanelCon
 const Contacts = lazy(() => import('../pages/contacts/Contacts.jsx'));
 const OneOrder = lazy(() => import('../pages/oneOrderPage/OneOrderPageContainer'));
 const OneConfigDevice = lazy(() => import('../pages/oneUserConfigDevice/OneUserConfigDeviceContainer'));
-<<<<<<< HEAD
 const Comparison = lazy(() => import('../pages/comparison/ComprasionContainer'));
-=======
-const Comparison = lazy(() => import('../pages/comparison/Comparison'));
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 const Basket = lazy(() => import('../pages/basket/BasketContainer.jsx'));
 const AuthenticationContainer = lazy(() => import('../pages/authentication/AuthenticationContainer.jsx'));
 

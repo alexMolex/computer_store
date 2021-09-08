@@ -47,7 +47,6 @@ const Processor = sequelize.define('processor', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
 	price: { type: DataTypes.INTEGER, allowNull: false },
-<<<<<<< HEAD
 	brand: { type: DataTypes.STRING, allowNull: false },
 	socket: { type: DataTypes.STRING, allowNull: false },
 	coresThreads: { type: DataTypes.STRING, allowNull: false },
@@ -59,32 +58,18 @@ const Processor = sequelize.define('processor', {
 	integratedVideoCard: { type: DataTypes.BOOLEAN, allowNull: false },
 	integratedVideoCardName: { type: DataTypes.STRING, allowNull: true },
 	peakConsumption: { type: DataTypes.INTEGER, allowNull: true },
-=======
-	brand: { type: DataTypes.STRING, unique: true, allowNull: false },
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 })
 
 const Videocard = sequelize.define('videocard', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	name: { type: DataTypes.STRING, unique: true, allowNull: false },
 	price: { type: DataTypes.INTEGER, allowNull: false },
-<<<<<<< HEAD
 	brand: { type: DataTypes.STRING, allowNull: false },
 	memoryValue: { type: DataTypes.INTEGER, allowNull: false },
 	frequency: { type: DataTypes.STRING, allowNull: false },
 	memoryType: { type: DataTypes.STRING, allowNull: false },
 	memoryBus: { type: DataTypes.INTEGER, allowNull: false },
 	peakConsumption: { type: DataTypes.INTEGER, allowNull: true },
-=======
-	brand: { type: DataTypes.STRING, unique: true, allowNull: false },
-})
-
-const ComputerCase = sequelize.define('computer_case', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	name: { type: DataTypes.STRING, unique: true, allowNull: false },
-	price: { type: DataTypes.INTEGER, allowNull: false },
-	img: { type: DataTypes.STRING, allowNull: false },
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 })
 
 

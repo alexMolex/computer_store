@@ -19,10 +19,7 @@ import userConfigDevice from "./userConfigDeviceReducer";
 const createRootReducer = history => combineReducers({
 	basketReducer,
 	checkAuthReducer,
-<<<<<<< HEAD
 	comparisonReducer,
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	computerCase,
 	deviceBrands,
 	deviceProcessor,

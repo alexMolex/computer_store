@@ -45,17 +45,10 @@ class UserConfigDeviceController {
 
 
 	async getOne(req, res) {
-<<<<<<< HEAD
 		const { userId, id } = req.params
 		const device = await UserConfigDevice.findOne(
 			{
 				where: { userId, id },
-=======
-		const { id } = req.params
-		const device = await UserConfigDevice.findOne(
-			{
-				where: { id },
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 				include: [
 					{ model: ComputerCase, as: 'computer_case' },
 					{ model: Processor, as: 'processor' },

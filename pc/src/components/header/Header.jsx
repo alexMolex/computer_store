@@ -14,11 +14,7 @@ const Header = ({
 	basketId,
 	basketReducerData,
 	count,
-<<<<<<< HEAD
 	compareDevices
-=======
-
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 }) => {
 
 	const [confirmVisible, setConfirmVisible] = useState(false);
@@ -53,7 +49,6 @@ const Header = ({
 						<Nav className="nav ml-auto pt-1" >
 							<NavLink className="nav-link" to="/" exact>Главная</NavLink>
 							<NavLink className="nav-link" to="/konfigurator" >Конфигуратор</NavLink>
-<<<<<<< HEAD
 							<NavLink className="nav-link" to="/comparison" >Сравнение
 								{(compareDevices.length !== 0) &&
 									<span className="badge badge-secondary badge-pill ml-1">
@@ -61,10 +56,6 @@ const Header = ({
 									</span>}
 							</NavLink>
 							<NavLink className="nav-link" to="/home-assembling" >Отзывы</NavLink>
-=======
-							<NavLink className="nav-link" to="/comparison" >Сравнение</NavLink>
-							<NavLink className="nav-link" to="/home-assembling" >Сборка на дом</NavLink>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 							{isAuth ?
 								<>
 									<NavLink className="nav-link" to="/basket" >

@@ -13,11 +13,8 @@ const mapState = state => {
 		basketId: state.checkAuthReducer.id,
 		basketReducerData: state.basketReducer.data,
 		count: state.userConfigDevice.count,
-<<<<<<< HEAD
 		compareDevices: state.comparisonReducer.compareDevicesQueue,
 
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	}
 }
 

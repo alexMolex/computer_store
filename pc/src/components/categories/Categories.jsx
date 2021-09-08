@@ -38,10 +38,7 @@ const Categories = ({
 	setGlobalType,
 	removeGlobalType,
 	setGlobalBrand,
-<<<<<<< HEAD
 	globalPageNumber,
-=======
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 	removeGlobalBrand,
 	setGlobalSortingTypes,
 	removeGlobalSortingTypes,
@@ -52,7 +49,6 @@ const Categories = ({
 	globalSortingTable,
 	globalType,
 	globalBrand,
-<<<<<<< HEAD
 	removeDeviceIsLoading,
 }) => {
 
@@ -65,34 +61,16 @@ const Categories = ({
 		setDeviceData(
 			null,
 			globalPageNumber,
-=======
-
-}) => {
-
-
-
-
-	useEffect(() => {
-
-		setDeviceData(
-			null,
-			null,
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 			globalBrand.id,
 			globalType.id,
 			globalProcessor.id,
 			globalVideocard.id,
 			globalSortingType.keyword,
 			globalSortingTable.value
-<<<<<<< HEAD
 		).then(() => setIsDisabled(false))
 	}, [
 		removeDeviceIsLoading,
 		globalPageNumber,
-=======
-		)
-	}, [
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 		setDeviceData,
 		globalType.id,
 		globalBrand.id,
@@ -130,7 +108,6 @@ const Categories = ({
 			<h4>Фильтр</h4>
 
 			{<Dropdown className="mb-2">
-<<<<<<< HEAD
 				<Dropdown.Toggle
 					style={{ "width": "100%" }}
 					disabled={isDisabled}
@@ -139,10 +116,6 @@ const Categories = ({
 					{globalType.name || "Выберите тип"}
 				</Dropdown.Toggle>
 				<Dropdown.Menu style={{ "width": "100%" }}>
-=======
-				<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">{globalType.name || "Выберите тип"}</Dropdown.Toggle>
-				<Dropdown.Menu >
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					{(isTypeLoading) && type.map(category =>
 						renderCategory(category, globalType, setGlobalType, removeGlobalPagination)
 					)}
@@ -150,13 +123,8 @@ const Categories = ({
 			</Dropdown>}
 
 			{<Dropdown className="mb-2">
-<<<<<<< HEAD
 				<Dropdown.Toggle style={{ "width": "100%" }} disabled={isDisabled} className="btn-info">{globalProcessor.name || "Выберите процессор"}</Dropdown.Toggle>
 				<Dropdown.Menu style={{ "width": "100%" }}>
-=======
-				<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">{globalProcessor.name || "Выберите процессор"}</Dropdown.Toggle>
-				<Dropdown.Menu>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					{(isProcessorsLoading) && processor.map(category =>
 						renderCategory(category, globalProcessor, setGlobalProcessor, removeGlobalPagination)
 					)}
@@ -164,16 +132,10 @@ const Categories = ({
 			</Dropdown>}
 
 			{<Dropdown className="mb-2">
-<<<<<<< HEAD
 				<Dropdown.Toggle style={{ "width": "100%" }} disabled={isDisabled} className="btn-info">{globalVideocard.name || "Выберите видеокарту"}</Dropdown.Toggle>
 				<Dropdown.Menu style={{ "width": "100%" }}>
 					{(isVideocardsLoading) && videocard.map(category =>
 						// (category.price !== 0) &&
-=======
-				<Dropdown.Toggle style={{ "width": "100%" }} className="btn-info">{globalVideocard.name || "Выберите видеокарту"}</Dropdown.Toggle>
-				<Dropdown.Menu>
-					{(isVideocardsLoading) && videocard.map(category =>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 						renderCategory(category, globalVideocard, setGlobalVideocard, removeGlobalPagination)
 					)}
 				</Dropdown.Menu>
@@ -181,13 +143,8 @@ const Categories = ({
 			</Dropdown>}
 
 			{<Dropdown className="mb-2">
-<<<<<<< HEAD
 				<Dropdown.Toggle style={{ "width": "100%" }} disabled={isDisabled} className="btn-info">{globalBrand.name || "Выберите бренд"}</Dropdown.Toggle>
 				<Dropdown.Menu style={{ "width": "100%" }}>
-=======
-				<Dropdown.Toggle style={{ "width": "100%" }} style={{ "width": "100%" }} className="btn-info">{globalBrand.name || "Выберите бренд"}</Dropdown.Toggle>
-				<Dropdown.Menu>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					{(isBrandLoading) && brand.map(category =>
 						renderCategory(category, globalBrand, setGlobalBrand, removeGlobalPagination)
 					)}
@@ -197,13 +154,8 @@ const Categories = ({
 
 			<h5>Сортировка</h5>
 			<Dropdown className="mt-3 mb-3">
-<<<<<<< HEAD
 				<Dropdown.Toggle style={{ "width": "100%" }} disabled={isDisabled} className="btn-info">{globalSortingTable.type || "Сортировка"}</Dropdown.Toggle>
 				<Dropdown.Menu style={{ "width": "100%" }}>
-=======
-				<Dropdown.Toggle className="btn-info">{globalSortingTable.type || "Сортировка"}</Dropdown.Toggle>
-				<Dropdown.Menu>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					{sortingTableArray.map(sortTable =>
 						<Dropdown.Item
 							style={{ cursor: 'pointer' }}
@@ -218,13 +170,8 @@ const Categories = ({
 			</Dropdown>
 
 			<Dropdown className="mt-3 mb-3">
-<<<<<<< HEAD
 				<Dropdown.Toggle style={{ "width": "100%" }} disabled={isDisabled} className="btn-info">{globalSortingType.type || "Сортировка"}</Dropdown.Toggle>
 				<Dropdown.Menu style={{ "width": "100%" }}>
-=======
-				<Dropdown.Toggle className="btn-info">{globalSortingType.type || "Сортировка"}</Dropdown.Toggle>
-				<Dropdown.Menu>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					{sortingTypeArray.map(sortType =>
 						<Dropdown.Item
 							style={{ cursor: 'pointer' }}
