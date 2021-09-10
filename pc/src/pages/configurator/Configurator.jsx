@@ -88,10 +88,13 @@ const Configurator = ({
 	])
 
 	useEffect(() => {
-		localProcessor.integratedVideoCard && videocard.find(video => (
-			(video.name === localProcessor.integratedVideoCardName) && setlocalVideocard(video)
-		))
-	}, [localProcessor, videocard])
+		if (localProcessor.integratedVideoCard) {
+			videocard.find(video => (
+				(video.name === localProcessor.integratedVideoCardName) && setlocalVideocard(video)
+			))
+		}
+		if (!localProcessor.integratedVideoCard && localVideocard.memoryValue === 0) setlocalVideocard("")
+	}, [localProcessor, videocard])  // eslint-disable-line react-hooks/exhaustive-deps
 
 
 	const addDevice = () => {
@@ -114,7 +117,6 @@ const Configurator = ({
 		})
 	}
 
-
 	const handleDefault = () => {
 		setLocalProcessor('')
 		setlocalVideocard('')
@@ -129,8 +131,6 @@ const Configurator = ({
 		setlocalVideocardPrice(0)
 		setLocalComputerCasePrice(0)
 	}
-
-
 
 
 	return (

@@ -4,14 +4,7 @@ import { compose } from "redux";
 
 
 import ComputerCard from "../components/computerCard/ComputerCard";
-import {
-	setDeviceData,
-	createBasketDevicesData,
-	getBasketDevicesData,
-	createOrderProcessingData,
-	setUpdateDevicePrice,
-
-} from '../redux/actions/actions';
+import { setDeviceData, createBasketDevicesData, getBasketDevicesData } from '../redux/actions/actions';
 
 
 
@@ -21,18 +14,14 @@ const mapState = (state) => ({
 	count: state.deviceReducer.count,
 	is200Code: state.deviceReducer.is200Code,
 	basketId: state.checkAuthReducer.id,
-	role: state.checkAuthReducer.role,
 	basketDevicesIds: state.basketReducer.basketDevicesIds,
 	isBasketDevicesLoading: state.basketReducer.isBasketDevicesLoading
 })
 
 const mapDispatch = {
-
-	createBasketDevicesData,
-	getBasketDevicesData,
-	createOrderProcessingData,
-	setUpdateDevicePrice,
 	setDeviceData,
+	createBasketDevicesData,
+	getBasketDevicesData
 }
 
 const ComputerCardContainer = compose(

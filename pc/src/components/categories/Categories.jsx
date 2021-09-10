@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+
 
 
 export const renderCategory = (category, localState, setLocalState, setLocalPrice) => {
@@ -186,7 +186,6 @@ const Categories = ({
 			</Dropdown>
 
 
-
 			<Button
 				className="mt-3"
 				variant={"outline-dark"}
@@ -198,12 +197,5 @@ const Categories = ({
 	);
 }
 
-{/* <div className="list-group">
-
-	{(isBrandLoading) && brand.map(category =>
-		renderCategory(category, localBrand, setLocalBrand)
-	)}
-
-</div > */}
 
 export default Categories;

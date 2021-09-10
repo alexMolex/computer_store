@@ -45,7 +45,8 @@ const CreateVideocard = ({
 			alert('Видеокарта добавлена')
 		})
 	}
-	console.log(memoryValue, typeof (memoryValue), typeof (peakConsumption));
+
+
 	const updateVideocardPrice = () => {
 		setUpdateVideocardPriceData(selectedVideocard.id, +(newVideocardPrice));
 		setDeviceVideocardData()
@@ -108,7 +109,7 @@ const CreateVideocard = ({
 					<h5>Объем видеопамяти, ГБ</h5>
 					<Form.Control
 						className="mt-2"
-						placeholder="Введите объем видеопамяти (если есть)"
+						placeholder="Введите объем видеопамяти (если 0, пропускаем)"
 						type="number"
 						value={memoryValue || ""}
 						onChange={e => setMemoryValue(Number(e.target.value))}

@@ -21,11 +21,7 @@ const Computers = ({ setOneDeviceData, isOneDeviceLoading, computer }) => {
 		<div className="view-container ">
 			<Header />
 			<div className="container mt-3">
-<<<<<<< HEAD
 				{!computer && isOneDeviceLoading ? <h2>Такого устройства нет</h2> : <div className="row">
-=======
-				<div className="row">
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 					<div className="col-md-9">
 						{(!isOneDeviceLoading) ? <Spinner animation="border" /> : renderContent(computer)}
 					</div>
@@ -40,11 +36,7 @@ const Computers = ({ setOneDeviceData, isOneDeviceLoading, computer }) => {
 						</div>
 
 					</div>
-<<<<<<< HEAD
 				</div>}
-=======
-				</div>
->>>>>>> 8452915f270c1f8ce6f21e84f93ee16b590c5510
 			</div>
 		</div>
 	);

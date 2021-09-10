@@ -22,7 +22,7 @@ const OrderDeviceCard = ({
 		getUserOrdersProcessingData(userId)
 		getOrderProcessingData()
 
-	}, [userId])
+	}, [userId, getUserOrdersProcessingData, getOrderProcessingData])
 
 
 

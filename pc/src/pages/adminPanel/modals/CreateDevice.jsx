@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, Dropdown, Col, Row } from 'react-bootstrap';
 
 import Counter from "../../../components/counter/Counter";
@@ -41,6 +41,16 @@ const CreateDevice = ({
 
 	const localVideocardPrice = videocard.price || 0;
 	const localProcessorPrice = processor.price || 0;
+
+
+	useEffect(() => {
+		if (processor.integratedVideoCard) {
+			videocardState.find(video => (
+				(video.name === processor.integratedVideoCardName) && setVideocard(video)
+			))
+		}
+		if (!processor.integratedVideoCard && videocard.memoryValue === 0) setVideocard("")
+	}, [processor, videocardState])  // eslint-disable-line react-hooks/exhaustive-deps
 
 
 	const addInfo = () => {
@@ -105,6 +115,30 @@ const CreateDevice = ({
 			})
 	}
 
+	const dropdownRender = (isLoading, state, setState, item, name) => {
+		return (
+			(isLoading) &&
+			<Dropdown className="mt-2 mb-2">
+				<Dropdown.Toggle>{item.name || `Выберите ${name}`}</Dropdown.Toggle>
+				<Dropdown.Menu>
+					{(name === "видеокарту") ?
+						state.map(i =>
+							(i.price !== 0 || i.name === processor.integratedVideoCardName) &&
+							<Dropdown.Item
+								key={i.id}
+								onClick={() => setState(i)}
+							>{i.name}</Dropdown.Item>) :
+						state.map(i =>
+							<Dropdown.Item
+								key={i.id}
+								onClick={() => setState(i)}
+							>{i.name}</Dropdown.Item>
+						)}
+				</Dropdown.Menu>
+			</Dropdown>
+		)
+	}
+
 	return (
 		<Modal
 			show={show}
@@ -119,60 +153,10 @@ const CreateDevice = ({
 			</Modal.Header>
 			<Modal.Body>
 				<Form>
-					{(isTypeLoading) &&
-						<Dropdown className="mt-2 mb-2">
-							<Dropdown.Toggle>{type.name || "Выберите тип"}</Dropdown.Toggle>
-							<Dropdown.Menu>
-								{typeState.map(type =>
-									<Dropdown.Item
-										key={type.id}
-										onClick={() => setType(type)}
-									>{type.name}</Dropdown.Item>
-								)}
-							</Dropdown.Menu>
-						</Dropdown>
-					}
-					{(isBrandLoading) &&
-						<Dropdown className="mt-2 mb-2">
-							<Dropdown.Toggle>{brand.name || "Выберите бренд"}</Dropdown.Toggle>
-							<Dropdown.Menu>
-								{brandState.map(brand =>
-									<Dropdown.Item
-										key={brand.id}
-										onClick={() => setBrand(brand)}
-									>{brand.name}</Dropdown.Item>
-								)}
-							</Dropdown.Menu>
-						</Dropdown>
-					}
-					{(isProcessorsLoading) &&
-						<Dropdown className="mt-2 mb-2">
-							<Dropdown.Toggle>{processor.name || "Выберите процессор"}</Dropdown.Toggle>
-							<Dropdown.Menu>
-								{processorState.map(processor =>
-									<Dropdown.Item
-										key={processor.id}
-										onClick={() => {
-											setProcessor(processor)
-										}}
-									>{processor.name}</Dropdown.Item>
-								)}
-							</Dropdown.Menu>
-						</Dropdown>}
-					{(isVideocardsLoading) &&
-						<Dropdown className="mt-2">
-							<Dropdown.Toggle>{videocard.name || "Выберите видеокарту"}</Dropdown.Toggle>
-							<Dropdown.Menu>
-								{videocardState.map(videocard =>
-									<Dropdown.Item
-										key={videocard.id}
-										onClick={() => {
-											setVideocard(videocard)
-										}}
-									>{videocard.name}</Dropdown.Item>
-								)}
-							</Dropdown.Menu>
-						</Dropdown>}
+					{dropdownRender(isTypeLoading, typeState, setType, type, "тип")}
+					{dropdownRender(isBrandLoading, brandState, setBrand, brand, "бренд")}
+					{dropdownRender(isProcessorsLoading, processorState, setProcessor, processor, "процессор")}
+					{dropdownRender(isVideocardsLoading, videocardState, setVideocard, videocard, "видеокарту")}
 					<SelectCaseModal
 						show={caseVisible}
 						setVisible={setCaseVisible}

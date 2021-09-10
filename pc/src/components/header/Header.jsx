@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import ConfirmModal from "../modals/ConfirmationDialog";
 
 
-const Header = ({
+const Header = React.memo(({
 	isAuth,
 	role,
 	setAuthUserData,
@@ -24,10 +24,6 @@ const Header = ({
 		setAuthUserData()
 		if (isAuth) getBasketDevicesData(basketId)
 	}, [setAuthUserData, isAuth, basketId, getBasketDevicesData])
-
-
-
-	let basketDeviceCount = basketReducerData.length + count
 
 
 
@@ -96,6 +92,6 @@ const Header = ({
 			</Navbar>
 		</div>
 	);
-}
+})
 
 export default Header;

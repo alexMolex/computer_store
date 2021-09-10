@@ -120,7 +120,6 @@ const CreateProcessor = ({
 		]
 	}
 
-
 	return (
 		<Modal
 			show={show}

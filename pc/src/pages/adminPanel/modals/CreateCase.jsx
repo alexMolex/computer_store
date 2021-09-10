@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Button, Modal, Form, Dropdown } from 'react-bootstrap';
 
 
-
-
 const CreateCase = ({
 	show,
 	onHide,
@@ -48,19 +46,6 @@ const CreateCase = ({
 		})
 	}
 
-	const updateComputerCasePrice = () => {
-		setUpdateComputerCasePriceData(selectedComputerCase.id, +(newComputerCasePrice));
-		setComputerCaseData()
-		alert(`Цена ${selectedComputerCase.name} изменена с ${selectedComputerCase.price} до ${newComputerCasePrice} руб.`)
-		setSelectedComputerCase("")
-		setNewComputerCasePrice("")
-	}
-
-	const onHideDefault = () => {
-		onHide();
-		setSelectedComputerCase("")
-		setNewComputerCasePrice("")
-	}
 
 	const updateComputerCasePrice = () => {
 		setUpdateComputerCasePriceData(selectedComputerCase.id, +(newComputerCasePrice));

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Spinner, Button } from 'react-bootstrap';
+import React from 'react';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import ExtendedDevicePrice from "../devicePrice/ExtendedDevicePrice";

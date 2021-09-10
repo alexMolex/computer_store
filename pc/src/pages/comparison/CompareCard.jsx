@@ -44,7 +44,7 @@ const CompareCard = ({
 					<h4 className="products-slider__product-name">Добавить</h4>
 				</div>
 				{compareDevicesQueue.length !== 0 &&
-					compareDevicesQueue.map((pc, index, arr) =>
+					compareDevicesQueue.map((pc, index) =>
 					((compareDeviceIndex1 === index || compareDeviceIndex2 === index) &&
 						<div className="products-slider__item " style={{ width: "20%" }} key={pc.id}>
 							<div >

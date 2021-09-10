@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +6,8 @@ import OrderProcessing from "../../pages/orderProcessing/OrderProcessingContaine
 import ConfirmModal from "../modals/ConfirmationDialog";
 import DevicePrice from "../devicePrice/DevicePrice";
 import useSelectModalItem from "../../hooks/useSelectModalItem";
-const ConfigDeviceCard = ({
+
+const ConfigDeviceCard = React.memo(({
 	userId,
 	getUserConfigDevices,
 	deleteUserConfigDeviceApi,
@@ -57,7 +58,7 @@ const ConfigDeviceCard = ({
 									</Link>
 								</div>
 								<div className="col-md-6">
-									<Row className="d-flex flex-column mb-2 mr-2 mt-0">
+									<Row className="d-flex flex-column mb-2 mr-2 mt-0 ml-2">
 										<Link style={{ color: '#128496' }} to={{ pathname: `/oneConfig/${data.id}`, state: { page } }}>
 											<h5 >Конфиг от {new Date(data.createdAt).toLocaleString()}</h5>
 										</Link>
@@ -128,6 +129,6 @@ const ConfigDeviceCard = ({
 
 		</>
 	);
-};
+});
 
 export default ConfigDeviceCard;
