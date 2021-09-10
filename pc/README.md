@@ -7,6 +7,6 @@ Redux, react-redux, history, bootatrap, ...
 
 #  redux
 
-все общение с redux происходит в ./containers;
+все общение с redux происходит в контейнерных компонентах;
 
 
