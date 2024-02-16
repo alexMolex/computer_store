@@ -1,7 +1,3 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-
-
 import deviceTypes from "./deviceTypes";
 import deviceReducer from "./deviceReducer";
 import deviceBrands from "./deviceBrand";
@@ -15,8 +11,7 @@ import basketReducer from "./basketReducer";
 import orderProcessing from "./orderProcessingReducer";
 import userConfigDevice from "./userConfigDeviceReducer";
 
-
-const createRootReducer = history => combineReducers({
+const createRootReducer = {
 	basketReducer,
 	checkAuthReducer,
 	comparisonReducer,
@@ -29,7 +24,6 @@ const createRootReducer = history => combineReducers({
 	orderProcessing,
 	sortingReducer,
 	userConfigDevice,
-	router: connectRouter(history)
-});
+}
 
 export default createRootReducer;

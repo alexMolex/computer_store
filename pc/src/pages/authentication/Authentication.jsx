@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { Formik, } from 'formik';
 import * as yup from 'yup';
 
@@ -35,7 +35,7 @@ const Authentication = ({
 
 
 
-	if (isAuth) return <Redirect to={'/'} />
+	if (isAuth) return <Navigate to={'/'} />
 
 	return (
 		<div>

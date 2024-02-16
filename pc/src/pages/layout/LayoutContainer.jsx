@@ -13,7 +13,6 @@ import {
 
 const mapState = (state) => ({
 	basketId: state.checkAuthReducer.id,
-
 })
 
 const mapDispatch = {

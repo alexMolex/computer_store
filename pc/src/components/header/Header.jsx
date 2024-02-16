@@ -43,7 +43,7 @@ const Header = React.memo(({
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav">
 						<Nav className="nav ml-auto pt-1" >
-							<NavLink className="nav-link" to="/" exact>Главная</NavLink>
+							<NavLink className="nav-link" to="/">Главная</NavLink>
 							<NavLink className="nav-link" to="/konfigurator" >Конфигуратор</NavLink>
 							<NavLink className="nav-link" to="/comparison" >Сравнение
 								{(compareDevices.length !== 0) &&

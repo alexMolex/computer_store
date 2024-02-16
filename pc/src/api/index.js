@@ -1,7 +1,7 @@
 import * as axios from "axios";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
-const instance = axios.create({
+const instance = axios.default.create({
 	baseURL: process.env.REACT_APP_API_URL,
 
 	// withCredentials: true,
@@ -20,14 +20,14 @@ export const getAuthUserData = {
 	checkApi() {
 		return instance.get('api/user/auth')
 			.then(response => {
-				return (jwt_decode(response.data.token));
+				return (jwtDecode(response.data.token));
 			})
 	},
 	loginApi(email, password) {
 		return instance.post('api/user/login', { email, password })
 			.then(response => {
 				localStorage.setItem('token', response.data.token)
-				return jwt_decode(response.data.token)
+				return jwtDecode(response.data.token)
 			})
 	},
 	logOutApi() {
@@ -38,7 +38,7 @@ export const getAuthUserData = {
 		return instance.post('api/user/registration', { email, password, role: 'ADMIN' })
 			.then(response => {
 				localStorage.setItem('token', response.data.token)
-				return jwt_decode(response.data.token)
+				return jwtDecode(response.data.token)
 			})
 	},
 }

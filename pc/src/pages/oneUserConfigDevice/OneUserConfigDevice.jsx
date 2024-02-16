@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
 import { Spinner, Image } from 'react-bootstrap';
-import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
-
+import { Link, useParams, useLocation } from 'react-router-dom';
 import Header from '../../components/header/HeaderContainer';
 
 
-
-
-const OneUserConfigDevice = ({ getOneUserConfigDevice, userId, isOneUserConfigDeviceLoading, configDevice, location }) => {
+const OneUserConfigDevice = ({ getOneUserConfigDevice, userId, isOneUserConfigDeviceLoading, configDevice }) => {
 
 	const params = useParams()
-
+	const location = useLocation()
 	useEffect(() => {
 		getOneUserConfigDevice(userId, params.id)
 	}, [getOneUserConfigDevice, params.id, userId])

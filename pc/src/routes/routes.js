@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
-import { Switch, Route } from 'react-router';
-
+import { Routes, Route } from 'react-router';
+import {BrowserRouter as Router} from 'react-router-dom';
 import Layout from '../pages/layout/LayoutContainer';
 import Configurator from '../pages/configurator/ConfiguratorContainer';
 import ComputersContainer from '../pages/computers/ComputersContainer.jsx';
@@ -15,32 +15,35 @@ const AuthenticationContainer = lazy(() => import('../pages/authentication/Authe
 
 
 
-const Routes = () => {
+const AllRoutes = () => {
 	return (
-		<Switch>
-			<Route path="/" component={Layout} exact />
-			<Route path="/konfigurator" component={Configurator} />
-			<Route path="/computers/:id" component={ComputersContainer} />
-			{/* <Route path="/device" component={Layout} /> */}
-			<Suspense fallback={
+		<Router>
+			
+		<Routes>
+			<Route path="/" element={<Layout/>} />
+			<Route path="konfigurator" element={<Configurator/>} />
+			<Route path="computers/:id" element={<ComputersContainer/>} />
+			{/* <Route path="/device" element={Layout} /> */}
+			{/* <Suspense fallback={
 				<>
 					<Header />
 					<div className="container"><h1 className="d-flex justify-content-center">Загрузка...</h1> </div>
 				</>
 			}>
-				<Route path="/comparison" component={Comparison} />
-				<Route path="/basket" component={Basket} />
-				<Route path="/home-assembling" component={Contacts} />
-				<Route path="/adminPanel" component={AdminPanelContainer} />
-				<Route path="/login" component={AuthenticationContainer} />
-				<Route path="/register" component={AuthenticationContainer} />
-				<Route path="/oneOrder/:id" component={OneOrder} />
-				<Route path="/oneConfig/:id" component={OneConfigDevice} />
+				<Route path="comparison" element={<Comparison/>} />
+				<Route path="basket" element={<Basket/>} />
+				<Route path="home-assembling" element={<Contacts/>} />
+				<Route path="adminPanel" element={<AdminPanelContainer/>} />
+				<Route path="login" element={<AuthenticationContainer/>} />
+				<Route path="register" element={<AuthenticationContainer/>} />
+				<Route path="oneOrder/:id" element={<OneOrder/>} />
+				<Route path="oneConfig/:id" element={<OneConfigDevice/>} />
 
-			</Suspense>
+			</Suspense> */}
 
-		</Switch>
+		</Routes>
+		</Router>
 	);
 };
 
-export default Routes;
+export default AllRoutes;
